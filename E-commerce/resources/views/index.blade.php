@@ -575,8 +575,8 @@
                                 </svg>
                             </a>
                             <div class="me-4">
-                                <label for="checkbox-cart" href="" class="">
-                                    <a style="position: relative; cursor: pointer;">
+                                <label for="checkbox-cart" class="">
+                                    <a  href="{{asset('cart')}}" style="position: relative; cursor: pointer;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22"
                                             viewBox="0 0 20 22" fill="none">
                                             <path
@@ -588,31 +588,9 @@
                                         </div>
                                     </a>
                                 </label>
-                                <input type="checkbox" id="checkbox-cart" class="d-none">
-                                <label for="checkbox-cart" class="overlay"></label>
-                                <!-- Select - Cart -->
-                                <div class="cart-select p-3">
-                                    <div class="cart-head d-flex pb-3 border-bottom">
-                                        <a class="text-dark" href="">
-                                            <svg focusable="false" width="20" height="18"
-                                                class="icon icon--header-cart   " viewBox="0 0 20 18">
-                                                <path d="M3 1h14l1 16H2L3 1z" fill="none" stroke="currentColor"
-                                                    stroke-width="2"></path>
-                                                <path d="M7 4v0a3 3 0 003 3v0a3 3 0 003-3v0" fill="none"
-                                                    stroke="currentColor" stroke-width="2"></path>
-                                            </svg>
-                                        </a>
-                                        <h4 class="cart-title ms-3">
-                                            Your cart
-                                        </h4>
-                                    </div>
-                                    <div
-                                        class="cart-info d-flex flex-column justify-content-center align-items-center h-100">
-                                        <p class="cart-info_msg fs-12px">Your cart is empty</p>
-                                        <a href="" class="start-shopping py-2 px-4 text-decoration-none">START
-                                            SHOPPING</a>
-                                    </div>
-                                </div>
+                        
+                               
+                                
                             </div>
                         </div>
                         <div class="header__menu border-start border-dark d-flex align-items-center p-md-4 p-3"
@@ -842,111 +820,7 @@
                         @empty
                     <p>Không có sản phẩm nổi bật nào.</p>
                 @endforelse
-                        <div class="col-md-3 border-dark border-end border-bottom overflow-hidden">
-                            <div class="content-product__item">
-                                <img src="{{ asset('/images/Rectangle11_18 (1).png' )}}" alt=""
-                                    class="w-100 content-first__img px-3 py-4">
-                                <div class="content-product__item-info px-4 py-3 border-top border-dark"
-                                    style="margin: 0 -12px;">
-                                    <h3 class="text-link fs-6" style="margin: 0;">Áo Hoodie Retro Label Not Sorry</h3>
-                                    <p style="color:#777; font-size: 11px; font-weight: 700; margin:0;">STREETWEAR</p>
-                                    <span class="fs-6 fw-bold">$740.90</span>
-                                    <a href="" class=" text-link d-inline-block float-end"
-                                        style="transform: translateY(33px);">Add
-                                        To Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 border-end border-dark border-bottom overflow-hidden">
-                            <div class="content-product__item">
-                                <img src="{{ asset('/images/product_27_1_6bf34710-a606-4314-96c0-885ae4dd4f56.jpg' )}}" alt=""
-                                    class="w-100 content-first__img px-3 py-4">
-                                <div class="content-product__item-info px-4 py-3 border-top border-dark"
-                                    style="margin: 0 -12px;">
-                                    <h3 class="text-link fs-6" style="margin: 0;">Áo Hoodie Retro Label Not Sorry</h3>
-                                    <p style="color:#777; font-size: 11px; font-weight: 700; margin:0;">STREETWEAR</p>
-                                    <span class="fs-6 fw-bold">$740.90</span>
-                                    <a href="" class=" text-link d-inline-block float-end"
-                                        style="transform: translateY(33px);">Add
-                                        To Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 border-dark border-bottom overflow-hidden">
-                            <div class="content-product__item">
-                                <img src="{{ asset('/images/Rectangle11_18 (1).png' )}}" alt=""
-                                    class="w-100 content-first__img px-3 py-4">
-                                <div class="content-product__item-info px-4 py-3 border-top border-dark"
-                                    style="margin: 0 -12px;">
-                                    <h3 class="text-link fs-6" style="margin: 0;">Áo Hoodie Retro Label Not Sorry</h3>
-                                    <p style="color:#777; font-size: 11px; font-weight: 700; margin:0;">STREETWEAR</p>
-                                    <span class="fs-6 fw-bold">$740.90</span>
-                                    <a href="" class=" text-link d-inline-block float-end"
-                                        style="transform: translateY(33px);">Add
-                                        To Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 border-end border-dark overflow-hidden">
-                            <div class="content-product__item">
-                                <img src="{{ asset('/images/product_27_1_6bf34710-a606-4314-96c0-885ae4dd4f56.jpg' )}}" alt=""
-                                    class="w-100 content-first__img px-3 py-4">
-                                <div class="content-product__item-info px-4 py-3 border-top border-dark"
-                                    style="margin: 0 -12px;">
-                                    <h3 class="text-link fs-6" style="margin: 0;">Áo Hoodie Retro Label Not Sorry</h3>
-                                    <p style="color:#777; font-size: 11px; font-weight: 700; margin:0;">STREETWEAR</p>
-                                    <span class="fs-6 fw-bold">$740.90</span>
-                                    <a href="" class=" text-link d-inline-block float-end"
-                                        style="transform: translateY(33px);">Add
-                                        To Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 border-dark border-end overflow-hidden">
-                            <div class="content-product__item">
-                                <img src="{{ asset('/images/Rectangle11_18 (1).png' )}}" alt=""
-                                    class="w-100 content-first__img px-3 py-4">
-                                <div class="content-product__item-info px-4 py-3 border-top border-dark"
-                                    style="margin: 0 -12px;">
-                                    <h3 class="text-link fs-6" style="margin: 0;">Áo Hoodie Retro Label Not Sorry</h3>
-                                    <p style="color:#777; font-size: 11px; font-weight: 700; margin:0;">STREETWEAR</p>
-                                    <span class="fs-6 fw-bold">$740.90</span>
-                                    <a href="" class=" text-link d-inline-block float-end"
-                                        style="transform: translateY(33px);">Add
-                                        To Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 border-end border-dark overflow-hidden">
-                            <div class="content-product__item">
-                                <img src="{{ asset('/images/product_27_1_6bf34710-a606-4314-96c0-885ae4dd4f56.jpg' )}}" alt=""
-                                    class="w-100 content-first__img px-3 py-4">
-                                <div class="content-product__item-info px-4 py-3 border-top border-dark"
-                                    style="margin: 0 -12px;">
-                                    <h3 class="text-link fs-6" style="margin: 0;">Áo Hoodie Retro Label Not Sorry</h3>
-                                    <p style="color:#777; font-size: 11px; font-weight: 700; margin:0;">STREETWEAR</p>
-                                    <span class="fs-6 fw-bold">$740.90</span>
-                                    <a href="" class=" text-link d-inline-block float-end"
-                                        style="transform: translateY(33px);">Add
-                                        To Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 border-dark overflow-hidden">
-                            <div class="content-product__item">
-                                <img src="{{ asset('/images/Rectangle11_18 (1).png' )}}" alt=""
-                                    class="w-100 content-first__img px-3 py-4">
-                                <div class="content-product__item-info px-4 py-3 border-top border-dark"
-                                    style="margin: 0 -12px;">
-                                    <h3 class="text-link fs-6" style="margin: 0;">Áo Hoodie Retro Label Not Sorry</h3>
-                                    <p style="color:#777; font-size: 11px; font-weight: 700; margin:0;">STREETWEAR</p>
-                                    <span class="fs-6 fw-bold">$740.90</span>
-                                    <a href="" class=" text-link d-inline-block float-end"
-                                        style="transform: translateY(33px);">Add
-                                        To Cart</a>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <!-- feature -->

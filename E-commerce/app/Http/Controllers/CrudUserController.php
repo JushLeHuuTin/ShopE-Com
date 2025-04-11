@@ -14,4 +14,8 @@ class CrudUserController extends Controller
     {
         return view('index');
     }
+    public function cart()
+    {
+        return view('cart');
+    }
 }

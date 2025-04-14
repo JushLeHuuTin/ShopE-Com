@@ -1,0 +1,248 @@
+:root {
+    --main-bg-color: #9CBFF5;
+    --sub-bg-color: #f2f7fb;
+    --top-height: 70px;
+    --main-transiton: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+li {
+    list-style: none;
+}
+
+.row-grid {
+    display: grid;
+    justify-content: space-between;
+}
+
+/* Interface Admin */
+.admin .row-grid {
+    grid-template-columns: 15% 85%;
+}
+
+
+
+/* Start Sidebar */
+.admin-sidebar {
+    height: 100vh;
+    background-color: var(--main-bg-color);
+}
+
+.admin-sidebar-top {
+    display: flex;
+    text-align: center;
+    height: var(--top-height);
+    border-bottom: 1px solid gray;
+    padding: 15px 0 0 20px;
+}
+
+.admin-sidebar-top .avatar-admin {
+    font-size: 1.5em;
+}
+
+.admin-sidebar-top .name-admin {
+    margin-top: 10px;
+    padding-left: 5px;
+}
+
+.admin-sidebar-content {
+    padding: 25px 0 0 25px;
+}
+
+.admin-sidebar-content ul li {
+    padding: 6px;
+    transition: var(--main-transiton);
+}
+
+.admin-sidebar-content ul li a i {
+    margin-right: 6px;
+}
+
+.admin-sidebar-content ul li:hover {
+    background-color: rgba(107, 92, 92, 0.4);
+}
+
+.sub-menu {
+    height: 0;
+    overflow: hidden;
+    transition: var(--main-transiton);
+}
+
+.sub-menu.active {
+    height: 90px;
+}
+
+.sub-menu li {
+    cursor: pointer;
+}
+
+/* content */
+.admin-content {
+    background-color: var(--sub-bg-color);
+}
+
+/* End Sidebar */
+
+/* Start Content Header */
+.search {
+    position: relative;
+}
+
+.search .search-input {
+    padding: 5px 10px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    background: rgb(212, 212, 212);
+}
+
+.search .ri-search-line {
+    position: absolute;
+    font-size: 1.2em;
+    right: 0;
+    top: 2px;
+}
+
+.flex-box {
+    display: flex;
+    height: var(--top-height);
+    align-items: center;
+}
+
+.admin-content-top {
+    display: flex;
+    justify-content: space-between;
+    height: var(--top-height);
+    border-bottom: 1px solid gray;
+    padding: 0 15px;
+}
+
+.admin-content-top-right .flex-box li:last-child {
+    display: flex;
+    cursor: pointer;
+}
+
+.admin-content-top i {
+    margin-right: 10px;
+}
+
+.admin-content-top-right ul li:first-child i {
+    position: relative;
+}
+
+.admin-content-top-right ul li:first-child i::after {
+    position: absolute;
+    content: "1";
+    width: 20px;
+    height: 20px;
+    display: flex;
+    background: rgba(0, 0, 255, .5);
+    border-radius: 50%;
+    top: -12px;
+    right: -12px;
+    color: whitesmoke;
+    font-size: .8em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.admin-content-top-right ul li:nth-child(2) i {
+    position: relative;
+}
+
+.admin-content-top-right ul li:nth-child(2) i::after {
+    position: absolute;
+    content: "2";
+    width: 20px;
+    height: 20px;
+    display: flex;
+    background: rgb(214, 47, 47);
+    border-radius: 50%;
+    top: -12px;
+    right: -12px;
+    color: whitesmoke;
+    font-size: .8em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* End Start Content Header */
+
+
+/* Start Table List Review */
+.admin-content-review-title h1 {
+    padding: 12px;
+    font-weight: 500;
+}
+
+.admin-content-review-table-list table {
+    width: 100%;
+    padding: 12px 0;
+    border-collapse: collapse;
+    word-wrap: break-word;
+}
+
+.admin-content-review-table-list table,
+th,
+td {
+    text-align: center;
+}
+
+.admin-content-review-table-list table th {
+    background: #AAF5B7;
+    padding: 12px 0;
+}
+
+.admin-content-review-table-list table tbody {
+    background: #ffffff;
+}
+
+.content-review {
+    width: 300px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-align: justify;
+}
+
+.review-action {
+    display: flex;
+    align-items: end;
+    text-align: end;
+}
+
+.review-action button {
+    padding: 5px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.review-action .btn-approved {
+    background: #7EEEFF;
+}
+
+.review-action .btn-pending {
+    background: #F5E894;
+}
+
+.review-action .btn-rejected {
+    background: red;
+    color: whitesmoke;
+}
+
+/* End Table List Review */

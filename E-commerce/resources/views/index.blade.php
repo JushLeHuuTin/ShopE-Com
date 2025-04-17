@@ -17,7 +17,7 @@
                         <div class="content-product__item-info px-4 py-3 border-top border-dark"
                             style="margin: 0 -12px;">
                             <h3 class="text-link fs-6" style="margin: 0;">{{ $product->name }}</h3>
-                            <span class="fs-6 fw-bold text-dark">{{ $product->defaultVariant->price ?? '' }}</span>
+                            <span class="fs-6 fw-bold text-dark">{{ $product->defaultVariant->price ?? '' }}đ</span>
                         </div>
                     </div>
                 </a>

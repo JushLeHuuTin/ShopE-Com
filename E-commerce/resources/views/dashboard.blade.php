@@ -121,7 +121,7 @@
                         style="list-style: none; margin:0; height: 100%;">
                         <li class="header__navbar-item mx-3">
                             <a class="header__navbar-link text-decoration-none fw-bold" href="">
-                                Trang Chủ
+                                Trang chủ
                             </a>
                             <!-- Home Content -->
                             <div class="select-home position-absolute bg-white">
@@ -223,7 +223,7 @@
                         </li>
                         <li class="header__navbar-item mx-3">
                             <a class="header__navbar-link text-decoration-none fw-bold" href="">
-                                SHOP
+                                 Đồ bơi
                             </a>
                             <!-- Shop Content -->
                             <div class="select-shop position-absolute bg-white">
@@ -330,7 +330,7 @@
                         </li>
                         <li class="header__navbar-item mx-3">
                             <a class="header__navbar-link text-decoration-none fw-bold" href="">
-                                Giảm Giá
+                                Giảm giá
                             </a>
                         </li>
                         <li class="header__navbar-item mx-3">

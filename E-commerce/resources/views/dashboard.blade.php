@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demo Ap Supper</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"0
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -15,7 +15,6 @@
 </head>
 
 <body>
- 
     <div class="wrapper">
         <div id="top"></div>
         <div class="header">
@@ -749,9 +748,8 @@
             </div>
         </div>
         <main>
-
-         @yield('content')
-     </main>
+            @yield('content')
+        </main>
         <div class="footer">
             <div class="footer-contact">
                 <div class="container-fluid">
@@ -818,7 +816,7 @@
                         href="https://fb.com/LeHuuTin.DEV" target="_blank">Overflow </a>Việt Nam</p>
             </div>
         </div>
-        <a href="#top" id="scrollToTopBtn" class="to-top position-fixed"
+        <a id="scrollToTopBtn" href="#top" class="to-top position-fixed"
             style="width: 50px;height: 50px; bottom:20px;cursor: pointer; right:10px; border: none; background-color:#000; border-radius: 50%;">
             <svg style="width: 20px; height:30px;" aria-hidden="true" focusable="false" role="presentation"
                 class="icon icon-arrow-up position-absolute top-50 start-50 translate-middle" viewBox="0 0 32 32">
@@ -829,7 +827,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-    <script src="{{ asset('/js/script.js"></script>
 </body>
 
 </html>

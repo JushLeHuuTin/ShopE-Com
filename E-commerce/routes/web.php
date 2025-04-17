@@ -17,3 +17,4 @@ Route::get('index', [CrudProductController::class, 'index'])->name('index');
 //     $featuredProducts = Product::where('is_featured', 1)->get();
 //     return view('index', compact('featuredProducts'));
 // });
+// Route::get('login', [CrudUserController::class, 'login'])->name('login');

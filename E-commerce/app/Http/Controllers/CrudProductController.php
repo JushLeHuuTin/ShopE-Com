@@ -18,6 +18,7 @@ class CrudProductController extends Controller
     {
         $featuredProducts = Product::with('defaultVariant')
             ->where('is_featured', 1)
+            ->take(8)
             ->get();
         return view('index', ['featuredProducts' => $featuredProducts]);
     }
@@ -55,7 +56,15 @@ class CrudProductController extends Controller
     {
         $request->validate([
             'name' => 'required|max:100',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:255'
         ]);
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $imagePath =   $imageName;
+        }
         $category = Category::all();
         $data = [
             'category' => $category
@@ -66,7 +75,7 @@ class CrudProductController extends Controller
             'id_category' => $input['categories'],
             'is_featured' => isset($input['is_featured'])?1:0,
             'description' => $input['desc'],
-            'image_url' => $input['image']??'null'
+            'image_url' =>$imagePath ?? 'null'
         ]);
         if(isset($input['size']) && isset($input['color'])
         && isset($input['price']) && isset($input['quantity'])

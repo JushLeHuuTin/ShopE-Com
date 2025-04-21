@@ -17,6 +17,7 @@ class CrudProductController extends Controller
     {
         $featuredProducts = Product::with('defaultVariant')
         ->where('is_featured', 1)
+        ->take(8)
         ->get();
         return view('index', compact('featuredProducts'));
     }

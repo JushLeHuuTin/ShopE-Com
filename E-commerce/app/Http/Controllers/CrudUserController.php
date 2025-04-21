@@ -20,5 +20,8 @@ class CrudUserController extends Controller
         $featuredProducts = Product::where('is_featured', 1)->get();
         return view('index', compact('featuredProducts'));
     }
-    
+    public function admin()
+    {
+        return view('admin.product');
+    }
 }

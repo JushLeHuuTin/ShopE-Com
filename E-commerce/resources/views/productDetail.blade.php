@@ -46,7 +46,7 @@
                         <div class="product__information--size d-flex align-items-center gap-2">
                             <label for="" class="fs-5">size</label>
                             @if (isset($product->Product_Variants[0]))
-                            <form method="get" action="{{ route('product.show', ['id' => $product->defaultVariant->id_variant ]) }}">
+                            <form method="get" action="{{ route('product.show', ['id' => $product->id_product ]) }}">
                                 <ul class="product__size--list list-unstyled d-flex m-0">
                                     @foreach($product->Product_Variants as $variant)
                                         <li class="product__size--item border border-dark mx-1" style="border-radius: 4px;">

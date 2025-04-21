@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Product_Variant;
 // use App\Models\Product_Variants;
+
 use Illuminate\Http\Request;
 
 class CrudProductController extends Controller
@@ -30,5 +31,7 @@ class CrudProductController extends Controller
         }
     
         return view('productDetail', compact('product', 'variant'));
+        $featuredProducts = Product::where('is_featured', 1)->get();
+        return view('welcome', compact('featuredProducts'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CrudUserController extends Controller
@@ -16,6 +17,8 @@ class CrudUserController extends Controller
     }
     public function index()
     {
-        return view('index');
+        $featuredProducts = Product::where('is_featured', 1)->get();
+        return view('index', compact('featuredProducts'));
     }
+    
 }

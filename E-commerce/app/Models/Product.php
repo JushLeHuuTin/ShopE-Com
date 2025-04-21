@@ -25,7 +25,10 @@ class Product extends Model
     // Nếu chỉ lấy 1 giá mặc định 
     public function defaultVariant()
     {
-        return $this->hasOne(Product_Variants::class, 'id_product', 'id_product')->orderBy('price', 'asc');
+        return $this->hasOne(Product_Variant::class, 'id_product', 'id_product')->orderBy('price', 'asc');
     }
-    
+    public function product_Variants()
+    {
+        return $this->hasMany(product_Variant::class, 'id_product', 'id_product');
+    }
 }

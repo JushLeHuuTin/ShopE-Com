@@ -7,9 +7,11 @@
     <title>Demo Ap Supper</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/reponsive.css') }}">
 </head>
@@ -113,7 +115,7 @@
             </div>
             <div
                 class="header__nav d-md-flex d-block align-items-center border-top border-bottom border-dark">
-                <a href="" class="header__nav-logo-link d-md-block mt-md-0 mt-4 d-flex justify-content-center">
+                <a href="{{ route('index') }}" class="header__nav-logo-link d-md-block mt-md-0 mt-4 d-flex justify-content-center">
                     <img src="{{ asset('/images/logo_web.png' )}}" alt="" class="header__nav-logo d-block mx-4" style="width:174px;height:28px;object-fit:cover;">
                 </a>
                 <nav class="header__navbar flex-grow-1 border-start border-dark d-md-block d-none" style="height:68px">
@@ -537,11 +539,11 @@
                                 <ul class="user-select list-unstyled position-absolute p-2">
                                     <li>
                                         <a class=" d-block fs-12px text-link text-decoration-none" id="loginName"
-                                            href="login.php">Login</a>
+                                            href="{{ route('login') }}">Login</a>
                                     </li>
                                     <li>
                                         <a class=" d-block fs-12px text-link text-decoration-none" id="registerName"
-                                            href="register.php">Register</a>
+                                            href="{{ route('register') }}">Register</a>
                                     </li>
                                     <li>
                                         <a style="cursor: pointer;"
@@ -692,60 +694,6 @@
 
                 </div>
             </div>
-            <div class="header-msg__wrapper overflow-hidden d-flex">
-                <h2 class="bg-white header-msg"
-                    style="font-size: 150px; text-transform: uppercase;white-space: nowrap; margin-right: 30px;">
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                </h2>
-                <h2 class="bg-white header-msg"
-                    style="font-size: 150px; text-transform: uppercase;white-space: nowrap;">
-
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                    Shop our hottest styles
-                </h2>
-
-            </div>
-            <div class="header-video position-relative">
-                <img src="{{ asset('/images/Banner-video.png    ' )}}" alt="" class="header-video__img "
-                    style="width: 100%; height: 700px; object-fit: cover;">
-                <div
-                    class=" d-flex align-items-center header-video__msg position-absolute top-50 start-50 translate-middle">
-                    <h2 class="me-4 text-white"
-                        style="font-family: Clash-Display; white-space: nowrap; font-size: 42px;text-transform: uppercase;">
-                        Xem Video</h2>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" fill="none"
-                        style="cursor: pointer;">
-                        <circle cx="60" cy="60" r="59.5" stroke="white"></circle>
-                        <g clip-path="url(#clip0_221_1946)">
-                            <path
-                                d="M67.376 60.4161L56.777 67.4821C56.7017 67.5322 56.6142 67.5609 56.5239 67.5652C56.4336 67.5696 56.3437 67.5493 56.264 67.5066C56.1843 67.4639 56.1176 67.4004 56.0711 67.3228C56.0246 67.2452 56 67.1565 56 67.0661V52.9341C56 52.8436 56.0246 52.7549 56.0711 52.6773C56.1176 52.5997 56.1843 52.5362 56.264 52.4935C56.3437 52.4508 56.4336 52.4306 56.5239 52.4349C56.6142 52.4392 56.7017 52.468 56.777 52.5181L67.376 59.5841C67.4445 59.6297 67.5006 59.6916 67.5395 59.7642C67.5783 59.8367 67.5986 59.9178 67.5986 60.0001C67.5986 60.0824 67.5783 60.1634 67.5395 60.236C67.5006 60.3085 67.4445 60.3704 67.376 60.4161Z"
-                                fill="white"></path>
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_221_1946">
-                                <rect width="24" height="24" fill="white" transform="translate(48 48)"></rect>
-                            </clipPath>
-                        </defs>
-                    </svg>
-                </div>
-            </div>
         </div>
         <main>
             @yield('content')
@@ -824,8 +772,30 @@
             </svg>
         </a>
     </div>
+    <script src="{{ asset('/js/script.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const btnAdd = document.querySelector('.btn__add');
+            const btnRemove = document.querySelector('.btn__remove');
+            const inputQty = document.querySelector('.input__quantity');
+
+            btnAdd.addEventListener('click', function (e) {
+                e.preventDefault();
+                let currentVal = parseInt(inputQty.value);
+                inputQty.value = currentVal + 1;
+            });
+
+            btnRemove.addEventListener('click', function (e) {
+                e.preventDefault();
+                let currentVal = parseInt(inputQty.value);
+                if (currentVal > 1) {
+                    inputQty.value = currentVal - 1;
+                }
+            });
+        });
     </script>
 </body>
 

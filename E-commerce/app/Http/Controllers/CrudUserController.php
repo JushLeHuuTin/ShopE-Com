@@ -8,7 +8,11 @@ class CrudUserController extends Controller
 {
     public function login()
     {
-        return view('welcome');
+        return view('login');
+    }
+    public function register()
+    {
+        return view('register');
     }
     public function index()
     {

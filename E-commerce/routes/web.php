@@ -4,6 +4,7 @@ use App\Http\Controllers\CrudUserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,3 +26,5 @@ Route::post('/managerreview/{id}/approve', [ReviewController::class, 'approve'])
 Route::post('/managerreview/{id}/hide', [ReviewController::class, 'hide'])->name('review.hide');
 Route::delete('/managerreview/{id}/delete', [ReviewController::class, 'delete'])->name('review.delete');
 
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');

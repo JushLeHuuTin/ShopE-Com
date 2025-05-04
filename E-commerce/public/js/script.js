@@ -228,3 +228,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+  function toggleMenu(id) {
+    const menu = document.getElementById(id);
+    menu.classList.toggle('hidden');
+  }
+
+  function handleColorChange() {
+    const select = document.getElementById('colorSelect');
+    const customInput = document.getElementById('customColorInput');
+
+    if (select.value === 'custom') {
+        customInput.classList.remove('d-none');
+    } else {
+        customInput.classList.add('d-none');
+        customInput.value = ''; // reset nếu người chọn lại option khác
+    }
+}

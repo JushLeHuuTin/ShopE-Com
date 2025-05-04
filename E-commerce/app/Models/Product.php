@@ -22,7 +22,7 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'id_category', 'id_category');
     }
-    // Nếu chỉ lấy 1 giá mặc định 
+    //hàm chỉ lấy 1 giá mặc định 
     public function defaultVariant()
     {
         return $this->hasOne(Product_Variant::class, 'id_product', 'id_product')->orderBy('price', 'asc');

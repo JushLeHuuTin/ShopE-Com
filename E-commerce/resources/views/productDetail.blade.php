@@ -33,10 +33,10 @@
                             Giá bán: <span class="fs-4 text-danger " >
                                 @if(isset($product->defaultVariant->price))
                                     @if(isset($variant))
-                                    {{ $variant->price }}đ
+                                    {{ number_format($variant->price, 0, ',', '.') }}₫
                                     @else
 
-                                {{ $product->defaultVariant->price }}đ
+                                    {{ number_format($product->defaultVariant->price, 0, ',', '.') }}₫
                                 @endif
                                 @else
                                  Chưa được cập nhật   
@@ -128,7 +128,11 @@
                     <div class="tab__content border w-100">
                         <div class="tab__panel px-3">
                             <div class="product-description py-5">
-                                Quần short gió nam thể thao Luves LVWPHM0006_BK
+                                @if(isset($product->description))
+                                {{$product->description}}
+                                @else
+                                    Trống
+                                @endif
                             </div>
                         </div>
                         <div class="tab__panel px-3 d-none">

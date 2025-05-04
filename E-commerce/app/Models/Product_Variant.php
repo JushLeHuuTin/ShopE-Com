@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Model;
 use Illuminate\Notifications\Notifiable;
 
-class Product_Variants extends Model
+class Product_Variant extends Model
 {
     protected $table = 'product_variants';
     protected $primaryKey = 'id_variant';

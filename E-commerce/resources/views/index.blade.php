@@ -2,6 +2,58 @@
 
 @section('content')
 <div class="content">
+<div class="header-msg__wrapper overflow-hidden d-flex">
+                <h2 class="bg-white header-msg"
+                    style="font-size: 150px; text-transform: uppercase;white-space: nowrap; margin-right: 30px;">
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                </h2>
+                <h2 class="bg-white header-msg"
+                    style="font-size: 150px; text-transform: uppercase;white-space: nowrap;">
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                    Shop our hottest styles
+                </h2>
+            </div>
+            <div class="header-video position-relative">
+                <img src="{{ asset('/images/Banner-video.png    ' )}}" alt="" class="header-video__img "
+                    style="width: 100%; height: 700px; object-fit: cover;">
+                <div
+                    class=" d-flex align-items-center header-video__msg position-absolute top-50 start-50 translate-middle">
+                    <h2 class="me-4 text-white"
+                        style="font-family: Clash-Display; white-space: nowrap; font-size: 42px;text-transform: uppercase;">
+                        Xem Video</h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" fill="none"
+                        style="cursor: pointer;">
+                        <circle cx="60" cy="60" r="59.5" stroke="white"></circle>
+                        <g clip-path="url(#clip0_221_1946)">
+                            <path
+                                d="M67.376 60.4161L56.777 67.4821C56.7017 67.5322 56.6142 67.5609 56.5239 67.5652C56.4336 67.5696 56.3437 67.5493 56.264 67.5066C56.1843 67.4639 56.1176 67.4004 56.0711 67.3228C56.0246 67.2452 56 67.1565 56 67.0661V52.9341C56 52.8436 56.0246 52.7549 56.0711 52.6773C56.1176 52.5997 56.1843 52.5362 56.264 52.4935C56.3437 52.4508 56.4336 52.4306 56.5239 52.4349C56.6142 52.4392 56.7017 52.468 56.777 52.5181L67.376 59.5841C67.4445 59.6297 67.5006 59.6916 67.5395 59.7642C67.5783 59.8367 67.5986 59.9178 67.5986 60.0001C67.5986 60.0824 67.5783 60.1634 67.5395 60.236C67.5006 60.3085 67.4445 60.3704 67.376 60.4161Z"
+                                fill="white"></path>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_221_1946">
+                                <rect width="24" height="24" fill="white" transform="translate(48 48)"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
     <div class="container-fluid p-0">
         <div class="container">
             <div class="content__product-heading">
@@ -10,15 +62,19 @@
             <!-- Display feature product  -->
             <div class="row content-first mb-4">
                 @forelse($featuredProducts as $product)
-                <a href="productDetail.php?id=<?= $product->id_product ?>" class=" text-decoration-none col-md-3 border-end border-dark border-bottom overflow-hidden">
+                <a href="{{ route('product.detail', $product->id_product) }}" class=" text-decoration-none col-md-3 border-end border-dark border-bottom overflow-hidden">
                     <div class="content-product__item">
                         <img src="{{ asset('images/' . $product->image_url) }}" alt=""
                             class="w-100 content-first__img px-3 py-4">
                         <div class="content-product__item-info px-4 py-3 border-top border-dark"
                             style="margin: 0 -12px;">
                             <h3 class="text-link fs-6" style="margin: 0;">{{ $product->name }}</h3>
-                            <span class="fs-6 fw-bold text-dark">{{ $product->defaultVariant->price ?? '' }}đ</span>
-                        </div>
+                            <span class="fs-6 fw-bold text-dark">
+                                @isset($product->defaultVariant->price)
+                                {{ number_format($product->defaultVariant->price, 0, ',', '.') }}₫
+                            @endisset
+                            </span>
+                        </div> 
                     </div>
                 </a>
                 @empty
@@ -32,23 +88,23 @@
                 <div class="content-feedback_heading text-center text-white letter-space py-3 text-uppercase fw-bold">
                     Feeback của khách hàng
                 </div>
-                <div class="row">
-                    <div class="col-3">
+                <div class="row flex-nowrap hide-scrollbar overflow-scroll">
+                    <div class="col-lg-3 col-12">
                         <div class="feedback-card">
                             <img src="{{ asset('/images/fb1.jpg')}}" alt="" class="feedback-img w-100">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-lg-3 col-12">
                         <div class="feedback-card">
                             <img src="{{ asset('/images/fb2.jpg')}}" alt="" class="feedback-img w-100">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-lg-3 col-12">
                         <div class="feedback-card">
                             <img src="{{ asset('/images/fb3.jpg')}}" alt="" class="feedback-img w-100">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-lg-3 col-12">
                         <div class="feedback-card">
                             <img src="{{ asset('/images/fb4.jpg')}}" alt="" class="feedback-img w-100">
                         </div>
@@ -58,7 +114,7 @@
                     <div class="content-partenr-heading text-center fs-5 pt-3 text-white text-uppercase fw-bold letter-space">
                         Đối tác
                     </div>
-                    <div class="row text-center flex-nowrap overflow-scroll" style="padding:50px 0;">
+                    <div class="hide-scrollbar row text-center flex-nowrap overflow-scroll" style="padding:50px 0;">
                         <div class="col-md-3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="151" height="23" viewBox="0 0 151 23"
                                 fill="none">

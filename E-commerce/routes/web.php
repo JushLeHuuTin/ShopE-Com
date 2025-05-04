@@ -1,20 +1,49 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CrudProductController;
 use App\Http\Controllers\CrudUserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
-
-Route::get('/', function () {
-    return view('welcome');
+use App\Models\voucher;
+use App\Http\Controllers\ReviewController;
+Route::get('/', function() {
+    return redirect('index');
 });
-Route::get('login', [CrudUserController::class, 'login'])->name('login');
-Route::post('login', [CrudUserController::class, 'authUser'])->name('user.authUser');
+//index hiển thị sản phẩm nổi bật
 Route::get('index', [CrudProductController::class, 'index'])->name('index');
+//login hiển thị trang login
+Route::get('login', [CrudUserController::class, 'login'])->name('login');
+//xử lí login
+Route::post('login', [CrudUserController::class, 'authUser'])->name('user.authUser');
+//register hiển thị trang register
+Route::get('register', [CrudUserController::class, 'register'])->name('register');
+//detail hiển thị trang chi tiết sản phẩm
+Route::get('/product/{id}', [CrudProductController::class, 'productDetail'])->name('product.detail');
+//reload thuộc tính theo id_variant
+Route::get('/product/variant/{id}', [CrudProductController::class, 'show'])->name('product.show');
 
-// Route::get('index', function () {
-//     // Lấy các sản phẩm nổi bật (is_featured = 1)
-//     $featuredProducts = Product::where('is_featured', 1)->get();
-//     return view('index', compact('featuredProducts'));
-// });
-// Route::get('login', [CrudUserController::class, 'login'])->name('login');
+//admin
+Route::get('admin/product/add', [CrudProductController::class, 'add'])->name('product.add');
+Route::post('postProduct', [CrudProductController::class, 'postProduct'])->name('product.postProduct');
+Route::get('admin/product', [CrudProductController::class, 'list'])->name('product.list');
+// Route::get('admin', [CrudProductController::class, 'update'])->name('product.update');
+Route::get('deleted', [CrudProductController::class, 'delete'])->name('product.deleted');
+
+Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
+
+
+Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');
+Route::get('admin/voucher', function () {
+    // Lấy các mã giảm giá
+    $vouchers = Voucher::get();
+    return view('admin.voucher', compact('vouchers'));
+}); 
+Route::get('review',[ReviewController::class, 'displayReview'])->name('review');
+Route::post('/review',[ReviewController::class, 'review'])->name('review.review');
+
+Route::get('managerreview', [ReviewController::class, 'displayManagerReview'])->name('review.managerreview');
+
+Route::post('/managerreview/{id}/approve', [ReviewController::class, 'approve'])->name('review.approve');
+Route::post('/managerreview/{id}/hide', [ReviewController::class, 'hide'])->name('review.hide');
+Route::delete('/managerreview/{id}/delete', [ReviewController::class, 'delete'])->name('review.delete');

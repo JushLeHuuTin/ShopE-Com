@@ -9,12 +9,11 @@
                 {{ session('success') }}
             </div>
         @endif
-        <h1 class="border-bottom pb-2 mb-4 h5">Dashboard</h1>
+        <h1 class="border-bottom pb-2 mb-4 h5">Thêm mới sản phẩm</h1>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <form method="POST" action="{{ route('product.postProduct') }}" enctype="multipart/form-data">
                     @csrf
-                    <h4 class="text-center mb-4">Thêm mới sản phẩm</h4>
 
                     <div class="row g-3">
                         <div class="col-md-6">
@@ -27,13 +26,20 @@
 
                         <div class="col-md-6">
                             <label class="form-label">Giá</label>
-                            <input name="price" type="number" step="0.01" class="form-control form-control-sm"
-                                 />
+                            <input name="price" type="number"
+                                onkeydown="return !['e', 'E', '+', '-'].includes(event.key)" step="0.01"
+                                class="form-control form-control-sm" />
+                            @if ($errors->has('price'))
+                                <div class="text-danger small">{{ $errors->first('price') }}</div>
+                            @endif
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label">Hình ảnh</label>
                             <input type="file" name="image" class="form-control form-control-sm" />
+                            @if ($errors->has('image'))
+                                <div class="text-danger small">{{ $errors->first('image') }}</div>
+                            @endif
                         </div>
 
                         <div class="col-md-6">
@@ -48,15 +54,17 @@
 
                         <div class="col-md-6">
                             <label class="form-label">Số lượng</label>
-                            <input name="quantity" type="number" value="1" min="1"
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                            <input name="quantity" type="number" min="1"
+                                onkeydown="return !['e', 'E', '+', '-'].includes(event.key)"
                                 class="form-control form-control-sm" />
+                            @if ($errors->has('quantity'))
+                                <div class="text-danger small">{{ $errors->first('quantity') }}</div>
+                            @endif
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label">Kích cỡ</label>
                             <select name="size" class="form-select form-select-sm">
-                                <option value="">Chọn kích cỡ</option>
                                 <option value="S">S</option>
                                 <option value="M">M</option>
                                 <option value="L">L</option>
@@ -70,7 +78,6 @@
                             <label class="form-label">Màu sắc</label>
                             <select name="color" id="colorSelect" class="form-select form-select-sm"
                                 onchange="handleColorChange()">
-                                <option>Chọn màu sắc</option>
                                 <option value="Đen">Đen</option>
                                 <option value="Đỏ">Đỏ</option>
                                 <option value="custom">Khác...</option>
@@ -81,7 +88,8 @@
 
                         <div class="col-md-12">
                             <label class="form-label">Mô tả</label>
-                            <textarea name="desc" class="form-control form-control-sm" name="description" rows="3" placeholder="Điền mô tả của sản phẩm"></textarea>
+                            <textarea name="desc" class="form-control form-control-sm" name="description" rows="3"
+                                placeholder="Điền mô tả của sản phẩm"></textarea>
                         </div>
 
                         <div class="col-md-12">
@@ -92,7 +100,7 @@
                         </div>
 
                         <div class="col-12 text-end">
-                            <button type="submit" class="btn btn-primary btn-sm">Thêm mới</button>
+                            <button type="submit" style="border:1px solid black; box-shadow:1px 1px 1px black" class="btn btn-primary btn-sm">Thêm mới</button>
                         </div>
                     </div>
                 </form>

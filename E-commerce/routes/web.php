@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CrudProductController;
 use App\Http\Controllers\CrudUserController;
 use Illuminate\Support\Facades\Route;
@@ -23,14 +24,17 @@ Route::get('/product/{id}', [CrudProductController::class, 'productDetail'])->na
 Route::get('/product/variant/{id}', [CrudProductController::class, 'show'])->name('product.show');
 
 //admin
-Route::get('product', [CrudProductController::class, 'add'])->name('product.add');
+Route::get('admin/product/add', [CrudProductController::class, 'add'])->name('product.add');
 Route::post('postProduct', [CrudProductController::class, 'postProduct'])->name('product.postProduct');
-Route::get('list', [CrudProductController::class, 'list'])->name('product.list');
+Route::get('admin/product', [CrudProductController::class, 'list'])->name('product.list');
 // Route::get('admin', [CrudProductController::class, 'update'])->name('product.update');
 Route::get('deleted', [CrudProductController::class, 'delete'])->name('product.deleted');
 
+Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
+
+
 Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');
-Route::get('admin', function () {
+Route::get('admin/voucher', function () {
     // Lấy các mã giảm giá
     $vouchers = Voucher::get();
     return view('admin.voucher', compact('vouchers'));
@@ -43,4 +47,3 @@ Route::get('managerreview', [ReviewController::class, 'displayManagerReview'])->
 Route::post('/managerreview/{id}/approve', [ReviewController::class, 'approve'])->name('review.approve');
 Route::post('/managerreview/{id}/hide', [ReviewController::class, 'hide'])->name('review.hide');
 Route::delete('/managerreview/{id}/delete', [ReviewController::class, 'delete'])->name('review.delete');
-

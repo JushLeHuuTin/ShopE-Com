@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class CrudUserController extends Controller
 {
@@ -22,6 +24,9 @@ class CrudUserController extends Controller
     }
     public function admin()
     {
-        return view('admin.product');
+        // if(Auth::check()){\
+            return view('admin.index');
+        // }
+        // return redirect()->route('admin.login');
     }
 }

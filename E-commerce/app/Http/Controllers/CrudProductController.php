@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Product_Variant;
 // use App\Models\Product_Variants;
+use Illuminate\Support\Facades\Auth;
+
 
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -45,19 +47,35 @@ class CrudProductController extends Controller
     //hàm hiển thị trang thêm sản phẩm
     public function add()
     {
-        $category = Category::all();
-        $data = [
-            'category' => $category
-        ];
-        return view('admin.product', $data);
+    //    if(Auth::check()){
+            $category = Category::all();
+            $data = [
+                'category' => $category
+            ];
+            return view('admin.product', $data);
+        // }
+        // return view('login');
     }
 
     public function postProduct(Request $request)
     {
+        //
         $request->validate([
             'name' => 'required|max:100',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:255'
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'price' => 'required',
+            'quantity' => 'required'
+        ], [
+            'name.required' => '* Vui lòng nhập tên sản phẩm',
+            'name.max' => '* Tên sản phẩm không được vượt quá :max ký tự.',
+            'image.required' => '* Vui lòng chọn hình ảnh sản phẩm.',
+            'image.image' => '* Tệp tải lên phải là hình ảnh.',
+            'image.mimes' => '* Hình ảnh phải có định dạng: jpg, jpeg hoặc png.',
+            'image.max' => '* Dung lượng ảnh không được vượt quá 2MB.',
+            'price.required' => '* Vui lòng nhập giá',
+            'quantity.required' => '* Vui lòng nhập số lượng',
         ]);
+        //
         $imagePath = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -65,31 +83,32 @@ class CrudProductController extends Controller
             $image->move(public_path('images'), $imageName);
             $imagePath =   $imageName;
         }
+        //
         $category = Category::all();
         $data = [
             'category' => $category
         ];
+        //
         $input = $request->all();
         $product = Product::create([
             'name' => $input['name'],
             'id_category' => $input['categories'],
-            'is_featured' => isset($input['is_featured'])?1:0,
+            'is_featured' => isset($input['is_featured']) ? 1 : 0,
             'description' => $input['desc'],
-            'image_url' =>$imagePath ?? 'null'
+            'image_url' => $imagePath ?? 'null'
         ]);
-        if(isset($input['size']) && isset($input['color'])
-        && isset($input['price']) && isset($input['quantity'])
-        ){
+        if (
+            isset($input['size']) && isset($input['color'])
+            && isset($input['price']) && isset($input['quantity'])
+        ) {
             Product_Variant::create([
                 'id_product' => $product->id_product,
                 'stock' => $input['quantity'],
                 'price' => $input['price'],
                 'size' => $input['size'],
-                'color' => $input['color']
+                'color' => $input['color']!='custom'?$input['color']:$input['colorOther']
             ]);
         }
-        // dd($input);
-     
         return redirect()->route('product.add')->withSuccess("Tạo sản phẩm thành công");
     }
 }

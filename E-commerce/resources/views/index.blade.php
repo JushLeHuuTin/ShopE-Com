@@ -71,8 +71,8 @@
                             <h3 class="text-link fs-6" style="margin: 0;">{{ $product->name }}</h3>
                             <span class="fs-6 fw-bold text-dark">
                                 @isset($product->defaultVariant->price)
-                                {{ $product->defaultVariant->price }}đ
-                               @endif
+                                {{ number_format($product->defaultVariant->price, 0, ',', '.') }}₫
+                            @endisset
                             </span>
                         </div> 
                     </div>

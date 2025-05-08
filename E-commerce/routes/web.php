@@ -21,12 +21,12 @@ Route::get('register', [CrudUserController::class, 'register'])->name('register'
 //detail hiển thị trang chi tiết sản phẩm
 Route::get('/product/{id}', [CrudProductController::class, 'productDetail'])->name('product.detail');
 //reload thuộc tính theo id_variant
-Route::get('/product/variant/{id}', [CrudProductController::class, 'show'])->name('product.show');
+Route::get('/product/{id}/varariant', [CrudProductController::class, 'show'])->name('product.show');
 
 //admin
 Route::get('admin/product/add', [CrudProductController::class, 'add'])->name('product.add');
 Route::post('postProduct', [CrudProductController::class, 'postProduct'])->name('product.postProduct');
-Route::get('admin/product', [CrudProductController::class, 'list'])->name('product.list');
+Route::get('admin/product', [CrudProductController::class, 'getProduct'])->name('product.list');
 // Route::get('admin', [CrudProductController::class, 'update'])->name('product.update');
 Route::get('deleted', [CrudProductController::class, 'delete'])->name('product.deleted');
 

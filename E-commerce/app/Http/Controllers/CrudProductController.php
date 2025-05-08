@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Session as FacadesSession;
 
 class CrudProductController extends Controller
 {
+    //get list product at admin
+    public function getProduct(){
+        $products = Product::with('category')->paginate(10);
+        return view('admin.product', ["products" => $products]);
+    }
     //hàm index get sản phẩm nổi bật 
     public function index()
     {
@@ -33,16 +38,12 @@ class CrudProductController extends Controller
     //hàm lấy ra chi tiết thuộc tính theo id_variant
     public function show(Request $request, $id)
     {
-        $product = Product::with('Product_Variants')->findOrFail($id);
-        // dd($id);
+        $product = Product::with('product_Variants')->findOrFail($id);
         $variant = null;
         if ($request->has('variant_id')) {
             $variant = Product_Variant::find($request->variant_id);
         }
-
         return view('productDetail', compact('product', 'variant'));
-        $featuredProducts = Product::where('is_featured', 1)->get();
-        return view('welcome', compact('featuredProducts'));
     }
     //hàm hiển thị trang thêm sản phẩm
     public function add()
@@ -52,7 +53,7 @@ class CrudProductController extends Controller
             $data = [
                 'category' => $category
             ];
-            return view('admin.product', $data);
+            return view('admin.addProduct', $data);
         // }
         // return view('login');
     }

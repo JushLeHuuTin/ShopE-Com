@@ -214,30 +214,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     const sizeItems = document.querySelectorAll('.product__size--item');
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/tin/f3/delete-product
     sizeItems.forEach(item => {
         item.addEventListener('click', function () {
             // Xóa active ở tất cả
             sizeItems.forEach(el => el.classList.remove('active'));
             // Thêm active cho item được chọn
-<<<<<<< HEAD
-            item.classList.add('active');
-
-            // Bấm vào label nhưng đảm bảo radio được checked luôn
-            const input = item.querySelector('input[type="radio"]');
-            input.checked = true;
-=======
             // Bấm vào label nhưng đảm bảo radio được checked luôn
             const input = item.querySelector('input[type="radio"]');
             input.checked = true;
             item.classList.add('active');
->>>>>>> origin/tin/f3/delete-product
         });
     });
-});
+}); 
   function toggleMenu(id) {
     const menu = document.getElementById(id);
     menu.classList.toggle('hidden');

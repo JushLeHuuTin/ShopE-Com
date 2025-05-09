@@ -62,9 +62,12 @@
      <li class="flex items-center ">
       <i class="fas fa-ticket-alt mr-2">
       </i>
-      <span>
-       Voucher
-      </span>
+      <a href="{{route('voucher')}}">
+          <span>
+              Voucher
+            </span>
+
+      </a>
      </li>
     </ul>
    </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CrudProductController;
 use App\Http\Controllers\CrudUserController;
+use App\Http\Controllers\CrudVoucherController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Models\voucher;
@@ -35,11 +36,7 @@ Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login'
 
 
 Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');
-Route::get('admin/voucher', function () {
-    // Lấy các mã giảm giá
-    $vouchers = Voucher::get();
-    return view('admin.voucher', compact('vouchers'));
-}); 
+Route::get('admin/voucher', [CrudVoucherController::class, 'getList'])->name('voucher'); 
 Route::get('review',[ReviewController::class, 'displayReview'])->name('review');
 Route::post('/review',[ReviewController::class, 'review'])->name('review.review');
 

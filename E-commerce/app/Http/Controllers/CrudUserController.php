@@ -19,12 +19,8 @@ class CrudUserController extends Controller
     }
     public function index()
     {
-<<<<<<< HEAD
-        return view('index');   
-=======
         $featuredProducts = Product::where('is_featured', 1)->get();
         return view('index', compact('featuredProducts'));
->>>>>>> origin/tin/f3/delete-product
     }
     public function admin()
     {

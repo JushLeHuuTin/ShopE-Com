@@ -1,0 +1,157 @@
+:root {
+    --main-bg: rgba(118, 212, 118, .9);
+    --main-font-nav: 1.2em;
+    --main-font-content: 1.1em;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+/* Start Navbar */
+.container {
+    background: var(--main-bg);
+}
+.navbar {
+    
+    max-width: 1200px;
+    margin: auto;
+}
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+.navbar ul .nav-icon {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.navbar ul .nav-icon li:hover {
+    color: aqua;
+}
+
+.navbar ul .nav-icon li {
+    font-size: 20px;
+    margin: 5px;
+}
+.navbar ul li a{
+    text-decoration: none;
+    color: black;
+    font-size: var(--main-font-nav);
+}
+.navbar ul li a:hover {
+    color: red;
+    cursor: pointer;
+}
+/* End Navbar */
+
+
+/* Start Review */
+.nav-back {
+    display: flex;
+    border-bottom: 1px solid #b6b6b6;
+    padding: 10px 20px;
+    font-size: var(--main-font-nav);
+}
+.nav-back .back {
+    margin-right: 10px;
+    cursor: pointer;
+}
+.review {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.review .container-review {
+    width: 680px;
+    height: 620px;
+    background: rgb(190, 190, 190, .3);
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.review .container-review .lab-review {
+    margin: -15px 40px;
+}
+.review .container-review .data-product-review {
+    display: flex;
+}
+.review .container-review .data-product-review .product-image-review img{
+    width: 100px;
+    height: auto;
+    margin-top: 35px;
+}
+.review .container-review .lab-review .data-product-review .product-name-review {
+    font-size: var(--main-font-content);
+    align-items: center;
+    margin: 70px 20px;
+}
+
+.review .container-review .number-review {
+    display: flex;
+    font-size: var(--main-font-content);
+    margin: 10px;
+}
+.review .container-review .lab-review .star {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: var(--main-font-content);
+}
+
+
+.review .container-review .lab-review .star::before {
+    content: '\f005';
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 0 black;
+    transition: color 0.2s;
+}
+
+
+.review .container-review .lab-review .star.active::before {
+    color: yellow;
+}
+
+.review .container-review .bark-review {
+    max-width: 400px;
+}
+.review .container-review .bark-review span {
+    display: block;
+    font-size: var(--main-font-content);
+    margin-bottom: 10px;
+    margin-top: -10px;
+}
+.review .container-review .bark-review textarea {
+    width: 600px;
+    height: 300px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
+    resize: none;
+    border: none;
+    outline: none;
+}
+.review .container-review .bark-review .btn-submit-review {
+    width: 600px;
+    height: 50px;
+    background: red;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: var(--main-font-nav);
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px auto;
+}
+/* End Review */

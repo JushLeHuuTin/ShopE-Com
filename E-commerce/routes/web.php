@@ -28,7 +28,8 @@ Route::get('admin/product/add', [CrudProductController::class, 'add'])->name('pr
 Route::post('postProduct', [CrudProductController::class, 'postProduct'])->name('product.postProduct');
 Route::get('admin/product', [CrudProductController::class, 'getProduct'])->name('product.list');
 // Route::get('admin', [CrudProductController::class, 'update'])->name('product.update');
-Route::get('deleted', [CrudProductController::class, 'delete'])->name('product.deleted');
+Route::get('admin/product/delete/{id}', [CrudProductController::class, 'delete'])->name('product.delete');
+Route::get('admin/product/deleted', [CrudProductController::class, 'deleted'])->name('product.deleted');
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 

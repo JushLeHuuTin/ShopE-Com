@@ -112,4 +112,10 @@ class CrudProductController extends Controller
         }
         return redirect()->route('product.add')->withSuccess("Tạo sản phẩm thành công");
     }
+    //delete san pham by id
+    public function delete($id){
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('product.list')->withSuccess("Xoá thành công");;
+    }
 }

@@ -80,7 +80,7 @@ use Illuminate\Support\Str;
                                     <i class="fas fa-pen text-red-500 cursor-pointer">
                                     </i>
                                 </a>
-                                <a href="{{ route('index') }}" class="inline-block mx-1 p-1" >
+                                <a href="{{ route('product.delete',$product->id_product) }}" class="inline-block mx-1 p-1" >
                                     <i class="fas fa-trash text-red-500 cursor-pointer">
                                     </i>
                                 </a>

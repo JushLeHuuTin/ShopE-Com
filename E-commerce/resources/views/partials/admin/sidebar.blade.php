@@ -58,7 +58,8 @@
        Khuyến mãi
       </span>
      </li>
-     <li class="flex items-center text-green-500">
+     {{-- text-green-500 --}}
+     <li class="flex items-center ">
       <i class="fas fa-ticket-alt mr-2">
       </i>
       <span>

@@ -10,7 +10,7 @@
 <body>
     <div class="container mt-5">
         <h2>Danh sách người dùng</h2>
-
+        <a href="{{ route('transaction.history') }}">Lịch sử giao dịch</a>
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif

@@ -13,6 +13,8 @@ class User extends Authenticatable
     // Đảm bảo chỉ định tên bảng là 'user' thay vì 'users'
     protected $table = 'users';
 
+    protected $primaryKey = 'id_user';
+
     protected $fillable = [
         'username',
         'email',
@@ -35,4 +37,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    
 }

@@ -37,15 +37,20 @@ class LoginController extends Controller
         // Kiểm tra mật khẩu
         if ($user && Hash::check($request->password, $user->password)) {
             Auth::login($user);
+            //dd(Auth::user());
+            // dd('Auth::login executed');
+            //dd(session()->all());
 
             // Phân quyền theo role
             if ($user->is_active === 2) {
                 \Log::info('Đăng nhập thành công với role: ' . $user->role);
-                return redirect()->route('admin.users.index')->with('success', 'Đăng nhập thành công với quyền Admin!');;  // Đảm bảo rằng route này đã được định nghĩa trong web.php
+                return redirect()->route('admin.users.index')->with('success', 'Đăng nhập thành công với quyền Admin!');
+                ;  // Đảm bảo rằng route này đã được định nghĩa trong web.php
 
             } elseif ($user->is_active === 1) {
                 \Log::info('Đăng nhập thành công với role: ' . $user->role);
-                return redirect()->route('index')->with('success', 'Đăng nhập thành công với quyền customer!');;  // Đảm bảo route này tồn tại và không bị lỗi
+                return redirect()->route('index')->with('success', 'Đăng nhập thành công với quyền customer!');
+                ;  // Đảm bảo route này tồn tại và không bị lỗi
 
             } else {
                 Auth::logout();

@@ -8,6 +8,7 @@
                     Sản phẩm nổi bật
                 </div>
                 <a href="{{ route('transaction.history') }}">Lịch sử giao dịch</a>
+                <a href="{{ route('profile.edit') }}">Edit Profile</a>
                 <!-- Display feature product  -->
                 <div class="row content-first mb-4">
                     @forelse($featuredProducts as $product)

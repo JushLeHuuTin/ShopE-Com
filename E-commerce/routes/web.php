@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthOtpController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -49,6 +50,11 @@ Route::middleware(['web', 'auth'])->group(function () {
 Route::get('/hoa-don/{id}', [InvoiceController::class, 'show']);
 
 
-
 // Route để hiển thị chi tiết đơn hàng
 Route::get('/hoa-don/{id}', [InvoiceController::class, 'show']);
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+});

@@ -18,7 +18,7 @@
         <p><strong>Lý do hủy:</strong> {{ $invoice->cancellation_reason }}</p>
     @endif
 
-    <a href="{{ url('/lich-su-giao-dich') }}" class="btn btn-secondary mt-3">Quay lại</a>
+    <a href="{{ url('/transaction-history') }}" class="btn btn-secondary mt-3">Quay lại</a>
 </div>
 </body>
 </html>

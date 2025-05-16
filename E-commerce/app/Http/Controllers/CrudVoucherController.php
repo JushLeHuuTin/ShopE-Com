@@ -13,4 +13,18 @@ class CrudVoucherController extends BaseController
         $vouchers = Voucher::all();
         return view('admin.voucher',['vouchers'=>$vouchers]);
     }
+       public function delete($id) 
+    {
+        $voucher = Voucher::findOrFail($id);
+        $voucher->delete();
+        return redirect()->route('voucher')->withSuccess("Xoá thành công");
+    }
+    public function add()
+    {
+         
+
+    }
+
+
+    
 }

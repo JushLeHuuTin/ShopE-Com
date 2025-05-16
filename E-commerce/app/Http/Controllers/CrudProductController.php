@@ -116,6 +116,6 @@ class CrudProductController extends Controller
     public function delete($id){
         $product = Product::findOrFail($id);
         $product->delete();
-        return redirect()->route('product.list')->withSuccess("Xoá thành công");;
+        return redirect()->route('product.list')->withSuccess("Xoá thành công");
     }
 }

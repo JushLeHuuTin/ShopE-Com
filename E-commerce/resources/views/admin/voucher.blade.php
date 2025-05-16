@@ -11,6 +11,12 @@
         <h2 class="text-xl font-bold mb-4">
             Danh sách mã giảm giá
         </h2>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        
         <table class="w-full bg-white rounded shadow">
             <thead>
                 <tr class="bg-green-500 text-white">
@@ -56,7 +62,6 @@
                                 @else
                                     <span class="">Hết hạn</span>
                                 @endif
-
                             </span>
                         </td>
                         <td class="p-2">
@@ -65,8 +70,10 @@
                         <td class="p-2 flex space-x-2">
                             <i class="fas fa-pen text-red-500 cursor-pointer">
                             </i>
-                            <i class="fas fa-trash text-red-500 cursor-pointer">
-                            </i>
+                            <a href="{{ route('voucher.delete',$voucher->id_discount) }}" class="delete-voucher">
+                                <i class="fas fa-trash text-red-500 cursor-pointer">
+                                    </i>
+                            </a>
                         </td>
                     </tr>
                 @empty

@@ -37,8 +37,4 @@
     @include('partials.admin.footer')
     <script src="{{ asset('/js/script.js') }}"></script>
 </body>
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/tin/f3/delete-product
 </html>

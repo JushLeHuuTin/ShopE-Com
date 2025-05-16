@@ -191,26 +191,26 @@ function musicSelesct(){
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const tabs = document.querySelectorAll('.tab__item');
-    const panels = document.querySelectorAll('.tab__panel');
+// document.addEventListener('DOMContentLoaded', function () {
+//     const tabs = document.querySelectorAll('.tab__item');
+//     const panels = document.querySelectorAll('.tab__panel');
 
-    tabs.forEach((tab, index) => {
-        tab.addEventListener('click', function (e) {
-            e.preventDefault();
+//     tabs.forEach((tab, index) => {
+//         tab.addEventListener('click', function (e) {
+//             e.preventDefault();
 
-            // Remove active from all tabs
-            tabs.forEach(t => t.classList.remove('tab__active'));
-            // Hide all panels
-            panels.forEach(p => p.classList.add('d-none'));
+//             // Remove active from all tabs
+//             tabs.forEach(t => t.classList.remove('tab__active'));
+//             // Hide all panels
+//             panels.forEach(p => p.classList.add('d-none'));
 
-            // Add active to clicked tab
-            tab.classList.add('tab__active');
-            // Show corresponding panel
-            panels[index].classList.remove('d-none');
-        });
-    });
-});
+//             // Add active to clicked tab
+//             tab.classList.add('tab__active');
+//             // Show corresponding panel
+//             panels[index].classList.remove('d-none');
+//         });
+//     });
+// });
 
 document.addEventListener('DOMContentLoaded', function () {
     const sizeItems = document.querySelectorAll('.product__size--item');

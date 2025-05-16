@@ -23,6 +23,7 @@
        Quản lý Đơn hàng
       </span>
      </li>
+       
      <li class="flex items-center">
       <i class="fas fa-star mr-2">
       </i>
@@ -59,15 +60,15 @@
       </span>
      </li>
      {{-- text-green-500 --}}
-     <li class="flex items-center ">
-      <i class="fas fa-ticket-alt mr-2">
+     <li class="flex items-center "onClick=toggleMenu("voucher")>
+      <i class="fas fa-ticket-alt mr-2" >
       </i>
-      <a href="{{route('voucher')}}">
-          <span>
-              Voucher
-            </span>
+      Voucher
 
-      </a>
      </li>
+       <ul id="voucher" class="ml-6 mt-2 space-y-2 hidden">
+            <li><a href="{{ route('voucher.add') }}" class="text-sm text-gray-700 hover:text-green-600">➕ Thêm mã giảm giá</a></li>
+            <li><a href="{{ route('voucher.list') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách mã giảm giá </a></li>
+        </ul>
     </ul>
    </div>

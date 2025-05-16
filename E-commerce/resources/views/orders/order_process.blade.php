@@ -10,8 +10,23 @@
     <!-- Remix Icon -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <!-- Style -->
-    <link rel="stylesheet" href="{{ asset('/css/managerreview.css') }}">
-    <title>Quản lý đánh giá</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{{ asset('/css/orders.css') }}">
+
+    <title>Quản lý đơn hàng</title>
+
+     <style>
+        table tbody tr {
+            border-bottom: 1px solid #e9e9e9;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, .1);
+        }
+
+        table tbody tr td {
+            padding: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -88,58 +103,97 @@
                 </div>
                 <div class="admin-content-review">
                     <div class="admin-content-review-title">
-                        <h1>Quản lý đánh giá</h1>
+                        <h4 class="p-3 m-0">Đơn hàng chờ xử lý</h4>
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Mã đánh giá</th>
+                                        <th>Mã đơn hàng</th>
                                         <th>Tên khách hàng</th>
-                                        <th>Hình ảnh</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Số sao</th>
-                                        <th>Nội dung</th>
-                                        <th>Ngày đánh giá</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng tiền</th>
                                         <th>Trạng thái</th>
                                         <th>Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($reviews as $review)
-                                        <tr>
-                                            <td>{{ $review->id_review }}</td>
-                                            <td>{{ $review->user->username }}</td>
-                                            <td><img src="{{ asset('images/' . $review->product->image_url) }}" alt="" style="width: 70px;"></td>
-                                            <td>{{ $review->product->name }}</td>
-                                            <td>{{ $review->rating }}<i class="fa-solid fa-star" style="color: #FFD43B;"></i></td>
-                                            <td class="content-review">{{ $review->comment }}</td>
-                                            <td>{{ $review->created_at->format('H:i:s d-m-Y') }}</td>
-                                            <td>{{ $review->status }}</td>
-                                            <td>
-                                                <div class="review-action" style="justify-content: center;">
-                                                    <form action="{{ route('review.approve', $review->id_review) }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn-approved">Duyệt</button>
-                                                    </form>
-                                                    <form action="{{ route('review.hide', $review->id_review) }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn-pending">Ẩn</button>
-                                                    </form>
-                                                    <form action="{{ route('review.delete', $review->id_review) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn-rejected">Xóa</button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    <tr>
+                                        <td>01</td>
+                                        <td>Trieu</td>
+                                        <td>20-4-2025</td>
+                                        <td>200.000</td>
+                                        <td>Chờ xác nhận</td>
+                                        <td>
+                                            <button class="btn-order">Xác nhận</button>
+                                            <button class="btn-order-detail">Xem chi tiết</button>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>01</td>
+                                        <td>Trieu</td>
+                                        <td>20-4-2025</td>
+                                        <td>200.000</td>
+                                        <td>Chờ xác nhận</td>
+                                        <td>
+                                            <button class="btn-order">Xác nhận</button>
+                                            <button class="btn-order-detail">Xem chi tiết</button>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>01</td>
+                                        <td>Trieu</td>
+                                        <td>20-4-2025</td>
+                                        <td>200.000</td>
+                                        <td>Chờ xác nhận</td>
+                                        <td>
+                                            <button class="btn-order">Xác nhận</button>
+                                            <button class="btn-order-detail">Xem chi tiết</button>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>01</td>
+                                        <td>Trieu</td>
+                                        <td>20-4-2025</td>
+                                        <td>200.000</td>
+                                        <td>Chờ xác nhận</td>
+                                        <td>
+                                            <button class="btn-order">Xác nhận</button>
+                                            <button class="btn-order-detail">Xem chi tiết</button>
+
+                                        </td>
+                                    </tr>
+
                                 </tbody>
                             </table>
-                        </div>
+                            <!-- Form chi tiet don hang -->
+                            <div class="form-orders-detail" style="display: none;">
+                                <div class="wapper-orders">
+                                    <div class="form-order-title">
+                                        <div class="order-text">Chi tiết đơn hàng</div>
+                                        <p class="order-close">X</p>
+                                    </div>
+                                    <div class="form-order-product">
+                                        <div class="form-order-product-detail">
+                                            <img style="width: 150px;" src="images.jpg" alt="">
+                                            <div class="order-content">
+                                                <div class="order-name">Iphone 13</div>
+                                                <div class="order-price">123.123 VND</div>
+                                            </div>
+                                            <div class="order-quantity">SL: 2</div>
+                                        </div>
 
+                                        <div class="order-total-money">Tổng tiền: 123.123 VND</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Form chi tiet don hang -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -175,9 +229,6 @@
                 }
             });
         });
-
-
-
     </script>
 </body>
 

@@ -10,8 +10,22 @@
     <!-- Remix Icon -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <!-- Style -->
-    <link rel="stylesheet" href="{{ asset('/css/managerreview.css') }}">
-    <title>Quản lý đánh giá</title>
+     <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{{ asset('/css/orders.css') }}">
+
+
+    <style>
+        table tbody tr {
+            border-bottom: 1px solid #e9e9e9;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, .1);
+        }
+        table tbody tr td {
+            padding: 0;
+        }
+    </style>
+    <title>Quản lý đơn hàng</title>
 </head>
 
 <body>
@@ -88,58 +102,39 @@
                 </div>
                 <div class="admin-content-review">
                     <div class="admin-content-review-title">
-                        <h1>Quản lý đánh giá</h1>
+                        <h4 class="p-3 m-0">Thống kê sản phẩm tốt nhất</h4>
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Mã đánh giá</th>
-                                        <th>Tên khách hàng</th>
-                                        <th>Hình ảnh</th>
+                                        <th>Mã sản phẩm</th>
                                         <th>Tên sản phẩm</th>
-                                        <th>Số sao</th>
-                                        <th>Nội dung</th>
-                                        <th>Ngày đánh giá</th>
-                                        <th>Trạng thái</th>
-                                        <th>Hành động</th>
+                                        <th>Hình ảnh</th>
+                                        <th>Số lượng bán</th>
+                                        <th>Doanh thu</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($reviews as $review)
-                                        <tr>
-                                            <td>{{ $review->id_review }}</td>
-                                            <td>{{ $review->user->username }}</td>
-                                            <td><img src="{{ asset('images/' . $review->product->image_url) }}" alt="" style="width: 70px;"></td>
-                                            <td>{{ $review->product->name }}</td>
-                                            <td>{{ $review->rating }}<i class="fa-solid fa-star" style="color: #FFD43B;"></i></td>
-                                            <td class="content-review">{{ $review->comment }}</td>
-                                            <td>{{ $review->created_at->format('H:i:s d-m-Y') }}</td>
-                                            <td>{{ $review->status }}</td>
-                                            <td>
-                                                <div class="review-action" style="justify-content: center;">
-                                                    <form action="{{ route('review.approve', $review->id_review) }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn-approved">Duyệt</button>
-                                                    </form>
-                                                    <form action="{{ route('review.hide', $review->id_review) }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn-pending">Ẩn</button>
-                                                    </form>
-                                                    <form action="{{ route('review.delete', $review->id_review) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn-rejected">Xóa</button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    <tr>
+                                        <td>10</td>
+                                        <td>Dien thoai</td>
+                                        <td><img style="width: 100px;" src="images.jpg" alt=""></td>
+                                        <td>Áo</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>Dien thoai</td>
+                                        <td><img style="width: 100px;" src="images.jpg" alt=""></td>
+                                        <td>Áo</td>
+                                        <td>50</td>
+                                    </tr>
                                 </tbody>
                             </table>
+                           
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -175,9 +170,6 @@
                 }
             });
         });
-
-
-
     </script>
 </body>
 

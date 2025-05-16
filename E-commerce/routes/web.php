@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CrudUserController;
+use App\Http\Controllers\OrderAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Http\Controllers\ReviewController;
@@ -25,3 +26,16 @@ Route::post('/managerreview/{id}/approve', [ReviewController::class, 'approve'])
 Route::post('/managerreview/{id}/hide', [ReviewController::class, 'hide'])->name('review.hide');
 Route::delete('/managerreview/{id}/delete', [ReviewController::class, 'delete'])->name('review.delete');
 
+//Orders
+Route::get('/admin/order', [OrderAdminController::class, 'orderAdmin'])->name('orders.order_admin');
+Route::get('/admin/order/cancelled', [OrderAdminController::class, 'orderCancelled'])->name('orders.order_cancelled');
+Route::get('/admin/order/process', [OrderAdminController::class, 'orderProcess'])->name('orders.order_process');
+
+//Statistic
+Route::get('/admin/statistic/money', [OrderAdminController::class, 'statisticMoney'])->name('statistic.statistic_money');
+Route::get('/admin/statistic/quantity', [OrderAdminController::class, 'statisticQuantity'])->name('statistic.statistic_quantity');
+Route::get('/admin/statistic/product', [OrderAdminController::class, 'statisticProduct'])->name('statistic.statistic_product');
+
+//Report
+Route::get('/admin/report/customer', [OrderAdminController::class, 'reportCustomer'])->name('report.report_customer');
+Route::get('/admin/report/product', [OrderAdminController::class, 'reportProduct'])->name('report.report_product');

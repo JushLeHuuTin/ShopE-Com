@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CrudProductController;
 use App\Http\Controllers\CrudUserController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,9 @@ Route::get('admin/product/delete/{id}', [CrudProductController::class, 'delete']
 Route::get('admin/product/deleted', [CrudProductController::class, 'deleted'])->name('product.deleted');
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
+
+//category
+Route::get('danhmuc/{category:slug}/', [CategoryController::class, 'show'])->name('category.show');
 
 
 Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');

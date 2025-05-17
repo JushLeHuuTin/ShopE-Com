@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('header')
 
 @section('content')
 <div class="content">
@@ -9,7 +9,7 @@
                 <a href="" class="text-dark text-decoration-none" style="letter-spacing: 1px;">Thời trang Overflow > </a>
             </span>
             <span>
-                <a href="" class="text-dark text-decoration-none" style="letter-spacing: 1px;">     {{ $product->category->name }} > </a>
+                <a href="{{ route('category.show',$product->category->slug) }}" class="text-dark text-decoration-none" style="letter-spacing: 1px;">     {{ $product->category->name }} > </a>
             </span>
             <span>
                 <a href="" class="text-dark text-decoration-none" style="letter-spacing: 1px;">{{ $product->name }}</a>

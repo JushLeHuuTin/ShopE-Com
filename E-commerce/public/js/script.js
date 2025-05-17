@@ -248,11 +248,11 @@ document.addEventListener('DOMContentLoaded', function () {
 let update_product = document.querySelectorAll('.update_product');
 update_product.forEach((item)=>{
     item.onclick = ()=>{
+        document.querySelector('#name').value= item.dataset.id
         document.querySelector('.modal').style.display = 'block';
         document.querySelector('.add_product').style.display = 'block';
     }
 })
-
 document.querySelector('.modal').onclick = ()=>{
     document.querySelector('.modal').style.display = 'none';
     document.querySelector('.add_product').style.display = 'none';

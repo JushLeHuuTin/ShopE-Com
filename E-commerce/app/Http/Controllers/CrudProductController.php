@@ -27,7 +27,12 @@ class CrudProductController extends Controller
             ->where('is_featured', 1)
             ->take(8)
             ->get();
-        return view('index', ['featuredProducts' => $featuredProducts]);
+        $categories = Category::all();
+        $data = [
+            "featuredProducts"=> $featuredProducts,
+            "categories"=> $categories,
+        ];
+        return view('index', $data);
     }
     //hàm lấy ra chi tiết 1 sản phẩm
     public function productDetail($id)

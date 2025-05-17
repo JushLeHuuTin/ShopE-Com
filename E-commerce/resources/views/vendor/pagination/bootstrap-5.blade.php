@@ -35,7 +35,6 @@
                     <span class="fw-semibold">{{ $paginator->lastPage() }}</span>
                 </p>
             </div>
-
             <div>
                 <ul class="pagination">
                     {{-- Previous Page Link --}}

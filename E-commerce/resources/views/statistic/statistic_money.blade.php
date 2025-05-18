@@ -56,7 +56,8 @@
                                 </div>
                             </ul>
                         </li>
-                        <li><a href="{{ route('review') }}"><i class="ri-feedback-line"></i>Quản lý Đánh giá</a></li>
+                        <li><a href="{{ route('managerreview') }}"><i class="ri-feedback-line"></i>Quản lý Đánh giá</a>
+                        </li>
                         <li><a href=""><i class="ri-shield-user-line"></i>Quản lý Người dùng</a></li>
                         <li><a href=""><i class="ri-bar-chart-2-line"></i>Thống kê<i
                                     class="ri-arrow-down-s-fill"></i></a>
@@ -111,30 +112,54 @@
                         </ul>
                     </div>
                 </div>
-                <div class="admin-content-review">
+                <div class="admin-content-review overflow-hidden">
                     <div class="admin-content-review-title">
                         <h4 class="p-1">Thống kế doanh thu</h4>
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">
                             <div class="admin-content-container">
-                                <div class="admin-select-date row g-3 align-items-center px-2">
-                                    <div class="admin-select-date-left col-md-6">
-                                        <label for="form-control">Ngày bắt đầu</label>
-                                        <input class="form-control" type="date" name="date">
+                                <form action="{{ route('statistic.statistic_money') }}" method="POST">
+                                    <div class="admin-select-date row g-3 align-items-center px-2">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="admin-select-date-left col-md-6">
+                                                <label for="form-control">Ngày bắt đầu</label>
+                                                <input class="form-control" type="date" id="startDate" name="startDate">
+                                            </div>
+                                            <div class="admin-select-date-right col-md-6">
+                                                <label for="form-control">Ngày kết thúc</label>
+                                                <input class="form-control" type="date" id="endDate" name="endDate">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="admin-select-date-right col-md-6">
-                                        <label for="form-control">Ngày kết thúc</label>
-                                        <input class="form-control" type="date" name="date">
+                                    <div class="admin-revenua text-center p-4">
+                                        <p class=" fs-4">DOANH THU</p>
+                                        @if (isset($startDate) && isset($endDate))
+                                            <img class="revenua" src="{{ asset('/images/money.png') }}" alt=""><br>
+                                            <span
+                                                class="fs-5 m-4">{{ isset($totalRevenue) ? number_format($totalRevenue) : '0' }}
+                                                VND</span>
+                                            <div class="admin-orders fs-5 m-3">Số đơn hàng:
+                                                {{ isset($totalInvoice) ? $totalInvoice : '0' }} đơn
+                                            </div>
+                                        @endif
+                                        <button type="submit" class="btn btn-primary px-4">Xem</button>
+                                        @if(session('error'))
+                                            <div id="error-alert"
+                                                class="position-fixed top-50 start-50 translate-middle alert alert-danger text-center shadow-lg rounded p-4"
+                                                style="z-index: 1050; min-width: 300px;">
+                                                <div class="mb-2">
+                                                    <i class="fas fa-exclamation-triangle fa-2x text-warning mb-2"></i>
+                                                    <h5 class="mb-2">Thông báo</h5>
+                                                    <p class="mb-0">{{ session('error') }}</p>
+                                                </div>
+                                                <button type="button" class="btn btn-outline-dark mt-3 px-4"
+                                                    onclick="hideErrorAlert()">OK</button>
+                                            </div>
+                                        @endif
                                     </div>
-                                </div>
-                                <div class="admin-revenua text-center p-4">
-                                    <p class=" fs-4">DOANH THU</p>
-                                    <img class="revenua" src="money.png" alt=""><br>
-                                    <span class="fs-5 m-4">100.000.000 VND</span>
-                                    <div class="admin-orders fs-5 m-3">Số đơn hàng: <span>100</span> đơn</div>
-                                    <button class="btn btn-primary px-4">Xem</button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -150,28 +175,35 @@
 
         menuLi.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
+                const currentSubMenu = link.parentElement.querySelector('.sub-menu');
 
-                const parentLi = link.parentElement;
-                const currentSubMenu = parentLi.querySelector('.sub-menu');
+                // Chỉ xử lý nếu có submenu
+                if (currentSubMenu) {
+                    e.preventDefault();
 
-                // Nếu submenu đang active (đang mở), thì đóng lại
-                const isActive = currentSubMenu.classList.contains('active');
+                    const isActive = currentSubMenu.classList.contains('active');
 
-                // Đóng tất cả các submenu
-                submenu.forEach(menu => {
-                    menu.classList.remove('active');
-                    menu.style.height = '0px';
-                });
+                    submenu.forEach(menu => {
+                        menu.classList.remove('active');
+                        menu.style.height = '0px';
+                    });
 
-                // Nếu submenu vừa nhấn không phải đang mở thì mở nó    
-                if (!isActive) {
-                    currentSubMenu.classList.add('active');
-                    const submenuHeight = currentSubMenu.querySelector('.sub-menu-items').offsetHeight;
-                    currentSubMenu.style.height = submenuHeight + 'px';
+                    if (!isActive) {
+                        currentSubMenu.classList.add('active');
+                        const submenuHeight = currentSubMenu.querySelector('.sub-menu-items').offsetHeight;
+                        currentSubMenu.style.height = submenuHeight + 'px';
+                    }
                 }
             });
         });
+
+        function hideErrorAlert() {
+            const alertBox = document.getElementById('error-alert');
+            if (alertBox) {
+                alertBox.style.display = 'none';
+            }
+        }
+
     </script>
 </body>
 

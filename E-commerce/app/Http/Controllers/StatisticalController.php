@@ -3,30 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Invoice;
 use Carbon\Carbon; // Đừng quên import Carbon
 
 class StatisticalController extends Controller
 {
-    public function revenua()
+    public function statisticMoney()
     {
-        return view('revenua');
+        return view('statistic.statistic_money');
     }
-
-    public function handleDateTime(Request $request)
+    public function statisticProduct()
     {
-        $input = $request->input('khoang_thoi_gian'); // Ví dụ: "02/12/2020 08:00 - 10/12/2020 17:30"
+        return view('statistic.statistic_product');
+    }
+    public function statisticQuantity()
+    {
+        return view('statistic.statistic_quantity');
+    }
+    //Tinh doanh thu trong khoang thoi gian da chon
+    public function totalRevenua(Request $request)
+    {
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
 
-        // Tách thành 2 phần: bắt đầu - kết thúc
-        [$batDauStr, $ketThucStr] = explode(' - ', $input);
+        if (!$startDate || !$endDate) {
+             return redirect()->back()->with('error', 'Vui lòng chọn ngày bắt đầu và kết thúc.');
+        }
 
-        // Chuyển sang đối tượng Carbon
-        $batDau = Carbon::createFromFormat('d/m/Y H:i', trim($batDauStr));
-        $ketThuc = Carbon::createFromFormat('d/m/Y H:i', trim($ketThucStr));
+        $invoices = Invoice::where('status', 'completed')->
+        whereBetween('created_at', [$startDate, $endDate])->get();
 
-        // Truyền dữ liệu xuống view
-        return view('revenua', [
-            'batDau' => $batDau->format('d/m/Y H:i'),
-            'ketThuc' => $ketThuc->format('d/m/Y H:i'),
-        ]);
+        $totalRevenue = $invoices->sum('total_amount');
+        $totalInvoice = $invoices->count();
+        
+        return view('statistic.statistic_money', compact('startDate', 'endDate', 'totalRevenue', 'totalInvoice'));
     }
 }

@@ -34,11 +34,15 @@ class ReviewController extends Controller
 
         return redirect()->back()->with('message', 'Đánh giá của bạn đã được gửi thành công!');
     }
+    public function managerReview()
+    {
+        return view('managerreview');
+    }
 
     public function displayManagerReview()
     {
         $reviews = Review::with(['user', 'product'])->orderBy('created_at', 'desc')->get();
-        return view('managerreivew', compact('reviews'));
+        return view('managerreview', compact('reviews'));
     }
 
     //Trạng thái đang chờ duyệt

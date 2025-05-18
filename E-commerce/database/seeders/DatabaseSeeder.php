@@ -11,6 +11,8 @@ use Database\Seeders\ProductVariantSeeder;
 use Database\Seeders\SessionSeeder;
 use Database\Seeders\DiscountSeeder;
 use Database\Seeders\InvoiceSeeder;
+use Database\Seeders\InvoiceDetailSeeder;
+use Database\Seeders\ReviewSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -37,7 +39,9 @@ class DatabaseSeeder extends Seeder
             Product_Variant::class, 
             CartSeeder::class, 
             DiscountSeeder::class,   
-            InvoiceSeeder::class
+            InvoiceSeeder::class,
+            InvoiceDetailSeeder::class,
+            ReviewSeeder::class,
         ]);
     }
 }

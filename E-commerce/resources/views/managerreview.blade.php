@@ -10,6 +10,9 @@
     <!-- Remix Icon -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <!-- Style -->
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="{{ asset('/css/managerreview.css') }}">
     <title>Quản lý đánh giá</title>
 </head>
@@ -25,34 +28,49 @@
                     </div>
                     <div class="name-admin">Admin</div>
                 </div>
-                <div class="admin-sidebar-content">
+                <div class="admin-sidebar-content p-0">
                     <ul>
                         <li><a href=""><i class="ri-box-3-line"></i>Quản lý Sản phẩm</a></li>
-                        <li><a href=""><i class="fa-solid fa-calendar"></i>Quản lý Đơn hàng<i class="ri-arrow-down-s-fill"></i></a>
+
+                        <li><a href=""><i class="fa-solid fa-calendar"></i>Quản lý Đơn hàng<i
+                                    class="ri-arrow-down-s-fill"></i></a>
                             <ul class="sub-menu">
                                 <div class="sub-menu-items">
-                                    <li><a href="{{ route('orders.order_admin') }}"><i class="ri-arrow-right-s-fill"></i>Xác nhận đơn hàng</a></li>
-                                    <li><a href="{{ route('orders.order_process') }}"><i class="ri-arrow-right-s-fill"></i>Đơn hàng đang xử lý</a></li>
-                                    <li><a href="{{ route('orders.order_cancelled') }}"><i class="ri-arrow-right-s-fill"></i>Đơn hàng bị hủy</a></li>
+                                    <li><a href="{{ route('orders.order_admin') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Xác nhận đơn hàng</a></li>
+                                    <li><a href="{{ route('orders.order_process') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Đơn hàng đang xử lý</a></li>
+                                    <li><a href="{{ route('orders.order_cancelled') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Đơn hàng bị hủy</a></li>
                                 </div>
                             </ul>
                         </li>
-                        <li><a href="{{ route('review') }}"><i class="ri-feedback-line"></i>Quản lý Đánh giá</a></li>
+
+                        <li><a href="{{ route('managerreview') }}"><i class="ri-feedback-line"></i>Quản lý Đánh giá</a>
+                        </li>
+
                         <li><a href=""><i class="ri-shield-user-line"></i>Quản lý Người dùng</a></li>
-                        <li><a href=""><i class="ri-bar-chart-2-line"></i>Thống kê<i class="ri-arrow-down-s-fill"></i></a>
+
+                        <li><a href=""><i class="ri-bar-chart-2-line"></i>Thống kê<i
+                                    class="ri-arrow-down-s-fill"></i></a>
                             <ul class="sub-menu">
                                 <div class="sub-menu-items">
-                                    <li><a href="{{ route('statistic.statistic_money') }}"><i class="ri-arrow-right-s-fill"></i>Doanh thu</a></li>
-                                    <li><a href="{{ route('statistic.statistic_quantity') }}"><i class="ri-arrow-right-s-fill"></i>Số lượng sản phẩm</a></li>
-                                    <li><a href="{{ route('statistic.statistic_product') }}"><i class="ri-arrow-right-s-fill"></i>Sản phẩm có đánh giá tốt</a></li>
+                                    <li><a href="{{ route('statistic.statistic_money') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Doanh thu</a></li>
+                                    <li><a href="{{ route('statistic.statistic_quantity') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Số lượng sản phẩm</a></li>
+                                    <li><a href="{{ route('statistic.statistic_product') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Sản phẩm có đánh giá tốt</a></li>
                                 </div>
                             </ul>
                         </li>
                         <li><a href=""><i class="ri-file-chart-line"></i>Báo cáo<i class="ri-arrow-down-s-fill"></a></i>
                             <ul class="sub-menu">
                                 <div class="sub-menu-items">
-                                    <li><a href="{{ route('report.report_product') }}"><i class="ri-arrow-right-s-fill"></i>Sản phẩm tốt nhất</a></li>
-                                    <li><a href="{{ route('report.report_customer') }}"><i class="ri-arrow-right-s-fill"></i>Top khách hàng</a></li>
+                                    <li><a href="{{ route('report.report_product') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Sản phẩm tốt nhất</a></li>
+                                    <li><a href="{{ route('report.report_customer') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Top khách hàng</a></li>
                                 </div>
                             </ul>
                         </li>
@@ -88,7 +106,7 @@
                 </div>
                 <div class="admin-content-review">
                     <div class="admin-content-review-title">
-                        <h1>Quản lý đánh giá</h1>
+                        <h4 class="m-0 p-2">Quản lý đánh giá</h4>
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">
@@ -111,23 +129,28 @@
                                         <tr>
                                             <td>{{ $review->id_review }}</td>
                                             <td>{{ $review->user->username }}</td>
-                                            <td><img src="{{ asset('images/' . $review->product->image_url) }}" alt="" style="width: 70px;"></td>
+                                            <td><img src="{{ asset('images/' . $review->product->image_url) }}" alt=""
+                                                    style="width: 70px;"></td>
                                             <td>{{ $review->product->name }}</td>
-                                            <td>{{ $review->rating }}<i class="fa-solid fa-star" style="color: #FFD43B;"></i></td>
+                                            <td>{{ $review->rating }}<i class="fa-solid fa-star"
+                                                    style="color: #FFD43B;"></i></td>
                                             <td class="content-review">{{ $review->comment }}</td>
                                             <td>{{ $review->created_at->format('H:i:s d-m-Y') }}</td>
                                             <td>{{ $review->status }}</td>
                                             <td>
                                                 <div class="review-action" style="justify-content: center;">
-                                                    <form action="{{ route('review.approve', $review->id_review) }}" method="POST">
+                                                    <form action="{{ route('review.approve', $review->id_review) }}"
+                                                        method="POST">
                                                         @csrf
                                                         <button type="submit" class="btn-approved">Duyệt</button>
                                                     </form>
-                                                    <form action="{{ route('review.hide', $review->id_review) }}" method="POST">
+                                                    <form action="{{ route('review.hide', $review->id_review) }}"
+                                                        method="POST">
                                                         @csrf
                                                         <button type="submit" class="btn-pending">Ẩn</button>
                                                     </form>
-                                                    <form action="{{ route('review.delete', $review->id_review) }}" method="POST">
+                                                    <form action="{{ route('review.delete', $review->id_review) }}"
+                                                        method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn-rejected">Xóa</button>
@@ -153,25 +176,24 @@
 
         menuLi.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
+                const currentSubMenu = link.parentElement.querySelector('.sub-menu');
 
-                const parentLi = link.parentElement;
-                const currentSubMenu = parentLi.querySelector('.sub-menu');
+                // Chỉ xử lý nếu có submenu
+                if (currentSubMenu) {
+                    e.preventDefault();
 
-                // Nếu submenu đang active (đang mở), thì đóng lại
-                const isActive = currentSubMenu.classList.contains('active');
+                    const isActive = currentSubMenu.classList.contains('active');
 
-                // Đóng tất cả các submenu
-                submenu.forEach(menu => {
-                    menu.classList.remove('active');
-                    menu.style.height = '0px';
-                });
+                    submenu.forEach(menu => {
+                        menu.classList.remove('active');
+                        menu.style.height = '0px';
+                    });
 
-                // Nếu submenu vừa nhấn không phải đang mở thì mở nó    
-                if (!isActive) {
-                    currentSubMenu.classList.add('active');
-                    const submenuHeight = currentSubMenu.querySelector('.sub-menu-items').offsetHeight;
-                    currentSubMenu.style.height = submenuHeight + 'px';
+                    if (!isActive) {
+                        currentSubMenu.classList.add('active');
+                        const submenuHeight = currentSubMenu.querySelector('.sub-menu-items').offsetHeight;
+                        currentSubMenu.style.height = submenuHeight + 'px';
+                    }
                 }
             });
         });

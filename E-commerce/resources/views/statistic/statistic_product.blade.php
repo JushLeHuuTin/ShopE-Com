@@ -114,7 +114,7 @@
                 </div>
                 <div class="admin-content-review">
                     <div class="admin-content-review-title">
-                        <h4 class="p-3 m-0">Thống kê sản phẩm tốt nhất</h4>
+                        <h4 class="p-1 m-0">Thống kê sản phẩm tốt nhất</h4>
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">
@@ -131,7 +131,7 @@
                                 <tbody>
                                     @foreach ($topProducts as $product)
                                         <tr>
-                                            <td><img style="width: 100px;" src="{{ asset('images/'.$product->product_image_url) }}" alt=""></td>
+                                            <td><img style="width: 70px;" src="{{ asset('images/'.$product->product_image_url) }}" alt=""></td>
                                             <td>{{ $product->product_name }}</td>
                                             <td>{{ number_format($product->product_price, 0, ',', '.') }}</td>
                                             <td>{{ number_format($product->average_rating, 1) }}⭐</td>

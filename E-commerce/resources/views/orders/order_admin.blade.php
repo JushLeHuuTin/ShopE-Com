@@ -110,7 +110,7 @@
                 </div>
                 <div class="admin-content-review">
                     <div class="admin-content-review-title">
-                        <h1>Quản lý đơn hàng</h1>
+                        <h4>Quản lý đơn hàng</h4>
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">

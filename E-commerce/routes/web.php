@@ -40,7 +40,9 @@ Route::get('/admin/order/process', [OrderAdminController::class, 'orderProcess']
 //Statistic
 Route::get('/admin/statistic/money', [StatisticalController::class, 'statisticMoney'])->name('statistic.statistic_money');
 Route::post('/admin/statistic/money', [StatisticalController::class, 'totalRevenua'])->name('statistic.statistic_money');
+
 Route::get('/admin/statistic/quantity', [StatisticalController::class, 'statisticQuantity'])->name('statistic.statistic_quantity');
+Route::get('/admin/statistic/quantity', [StatisticalController::class, 'caculateQuantity'])->name('statistic.statistic_quantity');
 
 Route::get('/admin/statistic/product', [StatisticalController::class, 'statisticProduct'])->name('statistic.statistic_product');
 Route::get('/admin/statistic/product', [StatisticalController::class, 'caculateRating'])->name('statistic.statistic_product');

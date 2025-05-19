@@ -116,6 +116,9 @@
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">
+                            @if ($quantitySell->isEmpty())
+                            <p>Chua co du lieu san pham</p>
+                            @else
                             <table>
                                 <thead>
                                     <tr>
@@ -123,30 +126,25 @@
                                         <th>Tên sản phẩm</th>
                                         <th>Hình ảnh</th>
                                         <th>Danh mục</th>
-                                        <th>Kho</th>
                                         <th>Số lượng bán</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($quantitySell as $quantity)
                                     <tr>
-                                        <td>10</td>
-                                        <td>Dien thoai</td>
-                                        <td><img style="width: 100px;" src="images.jpg" alt=""></td>
-                                        <td>Áo</td>
-                                        <td>100</td>
-                                        <td>200</td>
+                                        <td>{{ $quantity->product_id }}</td>
+                                        <td>{{ $quantity->product_name }}</td>
+                                        <td><img style="width: 50px;" src="{{ asset('images/'.$quantity->product_image_url) }}" alt=""></td>
+                                        <td>{{ $quantity->category_name }}</td>
+                                        <td>{{ $quantity->total_quantity }}</td>
                                     </tr>
-                                    <tr>
-                                        <td>10</td>
-                                        <td>Dien thoai</td>
-                                        <td><img style="width: 100px;" src="images.jpg" alt=""></td>
-                                        <td>Áo</td>
-                                        <td>50</td>
-                                        <td>200</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
-
+                            <div class="mt-2">
+                                    {{ $quantitySell->links('pagination::bootstrap-5') }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

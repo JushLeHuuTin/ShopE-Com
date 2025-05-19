@@ -56,7 +56,8 @@
                                 </div>
                             </ul>
                         </li>
-                        <li><a href="{{ route('review') }}"><i class="ri-feedback-line"></i>Quản lý Đánh giá</a></li>
+                        <li><a href="{{ route('managerreview') }}"><i class="ri-feedback-line"></i>Quản lý Đánh giá</a>
+                        </li>
                         <li><a href=""><i class="ri-shield-user-line"></i>Quản lý Người dùng</a></li>
                         <li><a href=""><i class="ri-bar-chart-2-line"></i>Thống kê<i
                                     class="ri-arrow-down-s-fill"></i></a>
@@ -122,23 +123,21 @@
                                     <tr>
                                         <th>Ảnh</th>
                                         <th>Tên sản phẩm</th>
+                                        <th>Giá</th>
                                         <th>Đánh giá trung bình</th>
                                         <th>Số đánh giá</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><img style="width: 100px;" src="images.jpg" alt=""></td>
-                                        <td>Dien thoai</td>
-                                        <td>4.9⭐</td>
-                                        <td>200</td>
-                                    </tr>
-                                    <tr>
-                                        <td><img style="width: 100px;" src="images.jpg" alt=""></td>
-                                        <td>Dien thoai</td>
-                                        <td>4.9⭐</td>
-                                        <td>200</td>
-                                    </tr>
+                                    @foreach ($topProducts as $product)
+                                        <tr>
+                                            <td><img style="width: 100px;" src="{{ asset('images/'.$product->product_image_url) }}" alt=""></td>
+                                            <td>{{ $product->product_name }}</td>
+                                            <td>{{ number_format($product->product_price, 0, ',', '.') }}</td>
+                                            <td>{{ number_format($product->average_rating, 1) }}⭐</td>
+                                            <td>{{ $product->total_review }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
 
@@ -156,28 +155,28 @@
 
         menuLi.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
+                const currentSubMenu = link.parentElement.querySelector('.sub-menu');
 
-                const parentLi = link.parentElement;
-                const currentSubMenu = parentLi.querySelector('.sub-menu');
+                // Chỉ xử lý nếu có submenu
+                if (currentSubMenu) {
+                    e.preventDefault();
 
-                // Nếu submenu đang active (đang mở), thì đóng lại
-                const isActive = currentSubMenu.classList.contains('active');
+                    const isActive = currentSubMenu.classList.contains('active');
 
-                // Đóng tất cả các submenu
-                submenu.forEach(menu => {
-                    menu.classList.remove('active');
-                    menu.style.height = '0px';
-                });
+                    submenu.forEach(menu => {
+                        menu.classList.remove('active');
+                        menu.style.height = '0px';
+                    });
 
-                // Nếu submenu vừa nhấn không phải đang mở thì mở nó    
-                if (!isActive) {
-                    currentSubMenu.classList.add('active');
-                    const submenuHeight = currentSubMenu.querySelector('.sub-menu-items').offsetHeight;
-                    currentSubMenu.style.height = submenuHeight + 'px';
+                    if (!isActive) {
+                        currentSubMenu.classList.add('active');
+                        const submenuHeight = currentSubMenu.querySelector('.sub-menu-items').offsetHeight;
+                        currentSubMenu.style.height = submenuHeight + 'px';
+                    }
                 }
             });
         });
+
     </script>
 </body>
 

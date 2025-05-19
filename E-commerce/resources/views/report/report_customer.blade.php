@@ -42,31 +42,41 @@
                 <div class="admin-sidebar-content">
                     <ul>
                         <li><a href=""><i class="ri-box-3-line"></i>Quản lý Sản phẩm</a></li>
-                        <li><a href=""><i class="fa-solid fa-calendar"></i>Quản lý Đơn hàng<i class="ri-arrow-down-s-fill"></i></a>
+                        <li><a href=""><i class="fa-solid fa-calendar"></i>Quản lý Đơn hàng<i
+                                    class="ri-arrow-down-s-fill"></i></a>
                             <ul class="sub-menu">
                                 <div class="sub-menu-items">
-                                    <li><a href="{{ route('orders.order_admin') }}"><i class="ri-arrow-right-s-fill"></i>Xác nhận đơn hàng</a></li>
-                                    <li><a href="{{ route('orders.order_process') }}"><i class="ri-arrow-right-s-fill"></i>Đơn hàng đang xử lý</a></li>
-                                    <li><a href="{{ route('orders.order_cancelled') }}"><i class="ri-arrow-right-s-fill"></i>Đơn hàng bị hủy</a></li>
+                                    <li><a href="{{ route('orders.order_admin') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Xác nhận đơn hàng</a></li>
+                                    <li><a href="{{ route('orders.order_process') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Đơn hàng đang xử lý</a></li>
+                                    <li><a href="{{ route('orders.order_cancelled') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Đơn hàng bị hủy</a></li>
                                 </div>
                             </ul>
                         </li>
-                        <li><a href="{{ route('review') }}"><i class="ri-feedback-line"></i>Quản lý Đánh giá</a></li>
+                        <li><a href="{{ route('managerreview') }}"><i class="ri-feedback-line"></i>Quản lý Đánh giá</a></li>
                         <li><a href=""><i class="ri-shield-user-line"></i>Quản lý Người dùng</a></li>
-                        <li><a href=""><i class="ri-bar-chart-2-line"></i>Thống kê<i class="ri-arrow-down-s-fill"></i></a>
+                        <li><a href=""><i class="ri-bar-chart-2-line"></i>Thống kê<i
+                                    class="ri-arrow-down-s-fill"></i></a>
                             <ul class="sub-menu">
                                 <div class="sub-menu-items">
-                                    <li><a href="{{ route('statistic.statistic_money') }}"><i class="ri-arrow-right-s-fill"></i>Doanh thu</a></li>
-                                    <li><a href="{{ route('statistic.statistic_quantity') }}"><i class="ri-arrow-right-s-fill"></i>Số lượng sản phẩm</a></li>
-                                    <li><a href="{{ route('statistic.statistic_product') }}"><i class="ri-arrow-right-s-fill"></i>Sản phẩm có đánh giá tốt</a></li>
+                                    <li><a href="{{ route('statistic.statistic_money') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Doanh thu</a></li>
+                                    <li><a href="{{ route('statistic.statistic_quantity') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Số lượng sản phẩm</a></li>
+                                    <li><a href="{{ route('statistic.statistic_product') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Sản phẩm có đánh giá tốt</a></li>
                                 </div>
                             </ul>
                         </li>
                         <li><a href=""><i class="ri-file-chart-line"></i>Báo cáo<i class="ri-arrow-down-s-fill"></a></i>
                             <ul class="sub-menu">
                                 <div class="sub-menu-items">
-                                    <li><a href="{{ route('report.report_product') }}"><i class="ri-arrow-right-s-fill"></i>Sản phẩm tốt nhất</a></li>
-                                    <li><a href="{{ route('report.report_customer') }}"><i class="ri-arrow-right-s-fill"></i>Top khách hàng</a></li>
+                                    <li><a href="{{ route('report.report_product') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Sản phẩm tốt nhất</a></li>
+                                    <li><a href="{{ route('report.report_customer') }}"><i
+                                                class="ri-arrow-right-s-fill"></i>Top khách hàng</a></li>
                                 </div>
                             </ul>
                         </li>
@@ -106,6 +116,9 @@
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">
+                            @if ($topCustomer->isEmpty())
+                            <p>Chua co du lieu khach hang</p>
+                            @else
                             <table>
                                 <thead>
                                     <tr>
@@ -117,16 +130,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($topCustomer as $customer)
                                     <tr>
-                                        <td>user1</td>
-                                        <td>user1@gmail.com</td>
-                                        <td>123456789</td>
-                                        <td>100</td>
-                                        <td>100.000.000 VND</td>
+                                        <td>{{ $customer->customer_name }}</td>
+                                        <td>{{ $customer->customer_email }}</td>
+                                        <td>{{ $customer->customer_phone }}</td>
+                                        <td>{{ $customer->total_orders }}</td>
+                                        <td>{{ $customer->total_amount }} VND</td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
-
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -141,28 +156,28 @@
 
         menuLi.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
+                const currentSubMenu = link.parentElement.querySelector('.sub-menu');
 
-                const parentLi = link.parentElement;
-                const currentSubMenu = parentLi.querySelector('.sub-menu');
+                // Chỉ xử lý nếu có submenu
+                if (currentSubMenu) {
+                    e.preventDefault();
 
-                // Nếu submenu đang active (đang mở), thì đóng lại
-                const isActive = currentSubMenu.classList.contains('active');
+                    const isActive = currentSubMenu.classList.contains('active');
 
-                // Đóng tất cả các submenu
-                submenu.forEach(menu => {
-                    menu.classList.remove('active');
-                    menu.style.height = '0px';
-                });
+                    submenu.forEach(menu => {
+                        menu.classList.remove('active');
+                        menu.style.height = '0px';
+                    });
 
-                // Nếu submenu vừa nhấn không phải đang mở thì mở nó    
-                if (!isActive) {
-                    currentSubMenu.classList.add('active');
-                    const submenuHeight = currentSubMenu.querySelector('.sub-menu-items').offsetHeight;
-                    currentSubMenu.style.height = submenuHeight + 'px';
+                    if (!isActive) {
+                        currentSubMenu.classList.add('active');
+                        const submenuHeight = currentSubMenu.querySelector('.sub-menu-items').offsetHeight;
+                        currentSubMenu.style.height = submenuHeight + 'px';
+                    }
                 }
             });
         });
+
 
 
 

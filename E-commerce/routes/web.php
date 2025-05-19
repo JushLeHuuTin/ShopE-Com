@@ -16,8 +16,13 @@ Route::get('/', function() {
 });
 Route::get('index', [CrudUserController::class, 'index'])->name('index');
 
+
 Route::get('review',[ReviewController::class, 'displayReview'])->name('review');
 Route::post('/review',[ReviewController::class, 'review'])->name('review.review');
+
+Route::get('/review',[ReviewController::class, 'displayReview'])->name('review');
+Route::get('/review',[ReviewController::class, 'review'])->name('review');
+
 
 Route::get('managerreview', [ReviewController::class, 'displayManagerReview'])->name('review.managerreview');
 

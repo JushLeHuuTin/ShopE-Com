@@ -42,7 +42,7 @@
         </div>
         <div class="review">
             <div class="container-review">
-                <form action="{{ route('review.review') }}" method="POST">
+                <form action="{{ route('review') }}" method="POST">
                     @csrf
                     <div class="lab-review">
                         <div class="data-product-review">

@@ -56,7 +56,8 @@
                                 </div>
                             </ul>
                         </li>
-                        <li><a href="{{ route('managerreview') }}"><i class="ri-feedback-line"></i>Quản lý Đánh giá</a></li>
+                        <li><a href="{{ route('managerreview') }}"><i class="ri-feedback-line"></i>Quản lý Đánh giá</a>
+                        </li>
                         <li><a href=""><i class="ri-shield-user-line"></i>Quản lý Người dùng</a></li>
                         <li><a href=""><i class="ri-bar-chart-2-line"></i>Thống kê<i
                                     class="ri-arrow-down-s-fill"></i></a>
@@ -113,38 +114,39 @@
                 </div>
                 <div class="admin-content-review">
                     <div class="admin-content-review-title">
-                        <h4 class="p-3 m-0">Thống kê sản phẩm tốt nhất</h4>
+                        <h4 class="p-1 m-0">Thống kê sản phẩm tốt nhất</h4>
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Mã sản phẩm</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Hình ảnh</th>
-                                        <th>Số lượng bán</th>
-                                        <th>Doanh thu</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>10</td>
-                                        <td>Dien thoai</td>
-                                        <td><img style="width: 100px;" src="images.jpg" alt=""></td>
-                                        <td>Áo</td>
-                                        <td>100</td>
-                                    </tr>
-                                    <tr>
-                                        <td>10</td>
-                                        <td>Dien thoai</td>
-                                        <td><img style="width: 100px;" src="images.jpg" alt=""></td>
-                                        <td>Áo</td>
-                                        <td>50</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
+                            @if ($topProductBest->isEmpty())
+                                <p>Chua co san nao duoc ban</p>
+                            @else
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Số lượng bán</th>
+                                            <th>Doanh thu</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($topProductBest as $productBest)
+                                            <tr>
+                                                <td>{{ $productBest->product_name }}</td>
+                                                <td><img style="width: 70px;"
+                                                        src="{{ asset('images/' . $productBest->product_image_url) }}" alt="">
+                                                </td>
+                                                <td>{{ $productBest->total_sold }}</td>
+                                                <td>{{ $productBest->total_revenue }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <div class="mt-2">
+                                    {{ $topProductBest->links('pagination::bootstrap-5') }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

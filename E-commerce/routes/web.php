@@ -19,10 +19,8 @@ Route::get('/', function() {
 });
 Route::get('index', [CrudUserController::class, 'index'])->name('index');
 
-
 Route::get('review',[ReviewController::class, 'displayReview'])->name('review');
 Route::post('/review',[ReviewController::class, 'review'])->name('review');
-
 
 Route::get('/managerreview', [ReviewController::class, 'displayManagerReview'])->name('managerreview');
 
@@ -52,3 +50,4 @@ Route::get('/admin/report/customer', [ReportController::class, 'reportCustomer']
 Route::get('/admin/report/customer', [ReportController::class, 'topCustomer'])->name('report.report_customer');
 
 Route::get('/admin/report/product', [ReportController::class, 'reportProduct'])->name('report.report_product'); 
+Route::get('/admin/report/product', [ReportController::class, 'topProductBest'])->name('report.report_product'); 

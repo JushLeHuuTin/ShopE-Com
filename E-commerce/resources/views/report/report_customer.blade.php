@@ -112,7 +112,7 @@
                 </div>
                 <div class="admin-content-review">
                     <div class="admin-content-review-title">
-                        <h4 class="p-3 m-0">Thống kê khách hàng mua nhiều nhất</h4>
+                        <h4 class="p-1 m-0">Thống kê khách hàng mua nhiều nhất</h4>
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">

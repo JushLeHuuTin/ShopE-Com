@@ -128,7 +128,7 @@
                                     @foreach ($reviews as $review)
                                         <tr>
                                             <td>{{ $review->id_review }}</td>
-                                            <td>{{ $review->user->username }}</td>
+                                            <td>{{ $review->users->username }}</td>
                                             <td><img src="{{ asset('images/' . $review->product->image_url) }}" alt=""
                                                     style="width: 70px;"></td>
                                             <td>{{ $review->product->name }}</td>

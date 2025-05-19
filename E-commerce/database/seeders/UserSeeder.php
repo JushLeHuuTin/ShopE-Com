@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         for ($i = 1; $i < self::MAX_RECORDS; $i++) {
-            DB::table('user')->insert([
+            DB::table('users')->insert([
                 [
                     'username' => "user$i",
                     'password' => Hash::make('123456'),

@@ -64,5 +64,4 @@ class ReviewController extends Controller
         $review->save();
         return redirect()->back()->with('message', 'Đánh giá đã được xóa!');
     }
-    
 }

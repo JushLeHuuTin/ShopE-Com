@@ -17,7 +17,7 @@ class ReviewController extends Controller
         // dd($request->all());
         // Kiểm tra tính hợp lệ của dữ liệu
         $validated = $request->validate([
-            'id_user' => 'required|exists:user,id_user',
+            'id_user' => 'required|exists:users,id_user',
             'id_product' => 'required|exists:products,id_product',
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string|max:500',
@@ -41,7 +41,7 @@ class ReviewController extends Controller
 
     public function displayManagerReview()
     {
-        $reviews = Review::with(['user', 'product'])->orderBy('created_at', 'desc')->get();
+        $reviews = Review::with(['users', 'product'])->orderBy('created_at', 'desc')->get();
         return view('managerreview', compact('reviews'));
     }
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\OrderAdminController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Http\Controllers\ReviewController;
@@ -11,7 +12,7 @@ use App\Http\Controllers\StatisticalController;
 //     return view('welcome');
 // });
 Route::get('login', [CrudUserController::class, 'login'])->name('login');
-Route::post('login', [CrudUserController::class, 'authUser'])->name('user.authUser');
+Route::post('login', [CrudUserController::class, 'authUser'])->name('users.authUser');
 
 Route::get('/', function() {
     return redirect('index');
@@ -40,8 +41,12 @@ Route::get('/admin/order/process', [OrderAdminController::class, 'orderProcess']
 Route::get('/admin/statistic/money', [StatisticalController::class, 'statisticMoney'])->name('statistic.statistic_money');
 Route::post('/admin/statistic/money', [StatisticalController::class, 'totalRevenua'])->name('statistic.statistic_money');
 Route::get('/admin/statistic/quantity', [StatisticalController::class, 'statisticQuantity'])->name('statistic.statistic_quantity');
+
 Route::get('/admin/statistic/product', [StatisticalController::class, 'statisticProduct'])->name('statistic.statistic_product');
+Route::get('/admin/statistic/product', [StatisticalController::class, 'caculateRating'])->name('statistic.statistic_product');
 
 //Report
-Route::get('/admin/report/customer', [OrderAdminController::class, 'reportCustomer'])->name('report.report_customer');
-Route::get('/admin/report/product', [OrderAdminController::class, 'reportProduct'])->name('report.report_product'); 
+Route::get('/admin/report/customer', [ReportController::class, 'reportCustomer'])->name('report.report_customer');
+Route::get('/admin/report/customer', [ReportController::class, 'topCustomer'])->name('report.report_customer');
+
+Route::get('/admin/report/product', [ReportController::class, 'reportProduct'])->name('report.report_product'); 

@@ -19,26 +19,7 @@ class OrderAdminController extends Controller
     {
         return view('orders.order_process');
     }
-    public function statisticMoney()
-    {
-        return view('statistic.statistic_money');
-    }
-    public function statisticProduct()
-    {
-        return view('statistic.statistic_product');
-    }
-    public function statisticQuantity()
-    {
-        return view('statistic.statistic_quantity');
-    }
-    public function reportCustomer()
-    {
-        return view('report.report_customer');
-    }
-    public function reportProduct()
-    {
-        return view('report.report_product');
-    }
+    
     //Tinh doanh thu trong khoang thoi gian da chon
     public function totalRevenua(Request $request)
     {

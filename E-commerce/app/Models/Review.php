@@ -19,7 +19,7 @@ class Review extends Model
         'comment',
     ];
 
-    public function user()
+    public function users()
     {
         return $this->belongsTo(Users::class, 'id_user', 'id_user');
     }

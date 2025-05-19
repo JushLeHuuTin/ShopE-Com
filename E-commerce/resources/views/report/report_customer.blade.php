@@ -116,6 +116,9 @@
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">
+                            @if ($topCustomer->isEmpty())
+                            <p>Chua co du lieu khach hang</p>
+                            @else
                             <table>
                                 <thead>
                                     <tr>
@@ -127,16 +130,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($topCustomer as $customer)
                                     <tr>
-                                        <td>user1</td>
-                                        <td>user1@gmail.com</td>
-                                        <td>123456789</td>
-                                        <td>100</td>
-                                        <td>100.000.000 VND</td>
+                                        <td>{{ $customer->customer_name }}</td>
+                                        <td>{{ $customer->customer_email }}</td>
+                                        <td>{{ $customer->customer_phone }}</td>
+                                        <td>{{ $customer->total_orders }}</td>
+                                        <td>{{ $customer->total_amount }} VND</td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
-
+                            @endif
                         </div>
                     </div>
                 </div>

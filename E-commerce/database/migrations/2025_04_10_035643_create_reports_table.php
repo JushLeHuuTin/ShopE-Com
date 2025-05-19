@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('period', 20);
             $table->string('period_value', 20);
             $table->decimal('value', 15, 2)->default(0.00);
-            $table->foreignId('id_user')->nullable()->constrained('user','id_user')->onDelete('set null');
+            $table->foreignId('id_user')->nullable()->constrained('users','id_user')->onDelete('set null');
             $table->foreignId('id_product')->nullable()->constrained('products','id_product')->onDelete('set null');
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();

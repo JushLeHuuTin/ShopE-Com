@@ -56,12 +56,8 @@ li {
     padding-left: 5px;
 }
 
-.admin-sidebar-content {
-    padding: 25px 0 0 25px;
-}
-
 .admin-sidebar-content ul li {
-    padding: 6px;
+    padding: 5px;
     transition: var(--main-transiton);
 }
 
@@ -125,7 +121,6 @@ li {
     justify-content: space-between;
     height: var(--top-height);
     border-bottom: 1px solid gray;
-    padding: 0 15px;
 }
 
 .admin-content-top-right .flex-box li:last-child {
@@ -210,6 +205,10 @@ td {
     background: #ffffff;
 }
 
+.admin-content-review-table-list table tbody tr td {
+    padding: 10px 0;
+}
+
 .content-review {
     width: 300px;
     word-wrap: break-word;
@@ -245,4 +244,72 @@ td {
     color: whitesmoke;
 }
 
+.btn-order {
+    padding: 5px;
+    cursor: pointer;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-order:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+}
+.btn-order-detail {
+    padding: 5px;
+    cursor: pointer;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.btn-order-detail:hover { 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+
+}
+
 /* End Table List Review */
+.form-orders-detail {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.wapper-orders {
+    width: 800px;
+    height: auto;
+    background: whitesmoke;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+}
+.form-order-title {
+    display: flex;
+    padding: 10px 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+.order-close {
+    margin-left: auto;
+    cursor: pointer;
+}
+.form-order-product-detail {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+.order-content {
+    padding: 10px;
+}
+.order-content .order-name {
+    margin-bottom: 10px;
+}
+.order-quantity {
+    margin-left: auto;
+}
+.order-total-money {
+    padding: 10px;
+}
+.revenua {
+    width: 150px;
+}

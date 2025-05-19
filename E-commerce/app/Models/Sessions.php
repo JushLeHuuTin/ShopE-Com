@@ -8,7 +8,7 @@ class Sessions extends Model
 {
     protected $table = 'sessions';
     protected $primaryKey = 'id';
-    public $timestamps = true;
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'user_id',

@@ -8,7 +8,7 @@ class Invoice extends Model
 {
     protected $table = 'invoices';
     protected $primaryKey = 'id_invoice';
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
         'id_user',

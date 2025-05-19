@@ -155,3 +155,6 @@
     margin: 10px auto;
 }
 /* End Review */
+.modal-backdrop.show {
+    opacity: 0.85; /* chỉnh đậm nhạt nền tuỳ thích */
+  }

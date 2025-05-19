@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CrudProductController;
 use App\Http\Controllers\CrudUserController;
 use Illuminate\Support\Facades\Route;
@@ -21,16 +22,23 @@ Route::get('register', [CrudUserController::class, 'register'])->name('register'
 //detail hiển thị trang chi tiết sản phẩm
 Route::get('/product/{id}', [CrudProductController::class, 'productDetail'])->name('product.detail');
 //reload thuộc tính theo id_variant
-Route::get('/product/variant/{id}', [CrudProductController::class, 'show'])->name('product.show');
+Route::get('/product/{id}/varariant', [CrudProductController::class, 'show'])->name('product.show');
 
 //admin
 Route::get('admin/product/add', [CrudProductController::class, 'add'])->name('product.add');
 Route::post('postProduct', [CrudProductController::class, 'postProduct'])->name('product.postProduct');
-Route::get('admin/product', [CrudProductController::class, 'list'])->name('product.list');
+Route::get('admin/product', [CrudProductController::class, 'getProduct'])->name('product.list');
+//update product
+Route::get('admin/product/update/{id}', [CrudProductController::class, 'edit'])->name('product.edit');
+Route::post('admin/product/update', [CrudProductController::class, 'postEdit'])->name('product.postEdit');
 // Route::get('admin', [CrudProductController::class, 'update'])->name('product.update');
-Route::get('deleted', [CrudProductController::class, 'delete'])->name('product.deleted');
+Route::get('admin/product/delete/{id}', [CrudProductController::class, 'delete'])->name('product.delete');
+Route::get('admin/product/deleted', [CrudProductController::class, 'deleted'])->name('product.deleted');
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
+
+//category
+Route::get('danhmuc/{category:slug}/', [CategoryController::class, 'show'])->name('category.show');
 
 
 Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');

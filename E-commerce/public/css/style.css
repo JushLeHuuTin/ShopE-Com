@@ -331,7 +331,7 @@
     text-align: center;
     /* color: #fff; */
     font-weight: 600;
-    margin:50px 0;
+    margin:50px 0 30px 0;
 }
 .content-first{
     border: 1px solid;
@@ -749,4 +749,8 @@ text-align: center;
 
 .hide-scrollbar::-webkit-scrollbar {
     display: none; /* Safari and Chrome */
+}
+
+th, td {
+    vertical-align: middle !important;
 }

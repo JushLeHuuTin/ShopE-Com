@@ -7,11 +7,11 @@
     <title>Demo Ap Supper</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        
+
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/reponsive.css') }}">
 </head>
@@ -113,15 +113,46 @@
                     </ul>
                 </div>
             </div>
-            <div
-                class="header__nav d-md-flex d-block align-items-center border-top border-bottom border-dark">
-                <a href="{{ route('index') }}" class="header__nav-logo-link d-md-block mt-md-0 mt-4 d-flex justify-content-center">
-                    <img src="{{ asset('/images/logo_web.png' )}}" alt="" class="header__nav-logo d-block mx-4" style="width:174px;height:28px;object-fit:cover;">
+            <div class="header__nav d-md-flex d-block align-items-center border-top border-bottom border-dark">
+                <a href="{{ route('index') }}"
+                    class="header__nav-logo-link d-md-block mt-md-0 mt-4 d-flex justify-content-center">
+                    <img src="{{ asset('/images/logo_web.png') }}" alt="" class="header__nav-logo d-block mx-4"
+                        style="width:174px;height:28px;object-fit:cover;">
                 </a>
                 <nav class="header__navbar flex-grow-1 border-start border-dark d-md-block d-none" style="height:68px">
                     <ul class="header__navbar-list d-flex align-items-center justify-content-center"
                         style="list-style: none; margin:0; height: 100%;">
+
+
                         <li class="header__navbar-item mx-3">
+                            <a class="header__navbar-link text-decoration-none fw-bold" href="">
+                                Trang chủ
+                            </a>
+                        </li>
+                        @foreach ($categories as $item)
+                            <li class="header__navbar-item mx-3">
+                                <a class="header__navbar-link text-decoration-none fw-bold"
+                                    href="{{ route('category.show', $item->slug) }}">
+                                    {{ $item->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                        <li class="header__navbar-item mx-3">
+                            <a class="header__navbar-link text-decoration-none fw-bold" href="">
+                                Giới thiệu
+                            </a>
+                        </li>
+                        <li class="header__navbar-item mx-3">
+                            <a class="header__navbar-link text-decoration-none fw-bold" href="">
+                                Tin tức
+                            </a>
+                        </li>
+                        <li class="header__navbar-item mx-3">
+                            <a class="header__navbar-link text-decoration-none fw-bold" href="">
+                                Liên hệ
+                            </a>
+                        </li>
+                        {{-- <li class="header__navbar-item mx-3">
                             <a class="header__navbar-link text-decoration-none fw-bold" href="">
                                 Trang chủ
                             </a>
@@ -222,10 +253,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                        <li class="header__navbar-item mx-3">
-                            <a class="header__navbar-link text-decoration-none fw-bold" href="">
-                                 Đồ bơi
+                        </li> --}}
+                        {{-- <li class="header__navbar-item mx-3">
+                            <a class="header__navbar-link text-decoration-none fw-bold"
+                                href="{{ route('category.filter'), $categories[0]->id_category }}">
+                                Đồ bơi
                             </a>
                             <!-- Shop Content -->
                             <div class="select-shop position-absolute bg-white">
@@ -319,8 +351,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                        <li class="header__navbar-item mx-3">
+                        </li> --}}
+                        {{-- <li class="header__navbar-item mx-3">
                             <a class="header__navbar-link text-decoration-none fw-bold" href="">
                                 Đồ chạy bộ
                             </a>
@@ -339,8 +371,8 @@
                             <a class="header__navbar-link text-decoration-none fw-bold" href="">
                                 Tin tức
                             </a>
-                        </li>
-                        <li class="header__navbar-item mx-3">
+                        </li> --}}
+                        {{-- <li class="header__navbar-item mx-3">
                             <a class="header__navbar-link text-decoration-none fw-bold" href="">
                                 Giới thiệu
                             </a>
@@ -436,7 +468,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                        </li> --}}
                     </ul>
                 </nav>
                 <div class="header__mobile d-flex justify-content-between align-items-center">
@@ -447,8 +479,8 @@
                         <div class="mobile__search">
                             <label for="checkbox-search" style="margin-bottom: 5px;">
                                 <a class="text-decoration-none" style="cursor: pointer;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                        fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 20 20" fill="none">
                                         <path
                                             d="M19 19L13.0001 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z"
                                             stroke-width="2" stroke=black stroke-linecap="round"
@@ -467,7 +499,8 @@
                                             viewBox="0 0 20 20" fill="none">
                                             <path
                                                 d="M19 19L13.0001 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            </path>
                                         </svg>
                                     </a>
                                 </label>
@@ -477,8 +510,8 @@
                                 <div class="header__search p-3">
                                     <label for="checkbox-search" class="position-absolute"
                                         style="right: 20px; cursor: pointer;">
-                                        <svg focusable="false" width="14" height="14" class="icon icon--close "
-                                            viewBox="0 0 14 14">
+                                        <svg focusable="false" width="14" height="14"
+                                            class="icon icon--close " viewBox="0 0 14 14">
                                             <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="2"
                                                 fill="none">
                                             </path>
@@ -495,8 +528,9 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <input id="search-input" class="ps-1 ms-2 border-none w-100" type="text" name=""
-                                            id="" placeholder="What are you looking for?" autofocus>
+                                        <input id="search-input" class="ps-1 ms-2 border-none w-100" type="text"
+                                            name="" id="" placeholder="What are you looking for?"
+                                            autofocus>
                                     </div>
                                     <div class="header__search-body mt-5">
                                         <h3 class="select-heading">POPULAR</h3>
@@ -528,8 +562,8 @@
                             </div>
                             <div href="" class="user text-decoration-none me-4 position-relative">
                                 <a style="cursor: pointer;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
-                                        fill="none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                        viewBox="0 0 22 22" fill="none">
                                         <path
                                             d="M4.3163 18.4384C4.92462 17.0052 6.34492 16 8 16H14C15.6551 16 17.0754 17.0052 17.6837 18.4384M15 8.5C15 10.7091 13.2091 12.5 11 12.5C8.79086 12.5 7 10.7091 7 8.5C7 6.29086 8.79086 4.5 11 4.5C13.2091 4.5 15 6.29086 15 8.5ZM21 11C21 16.5228 16.5228 21 11 21C5.47715 21 1 16.5228 1 11C1 5.47715 5.47715 1 11 1C16.5228 1 21 5.47715 21 11Z"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -547,18 +581,20 @@
                                     </li>
                                     <li>
                                         <a style="cursor: pointer;"
-                                            class=" d-block fs-12px text-link text-decoration-none" id="checkOut">Check
+                                            class=" d-block fs-12px text-link text-decoration-none"
+                                            id="checkOut">Check
                                             out</a>
                                     </li>
                                     <li>
-                                        <a class=" d-block fs-12px text-link text-decoration-none" href="">Compare
+                                        <a class=" d-block fs-12px text-link text-decoration-none"
+                                            href="">Compare
                                             (0)</a>
                                     </li>
                                 </ul>
                             </div>
                             <a href="" class="text-decoration-none me-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
-                                    fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                    viewBox="0 0 22 22" fill="none">
                                     <path
                                         d="M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z"
                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -574,7 +610,8 @@
                                             viewBox="0 0 20 22" fill="none">
                                             <path
                                                 d="M3.52 1.64L1.96 3.72C1.65102 4.13198 1.49652 4.33797 1.50011 4.51039C1.50323 4.66044 1.57358 4.80115 1.69175 4.89368C1.82754 5 2.08503 5 2.6 5H17.4C17.915 5 18.1725 5 18.3083 4.89368C18.4264 4.80115 18.4968 4.66044 18.4999 4.51039C18.5035 4.33797 18.349 4.13198 18.04 3.72L16.48 1.64M3.52 1.64C3.696 1.40533 3.784 1.288 3.89552 1.20338C3.9943 1.12842 4.10616 1.0725 4.22539 1.03845C4.36 1 4.50667 1 4.8 1H15.2C15.4933 1 15.64 1 15.7746 1.03845C15.8938 1.0725 16.0057 1.12842 16.1045 1.20338C16.216 1.288 16.304 1.40533 16.48 1.64M3.52 1.64L1.64 4.14666C1.40254 4.46328 1.28381 4.62159 1.1995 4.79592C1.12469 4.95062 1.07012 5.11431 1.03715 5.28296C1 5.47301 1 5.6709 1 6.06666L1 17.8C1 18.9201 1 19.4802 1.21799 19.908C1.40973 20.2843 1.71569 20.5903 2.09202 20.782C2.51984 21 3.07989 21 4.2 21L15.8 21C16.9201 21 17.4802 21 17.908 20.782C18.2843 20.5903 18.5903 20.2843 18.782 19.908C19 19.4802 19 18.9201 19 17.8V6.06667C19 5.6709 19 5.47301 18.9628 5.28296C18.9299 5.11431 18.8753 4.95062 18.8005 4.79592C18.7162 4.62159 18.5975 4.46328 18.36 4.14667L16.48 1.64M14 9C14 10.0609 13.5786 11.0783 12.8284 11.8284C12.0783 12.5786 11.0609 13 10 13C8.93913 13 7.92172 12.5786 7.17157 11.8284C6.42143 11.0783 6 10.0609 6 9"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            </path>
                                         </svg>
                                         <div class="cart-label">
                                             0
@@ -611,13 +648,14 @@
                         <div class="header__menu border-start border-dark d-flex align-items-center p-md-4 p-3"
                             style="height: 68px;">
                             <label for="menu-selection" style="cursor: pointer;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="17" viewBox="0 0 40 17"
-                                    fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="17"
+                                    viewBox="0 0 40 17" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M40 1H0V0H40V1Z" fill="black">
                                     </path>
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M40 9H0V8H40V9Z" fill="black">
                                     </path>
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M40 17H0V16H40V17Z" fill="black">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M40 17H0V16H40V17Z"
+                                        fill="black">
                                     </path>
                                 </svg>
                             </label>
@@ -631,35 +669,38 @@
                                     <i class="fs-4 fa-solid fa-xmark"></i>
                                 </label>
                                 <a href="">
-                                    <img src="{{ asset('/images/logo_1.png' )}}" alt="">
+                                    <img src="{{ asset('/images/logo_1.png') }}" alt="">
                                 </a>
                                 <!-- test row col -->
                                 <div class="img-list my-5" style="display: flex; flex-wrap: wrap; margin: 0 -6px;">
                                     <div class="" style="padding:0 6px; width: 33.3%;">
                                         <img style="width: 100%; height: auto; margin-bottom:12px"
-                                            src="{{ asset('/images/home7_5.png' )}}" alt="">
+                                            src="{{ asset('/images/home7_5.png') }}" alt="">
 
                                     </div>
                                     <div class="" style="padding:0 6px; width: 33.3%;">
                                         <img style="width: 100%; height: auto; margin-bottom:12px"
-                                            src="{{ asset('/images/home7_5.png' )}}" alt="">
+                                            src="{{ asset('/images/home7_5.png') }}" alt="">
 
                                     </div>
                                     <div class="" style="padding:0 6px; width: 33.3%;">
                                         <img style="width: 100%; height: auto; margin-bottom:12px"
-                                            src="{{ asset('/images/home7_5.png' )}}" alt="">
+                                            src="{{ asset('/images/home7_5.png') }}" alt="">
 
                                     </div>
                                     <div class="" style="padding:0 6px; width: 33.3%;">
-                                        <img style="width: 100%; height: auto;" src="{{ asset('/images/home7_5.png' )}}" alt="">
+                                        <img style="width: 100%; height: auto;"
+                                            src="{{ asset('/images/home7_5.png') }}" alt="">
 
                                     </div>
                                     <div class="" style="padding:0 6px; width: 33.3%;">
-                                        <img style="width: 100%; height: auto;" src="{{ asset('/images/home7_5.png' )}}" alt="">
+                                        <img style="width: 100%; height: auto;"
+                                            src="{{ asset('/images/home7_5.png') }}" alt="">
 
                                     </div>
                                     <div class="" style="padding:0 6px; width: 33.3%;">
-                                        <img style="width: 100%; height: auto;" src="{{ asset('/images/home7_5.png' )}}" alt="">
+                                        <img style="width: 100%; height: auto;"
+                                            src="{{ asset('/images/home7_5.png') }}" alt="">
 
                                     </div>
                                 </div>
@@ -705,16 +746,20 @@
                         <div class="border-top border-bottom col-md-4 border-end border-dark" style="padding:60px">
                             <div class=" footer-contact__item">
                                 <h3>Liên Hệ Với Chúng Tôi</h3>
-                                <p class="my-0">234 Nguyễn Văn Linh, Phường Thạc Gián, Quận Thanh Khê, TP. Đà Nẵng</p>
-                                <span style="color: var(--primary-color)" class="my-3 d-inline-block">086-286-606</span><br>
+                                <p class="my-0">234 Nguyễn Văn Linh, Phường Thạc Gián, Quận Thanh Khê, TP. Đà Nẵng
+                                </p>
+                                <span style="color: var(--primary-color)"
+                                    class="my-3 d-inline-block">086-286-606</span><br>
                                 <span>support@overflow-vietnam.com</span>
                             </div>
                         </div>
                         <div class="border-top border-bottom col-md-4 border-end border-dark" style="padding:60px">
                             <div class=" footer-contact__item">
                                 <h3>Đăng Ký Nhận Tin</h3>
-                                <p style="font-size: 14px;font-weight: lighter;">Đăng ký để nhận tin tức và sự kiện mới nhất.</p>
-                                <form action="" class="d-flex justify-content-between footer-contact__input-wrapper">
+                                <p style="font-size: 14px;font-weight: lighter;">Đăng ký để nhận tin tức và sự kiện mới
+                                    nhất.</p>
+                                <form action=""
+                                    class="d-flex justify-content-between footer-contact__input-wrapper">
                                     <input id="footer-email" class="w-100 flex-grow-1 fw-light footer-contact__input"
                                         type="email" name="" id="" placeholder="Email Của Bạn...">
                                     <button type="submit" style="white-space: nowrap;">
@@ -777,18 +822,18 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const btnAdd = document.querySelector('.btn__add');
             const btnRemove = document.querySelector('.btn__remove');
             const inputQty = document.querySelector('.input__quantity');
 
-            btnAdd.addEventListener('click', function (e) {
+            btnAdd.addEventListener('click', function(e) {
                 e.preventDefault();
                 let currentVal = parseInt(inputQty.value);
                 inputQty.value = currentVal + 1;
             });
 
-            btnRemove.addEventListener('click', function (e) {
+            btnRemove.addEventListener('click', function(e) {
                 e.preventDefault();
                 let currentVal = parseInt(inputQty.value);
                 if (currentVal > 1) {

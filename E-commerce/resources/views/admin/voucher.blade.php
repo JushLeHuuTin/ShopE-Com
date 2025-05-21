@@ -65,7 +65,7 @@
                             </span>
                         </td>
                         <td class="p-2">
-                            20
+                         {{$voucher->max_uses}}
                         </td>
                         <td class="p-2 flex space-x-2">
                             <i class="fas fa-pen text-red-500 cursor-pointer">

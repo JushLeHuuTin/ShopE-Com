@@ -56,7 +56,7 @@ use Illuminate\Support\Str;
                                 @endif
                             </td>
                             <td class="p-2">
-                                {{ $product->category->name }}
+                              
                             </td>
                             <td class="p-2">
                                 @if ($product->image_url != 'null')

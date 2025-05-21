@@ -68,8 +68,11 @@
                          {{$voucher->max_uses}}
                         </td>
                         <td class="p-2 flex space-x-2">
-                            <i class="fas fa-pen text-red-500 cursor-pointer">
-                            </i>
+                            <a href="{{route('voucher.update',$voucher->id_discount)}}" >
+
+                                <i class="fas fa-pen text-red-500 cursor-pointer">
+                                    </i>
+                                </a>
                             <a href="{{ route('voucher.delete',$voucher->id_discount) }}" class="delete-voucher">
                                 <i class="fas fa-trash text-red-500 cursor-pointer">
                                     </i>

@@ -58,4 +58,8 @@ class CrudVoucherController extends BaseController
         ]);
         return redirect()->route('voucher.add')->withSuccess("Tạo voucher thành công");
     }
+    public function update($id){
+        $voucher = Voucher::findOrFail($id);
+        return view('admin.updateVoucher',['voucher'=>$voucher]);
+    }
 }

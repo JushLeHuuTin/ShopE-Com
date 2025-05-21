@@ -32,6 +32,7 @@ Route::get('admin/product', [CrudProductController::class, 'getProduct'])->name(
 Route::get('admin/product/delete/{id}', [CrudProductController::class, 'delete'])->name('product.delete');
 Route::get('admin/product/deleted', [CrudProductController::class, 'deleted'])->name('product.deleted');
 
+
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 
 
@@ -42,6 +43,7 @@ Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');
 Route::get('admin/voucher', [CrudVoucherController::class, 'getList'])->name('voucher.list'); 
 Route::post('admin/postVoucher', [CrudVoucherController::class, 'postVoucher'])->name('voucher.postVoucher'); 
 
+Route::get('admin/product/update/{id}', [CrudVoucherController::class, 'update'])->name('voucher.update');
 
 Route::get('review',[ReviewController::class, 'displayReview'])->name('review');
 Route::post('/review',[ReviewController::class, 'review'])->name('review.review');

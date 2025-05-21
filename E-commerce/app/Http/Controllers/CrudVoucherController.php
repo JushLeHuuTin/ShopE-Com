@@ -33,7 +33,7 @@ class CrudVoucherController extends BaseController
                 'required',
                 function ($attribute, $value, $fail) {
                     if (Carbon::parse($value)->lt(Carbon::now())) {
-                        $fail('* Ngày hết hạn phải lớn hơn thời điểm hiện tại');
+                        $fail('*Vui lòng chọn ngày lớn hơn ngày hiện tại');
                     }
                 },
             ],

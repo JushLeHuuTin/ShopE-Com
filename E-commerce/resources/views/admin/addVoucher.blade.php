@@ -36,7 +36,7 @@
 
                         <div class="col-md-8">
                             <label class="form-label">Ngày kết thúc</label>
-                            <input type="datetime-local" name="expiration_date" class="form-control form-control-sm" max="2099-12-31T23:59"/>
+                            <input type="date" name="expiration_date" class="form-control form-control-sm" max="2099-12-31T23:59"/>
                             @if ($errors->has('expiration_date'))
                                 <div class="text-danger small">{{ $errors->first('expiration_date') }}</div>
                             @endif

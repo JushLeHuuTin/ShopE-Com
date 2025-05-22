@@ -12,10 +12,10 @@
         <h1 class="border-bottom pb-2 mb-4 h5">Cập Nhật Voucher</h1>
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <form method="POST" action="{{ route('voucher.postVoucher') }}" enctype="multipart/form-data">
-                    @csrf
-
-                    <div class="row g-3 justify-content-center">
+                <form method="POST" action="{{ route('voucher.postUpdate') }}" enctype="multipart/form-data">
+                    @csrf   
+                    <div class="row g-3 justify-content-center">    
+                        <input type="text" name="id" value="{{$voucher->id_discount}}" hidden>
                         <div class="col-md-8">
                             <label class="form-label">Mã giảm giá</label>
 
@@ -37,7 +37,7 @@
 
                         <div class="col-md-8">
                             <label class="form-label">Ngày kết thúc</label>
-                            <input value="{{$voucher->expiration_date}}" type="datetime-local" name="expiration_date" class="form-control form-control-sm" max="2099-12-31T23:59"/>
+                            <input value="{{$voucher->expiration_date}}" type="date" name="expiration_date" class="form-control form-control-sm" max="2099-12-31T23:59"/>
                             @if ($errors->has('expiration_date'))
                                 <div class="text-danger small">{{ $errors->first('expiration_date') }}</div>
                             @endif

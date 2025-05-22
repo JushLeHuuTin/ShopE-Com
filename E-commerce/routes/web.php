@@ -43,7 +43,8 @@ Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');
 Route::get('admin/voucher', [CrudVoucherController::class, 'getList'])->name('voucher.list'); 
 Route::post('admin/postVoucher', [CrudVoucherController::class, 'postVoucher'])->name('voucher.postVoucher'); 
 
-Route::get('admin/product/update/{id}', [CrudVoucherController::class, 'update'])->name('voucher.update');
+Route::get('admin/voucher/update/{id}', [CrudVoucherController::class, 'update'])->name('voucher.update');
+Route::post('admin/voucher/update/', [CrudVoucherController::class, 'postUpdate'])->name('voucher.postUpdate');
 
 Route::get('review',[ReviewController::class, 'displayReview'])->name('review');
 Route::post('/review',[ReviewController::class, 'review'])->name('review.review');

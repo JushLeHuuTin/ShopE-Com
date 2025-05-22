@@ -39,7 +39,7 @@ class CrudVoucherController extends BaseController
                 },
             ],
             'discount_value' => 'required',
-            'discount_value' => 'required|numeric|min:0|max:50',
+            'discount_value' => 'required|numeric|min:0|max:100',
             'max_uses' => 'required'
         ], [
             'code.required' => '* Vui lòng không bỏ trống',
@@ -77,7 +77,7 @@ class CrudVoucherController extends BaseController
                 },
             ],
             'discount_value' => 'required',
-            'discount_value' => 'required|numeric|min:0|max:50',
+            'discount_value' => 'required|numeric|min:0|max:100',
             'max_uses' => 'required'
         ], [
             'code.required' => '* Vui lòng không bỏ trống',

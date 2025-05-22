@@ -3,10 +3,9 @@ use Carbon\Carbon;
 @endphp
 @extends('layout.admin')
 
-@section('title', 'Quản lý Voucher')
+@section('title', 'Quản lý promotion')
 
 @section('content')
-
 
 <h2 class="text-xl font-bold mb-4">
     Danh sách mã giảm giá
@@ -21,7 +20,10 @@ use Carbon\Carbon;
     <thead>
         <tr class="bg-green-500 text-white">
             <th class="p-2">
-                Mã giảm giá
+                Mã khuyến mãi
+            </th>
+            <th class="p-2">
+                Tên chương trình
             </th>
             <th class="p-2">
                 Phần trăm giảm
@@ -33,47 +35,44 @@ use Carbon\Carbon;
                 Trạng thái
             </th>
             <th class="p-2">
-                Số lần sử dụng
-            </th>
-            <th class="p-2">
                 Hành động
             </th>
         </tr>
     </thead>
     <tbody>
-        @forelse($vouchers as $voucher)
+        @forelse($promotions as $promotion)
         <tr class="border-b">
             <td class="p-2">
-                {{ $voucher->code }}
+                {{ $promotion->name }}
             </td>
             <td class="p-2">
-                {{ $voucher->discount_value }}
+                {{ $promotion->discount_value }}
                 %
 
             </td>
             <td class="p-2">
-                {{ $voucher->expiration_date }}
+                {{ $promotion->start_date }}
 
             </td>
             <td class="p-2">
+                {{ $promotion->end_date }}
+            </td>
+            <td class="p-2">
                 <span class="bg-green-500 text-white rounded px-2 py-1">
-                    @if (Carbon::parse($voucher->expiration_date)->isFuture())
+                    @if (Carbon::parse($promotion->end_date)->isFuture())
                     <span class="">Còn hạn</span>
                     @else
                     <span class="">Hết hạn</span>
                     @endif
                 </span>
             </td>
-            <td class="p-2">
-                {{$voucher->max_uses}}
-            </td>
             <td class="p-2 flex space-x-2">
-                <a href="{{route('voucher.update',$voucher->id_discount)}}">
+                <a href="{{route('voucher.update',$promotion->id_promotion)}}">
 
                     <i class="fas fa-pen text-red-500 cursor-pointer">
                     </i>
                 </a>
-                <a href="{{ route('voucher.delete',$voucher->id_discount) }}" class="delete-voucher">
+                <a href="{{ route('promotion.delete',$promotion->id_promotion) }}" class="delete-promotion">
                     <i class="fas fa-trash text-red-500 cursor-pointer">
                     </i>
                 </a>

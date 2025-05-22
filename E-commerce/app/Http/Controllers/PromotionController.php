@@ -11,7 +11,10 @@ use Carbon\Carbon;
 class PromotionController extends Controller
 {
     //
-
+    public function index(){
+        $promotions = Promotion::paginate(10);
+        return view('admin.promotion',['promotions'=>$promotions]);
+    }
     public function add()
     {
         $currentDay = Carbon::now()->format('Y-m-d');

@@ -35,15 +35,14 @@ Route::get('admin/product/deleted', [CrudProductController::class, 'deleted'])->
 
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
+Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');
 
 
 
 Route::get('admin/voucher/delete/{id}', [CrudVoucherController::class, 'delete'])->name('voucher.delete');
 Route::get('admin/voucher/add', [CrudVoucherController::class, 'add'])->name('voucher.add');
-Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');
 Route::get('admin/voucher', [CrudVoucherController::class, 'getList'])->name('voucher.list'); 
 Route::post('admin/postVoucher', [CrudVoucherController::class, 'postVoucher'])->name('voucher.postVoucher'); 
-
 Route::get('admin/voucher/update/{id}', [CrudVoucherController::class, 'update'])->name('voucher.update');
 Route::post('admin/voucher/update/', [CrudVoucherController::class, 'postUpdate'])->name('voucher.postUpdate');
 
@@ -52,6 +51,9 @@ Route::get('admin/promotion/add', [PromotionController::class, 'add'])->name('pr
 Route::get('admin/promotion', [PromotionController::class, 'index'])->name('promotion.list');
 Route::post('admin/postPromotion', [PromotionController::class, 'postPromotion'])->name('promotion.postPromotion');
 
+Route::get('admin/promotion/delete/{id}', [PromotionController::class, 'delete'])->name('promotion.delete');  
+Route::get('admin/promotion/update/{id}', [PromotionController::class, 'update'])->name('promotion.update'); 
+// Route::post('admin/promotion/update/', [PromotionController::class, 'postUpdate'])->name('promotion.postUpdate');
 
 
 Route::get('review',[ReviewController::class, 'displayReview'])->name('review');

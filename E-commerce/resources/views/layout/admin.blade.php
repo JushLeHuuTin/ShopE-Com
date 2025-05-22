@@ -25,10 +25,10 @@
 <body class="bg-gray-100">
     <div class="flex">
         @include('partials.admin.sidebar')
-        <div class="w-4/5">
+        <div class="w-4/5" style="margin-bottom: 70px;">
             @include('partials.admin.header')
 
-            <div class="p-6">
+            <div class="p-6 h-100">
                 @yield('content')
             </div>
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CrudProductController;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\CrudVoucherController;
+use App\Http\Controllers\PromotionController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Models\voucher;
@@ -45,6 +46,13 @@ Route::post('admin/postVoucher', [CrudVoucherController::class, 'postVoucher'])-
 
 Route::get('admin/voucher/update/{id}', [CrudVoucherController::class, 'update'])->name('voucher.update');
 Route::post('admin/voucher/update/', [CrudVoucherController::class, 'postUpdate'])->name('voucher.postUpdate');
+
+
+Route::get('admin/promotion/add', [PromotionController::class, 'add'])->name('promotion.add');
+Route::get('admin/promotion', [PromotionController::class, 'index'])->name('promotion.list');
+Route::post('admin/postPromotion', [PromotionController::class, 'postPromotion'])->name('promotion.postPromotion');
+
+
 
 Route::get('review',[ReviewController::class, 'displayReview'])->name('review');
 Route::post('/review',[ReviewController::class, 'review'])->name('review.review');

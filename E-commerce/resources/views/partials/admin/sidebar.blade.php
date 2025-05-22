@@ -52,15 +52,19 @@
        Báo cáo
       </span>
      </li>
-     <li class="flex items-center">
+     <li  class="flex items-center "onclick="{toggleMenu('promotion')}">
       <i class="fas fa-tags mr-2">
       </i>
       <span>
        Khuyến mãi
       </span>
      </li>
+       <ul id="promotion" class="ml-6 mt-2 space-y-2 hidden">
+            <li><a href="{{ route('promotion.add') }}" class="text-sm text-gray-700 hover:text-green-600">➕ Thêm mã chương trình khuyến mãi</a></li>
+            <li><a href="{{ route('promotion.list') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách chương trình khuyến mãi</a></li>
+        </ul>
      {{-- text-green-500 --}}
-     <li class="flex items-center "onClick=toggleMenu("voucher")>
+     <li class="flex items-center "onclick="{toggleMenu('voucher')}">
       <i class="fas fa-ticket-alt mr-2" >
       </i>
       Voucher

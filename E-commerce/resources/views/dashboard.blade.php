@@ -567,9 +567,11 @@
                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </svg>
                             </a>
+
+                            <!-- giỏ hàng -->
                             <div class="me-4">
                                 <label for="checkbox-cart" href="" class="">
-                                    <a style="position: relative; cursor: pointer;">
+                                    <a href="{{ route('cart.index') }}" style="position: relative; cursor: pointer;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22"
                                             viewBox="0 0 20 22" fill="none">
                                             <path
@@ -581,31 +583,7 @@
                                         </div>
                                     </a>
                                 </label>
-                                <input type="checkbox" id="checkbox-cart" class="d-none">
-                                <label for="checkbox-cart" class="overlay"></label>
-                                <!-- Select - Cart -->
-                                <div class="cart-select p-3">
-                                    <div class="cart-head d-flex pb-3 border-bottom">
-                                        <a class="text-dark" href="">
-                                            <svg focusable="false" width="20" height="18"
-                                                class="icon icon--header-cart   " viewBox="0 0 20 18">
-                                                <path d="M3 1h14l1 16H2L3 1z" fill="none" stroke="currentColor"
-                                                    stroke-width="2"></path>
-                                                <path d="M7 4v0a3 3 0 003 3v0a3 3 0 003-3v0" fill="none"
-                                                    stroke="currentColor" stroke-width="2"></path>
-                                            </svg>
-                                        </a>
-                                        <h4 class="cart-title ms-3">
-                                            Your cart
-                                        </h4>
-                                    </div>
-                                    <div
-                                        class="cart-info d-flex flex-column justify-content-center align-items-center h-100">
-                                        <p class="cart-info_msg fs-12px">Your cart is empty</p>
-                                        <a href="" class="start-shopping py-2 px-4 text-decoration-none">START
-                                            SHOPPING</a>
-                                    </div>
-                                </div>
+                               
                             </div>
                         </div>
                         <div class="header__menu border-start border-dark d-flex align-items-center p-md-4 p-3"

@@ -9,7 +9,7 @@
                 <a href="" class="text-dark text-decoration-none" style="letter-spacing: 1px;">Thời trang Overflow > </a>
             </span>
             <span>
-                <a href="" class="text-dark text-decoration-none" style="letter-spacing: 1px;">     {{ $product->category->name }} > </a>
+                <a href="" class="text-dark text-decoration-none" style="letter-spacing: 1px;"> {{ $product->category->name }} > </a>
             </span>
             <span>
                 <a href="" class="text-dark text-decoration-none" style="letter-spacing: 1px;">{{ $product->name }}</a>
@@ -27,19 +27,19 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="product__information">
                         <div class="product__information--name fs-2 text-dark mb-3">
-                        {{ $product->name }}
+                            {{ $product->name }}
                         </div>
                         <div class="product__information--price fs-4 my-2">
-                            Giá bán: <span class="fs-4 text-danger " >
+                            Giá bán: <span class="fs-4 text-danger ">
                                 @if(isset($product->defaultVariant->price))
-                                    @if(isset($variant))
-                                    {{ number_format($variant->price, 0, ',', '.') }}₫
-                                    @else
+                                @if(isset($variant))
+                                {{ number_format($variant->price, 0, ',', '.') }}₫
+                                @else
 
-                                    {{ number_format($product->defaultVariant->price, 0, ',', '.') }}₫
+                                {{ number_format($product->defaultVariant->price, 0, ',', '.') }}₫
                                 @endif
                                 @else
-                                 Chưa được cập nhật   
+                                Chưa được cập nhật
                                 @endif
                             </span>
                         </div>
@@ -49,35 +49,36 @@
                             <form method="get" action="{{ route('product.show', ['id' => $product->id_product ]) }}">
                                 <ul class="product__size--list list-unstyled d-flex m-0">
                                     @foreach($product->Product_Variants as $variant)
-                                        <li class="product__size--item border border-dark mx-1" style="border-radius: 4px;">
-                                            <label style="cursor:pointer;"  class="w-100 h-100 py-1 px-2" onclick="this.form.submit()" >
-                                                <input type="radio" hidden 
-                                                name="variant_id" 
-                                                value="{{ $variant->id_variant }}" 
+                                    <li class="product__size--item border border-dark mx-1" style="border-radius: 4px;">
+                                        <label style="cursor:pointer;" class="w-100 h-100 py-1 px-2" onclick="this.form.submit()">
+                                            <input type="radio" hidden
+                                                name="variant_id"
+                                                value="{{ $variant->id_variant }}"
                                                 {{ request('variant_id') == $variant->id_variant ? 'checked' : '' }}>
-                                                {{ $variant->size }}    
-                                            </label>
-                                        </li>
+                                            {{ $variant->size }}
+                                        </label>
+                                    </li>
                                     @endforeach
                                 </ul>
                             </form>
                             @else
-                                <span>Chưa có size nào.</span>
+                            <span>Chưa có size nào.</span>
                             @endif
 
                         </div>
-                        <form action="">
+                        <form action="{{ route('cart.add') }}" method="POST">
+                            @csrf
                             <input type="hidden" name="variant_id" value="{{ request('variant_id') }}">
                             <div class="product__information--add d-flex my-3">
                                 <div class="quantity">
-                                    <button class="btn__quantity btn__remove">-</button>
-                                    <input type="number" name="quantity" id="" value="1" class="input__quantity">
-                                    <button class="btn__quantity btn__add">+</button>
+                                    <button type="button" class="btn__quantity btn__remove">-</button>
+                                    <input type="number" name="quantity" value="1" class="input__quantity">
+                                    <button type="button" class="btn__quantity btn__add">+</button>
                                 </div>
-                                <button type="submit" style="border-radius:4px;" class=" mx-3 w-75 btn__add-cart text-decoration-none bg-success py-2 px-3 text-white d-flex align-items-center justify-content-center">THÊM VÀO GIỎ HÀNG</a>
+                                <button type="submit" class="mx-3 w-75 btn__add-cart bg-success text-white">THÊM VÀO GIỎ HÀNG</button>
                             </div>
-
                         </form>
+
                         <div class="product__information--social d-flex align-items-center">
                             <label for="">Chia sẻ: </label>
                             <ul class="m-0 product__share d-flex list-unstyled align-items-center justify-content-center gap-1 ms-3">
@@ -88,22 +89,22 @@
                                 </li>
                                 <li class="share__item d-flex align-items-center justify-content-center" style="width:35px;height:35px; border: 1px solid ; border-radius:50%">
                                     <a href="" class="share__item--link text-decoration-none text-dark fs-5">
-                                    <i class="fa-brands fa-twitter"></i>
+                                        <i class="fa-brands fa-twitter"></i>
                                     </a>
                                 </li>
                                 <li class="share__item d-flex align-items-center justify-content-center" style="width:35px;height:35px; border: 1px solid ; border-radius:50%">
                                     <a href="" class="share__item--link text-decoration-none text-dark fs-5">
-                                    <i class="fa-solid fa-envelope"></i>
+                                        <i class="fa-solid fa-envelope"></i>
                                     </a>
                                 </li>
                                 <li class="share__item d-flex align-items-center justify-content-center" style="width:35px;height:35px; border: 1px solid ; border-radius:50%">
                                     <a href="" class="share__item--link text-decoration-none text-dark fs-5">
-                                    <i class="fa-brands fa-pinterest"></i>
+                                        <i class="fa-brands fa-pinterest"></i>
                                     </a>
                                 </li>
                                 <li class="share__item d-flex align-items-center justify-content-center" style="width:35px;height:35px; border: 1px solid ; border-radius:50%">
                                     <a href="" class="share__item--link text-decoration-none text-dark fs-5">
-                                    <i class="fa-brands fa-linkedin"></i>
+                                        <i class="fa-brands fa-linkedin"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -131,7 +132,7 @@
                                 @if(isset($product->description))
                                 {{$product->description}}
                                 @else
-                                    Trống
+                                Trống
                                 @endif
                             </div>
                         </div>
@@ -140,14 +141,14 @@
                                 <div class="title">Đánh giá</div>
                                 <p>No comments found</p>
                                 <p>Để lại bình luận</p>
-                                <p>Bạn cần <a href="{{ route('login') }}" class="text-success">đăng nhập</a>  để phản hoài</p>
+                                <p>Bạn cần <a href="{{ route('login') }}" class="text-success">đăng nhập</a> để phản hoài</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

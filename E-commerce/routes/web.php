@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Models\voucher;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CartController;
 Route::get('/', function() {
     return redirect('index');
 });
@@ -47,3 +48,9 @@ Route::get('managerreview', [ReviewController::class, 'displayManagerReview'])->
 Route::post('/managerreview/{id}/approve', [ReviewController::class, 'approve'])->name('review.approve');
 Route::post('/managerreview/{id}/hide', [ReviewController::class, 'hide'])->name('review.hide');
 Route::delete('/managerreview/{id}/delete', [ReviewController::class, 'delete'])->name('review.delete');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+Route::post('/cart/update-quantity', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');

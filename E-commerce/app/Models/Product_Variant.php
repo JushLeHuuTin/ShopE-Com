@@ -22,14 +22,11 @@ class Product_Variant extends Model
         return $this->belongsTo(Product::class, 'id_product', 'id_product');
     }
 
-    // public function carts()
-    // {
-    //     return $this->hasMany(Cart::class, 'id_variant', 'id_variant');
-    // }
-
-    // public function invoiceDetails()
-    // {
-    //     return $this->hasMany(InvoiceDetail::class, 'id_variant', 'id_variant');
-    // }
+    
+    // Quan hệ với Cart
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'id_variant', 'id_variant');
+    }
     
 }

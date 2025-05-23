@@ -38,8 +38,7 @@
                                 <div class="sub-menu-items">
                                     <li><a href="{{ route('orders.order_admin') }}"><i
                                                 class="ri-arrow-right-s-fill"></i>Xác nhận đơn hàng</a></li>
-                                    <li><a href="{{ route('orders.order_process') }}"><i
-                                                class="ri-arrow-right-s-fill"></i>Đơn hàng đang xử lý</a></li>
+                                    
                                     <li><a href="{{ route('orders.order_cancelled') }}"><i
                                                 class="ri-arrow-right-s-fill"></i>Đơn hàng bị hủy</a></li>
                                 </div>
@@ -138,21 +137,21 @@
                                                 <td>{{ $review->rating }}<i class="fa-solid fa-star"
                                                         style="color: #FFD43B;"></i></td>
                                                 <td class="content-review">{{ $review->comment }}</td>
-                                                <td>{{ $review->created_at->format('H:i:s d-m-Y') }}</td>
+                                                <td>{{ $review->created_at }}</td>
                                                 <td>{{ $review->status }}</td>
                                                 <td>
                                                     <div class="review-action" style="justify-content: center;">
-                                                        <form action="{{ route('review.approve', $review->id_review) }}"
+                                                        <form action="{{ route('approve', $review->id_review) }}"
                                                             method="POST">
                                                             @csrf
                                                             <button type="submit" class="btn-approved">Duyệt</button>
                                                         </form>
-                                                        <form action="{{ route('review.hide', $review->id_review) }}"
+                                                        <form action="{{ route('hide', $review->id_review) }}"
                                                             method="POST">
                                                             @csrf
                                                             <button type="submit" class="btn-pending">Ẩn</button>
                                                         </form>
-                                                        <form action="{{ route('review.delete', $review->id_review) }}"
+                                                        <form action="{{ route('delete', $review->id_review) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')

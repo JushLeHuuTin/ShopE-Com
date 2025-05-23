@@ -19,4 +19,9 @@ class Discount extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function checkDiscount()
+    {
+        return $this->expiration_date >= now() && $this->max_uses > 0;
+    }
 }

@@ -21,7 +21,7 @@ class InvoiceDetailSeeder extends Seeder
                 [
                     'id_invoice' => $i,
                     'id_variant' => $i,
-                    'quantity' => rand(10, 100 ),
+                    'quantity' => rand(1, 10),
                     'price' => rand(10000, 99999),
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -29,4 +29,6 @@ class InvoiceDetailSeeder extends Seeder
             ]);
         }
     }
+
+    
 }

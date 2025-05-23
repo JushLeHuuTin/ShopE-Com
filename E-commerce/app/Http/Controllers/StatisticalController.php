@@ -52,14 +52,14 @@ class StatisticalController extends Controller
             'categories.name as category_name',
             DB::raw('SUM(invoices_detail.quantity) as total_quantity')
         )
-        ->join('invoices', 'invoices_detail.id_invoice', '=', 'invoices.id_invoice')
-        ->join('product_variants', 'invoices_detail.id_variant', '=', 'product_variants.id_variant')
-        ->join('products', 'product_variants.id_product', '=', 'products.id_product')
-        ->join('categories', 'products.id_category', '=', 'categories.id_category')
-        ->where('invoices.status', 'completed')
-        ->groupBy('products.id_product', 'products.name', 'products.image_url', 'categories.name')
-        ->orderByDesc('total_quantity')
-        ->paginate(10);
+            ->join('invoices', 'invoices_detail.id_invoice', '=', 'invoices.id_invoice')
+            ->join('product_variants', 'invoices_detail.id_variant', '=', 'product_variants.id_variant')
+            ->join('products', 'product_variants.id_product', '=', 'products.id_product')
+            ->join('categories', 'products.id_category', '=', 'categories.id_category')
+            ->where('invoices.status', 'completed')
+            ->groupBy('products.id_product', 'products.name', 'products.image_url', 'categories.name')
+            ->orderByDesc('total_quantity')
+            ->paginate(10);
 
         return view('statistic.statistic_quantity', compact('quantitySell'));
     }

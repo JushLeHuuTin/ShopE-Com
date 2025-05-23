@@ -49,8 +49,7 @@
                                 <div class="sub-menu-items">
                                     <li><a href="{{ route('orders.order_admin') }}"><i
                                                 class="ri-arrow-right-s-fill"></i>Xác nhận đơn hàng</a></li>
-                                    <li><a href="{{ route('orders.order_process') }}"><i
-                                                class="ri-arrow-right-s-fill"></i>Đơn hàng đang xử lý</a></li>
+
                                     <li><a href="{{ route('orders.order_cancelled') }}"><i
                                                 class="ri-arrow-right-s-fill"></i>Đơn hàng bị hủy</a></li>
                                 </div>
@@ -116,95 +115,91 @@
                 </div>
                 <div class="admin-content-review">
                     <div class="admin-content-review-title">
-                        <h4 class="p-3 m-0">Đơn hàng bị hủy</h4>
+                        <h5 class="p-2">Đơn hàng hủy</h5>
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Mã đơn hàng</th>
-                                        <th>Tên khách hàng</th>
-                                        <th>Ngày đặt</th>
-                                        <th>Tổng tiền</th>
-                                        <th>Trạng thái</th>
-                                        <th>Hành động</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>Trieu</td>
-                                        <td>20-4-2025</td>
-                                        <td>200.000</td>
-                                        <td>Đã bị hủy</td>
-                                        <td>
-                                            <button class="btn-order">Xác nhận</button>
-                                            <button class="btn-order-detail">Xem chi tiết</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>01</td>
-                                        <td>Trieu</td>
-                                        <td>20-4-2025</td>
-                                        <td>200.000</td>
-                                        <td>Đã bị hủy</td>
-                                        <td>
-                                            <button class="btn-order">Xác nhận</button>
-                                            <button class="btn-order-detail">Xem chi tiết</button>
-
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>Trieu</td>
-                                        <td>20-4-2025</td>
-                                        <td>200.000</td>
-                                        <td>Đã bị hủy</td>
-                                        <td>
-                                            <button class="btn-order">Xác nhận</button>
-                                            <button class="btn-order-detail">Xem chi tiết</button>
-
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>Trieu</td>
-                                        <td>20-4-2025</td>
-                                        <td>200.000</td>
-                                        <td>Đã bị hủy</td>
-                                        <td>
-                                            <button class="btn-order">Xác nhận</button>
-                                            <button class="btn-order-detail">Xem chi tiết</button>
-
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                            <!-- Form chi tiet don hang -->
-                            <div class="form-orders-detail" style="display: none;">
-                                <div class="wapper-orders">
-                                    <div class="form-order-title">
-                                        <div class="order-text">Chi tiết đơn hàng</div>
-                                        <p class="order-close">X</p>
-                                    </div>
-                                    <div class="form-order-product">
-                                        <div class="form-order-product-detail">
-                                            <img style="width: 150px;" src="images.jpg" alt="">
-                                            <div class="order-content">
-                                                <div class="order-name">Iphone 13</div>
-                                                <div class="order-price">123.123 VND</div>
+                            @if ($cancellInvoice->isEmpty())
+                                <p class="d-flex justify-content-center">Chua co du lieu hoa don</p>
+                            @else
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Mã đơn hàng</th>
+                                            <th>Tên khách hàng</th>
+                                            <th>Lý do hủy</th>
+                                            <th>Ngày hủy</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($cancellInvoice as $cancel)
+                                            <tr>
+                                                <td>{{ $cancel->invoice_id }}</td>
+                                                <td>{{ $cancel->customer_name }}</td>
+                                                <td>{{ $cancel->cancellation_reason }}</td>
+                                                <td>{{ $cancel->date_cancel }}</td>
+                                                <td>{{ $cancel->status_cancelled }}</td>
+                                                <td>
+                                                    <form action="{{ route('deleteInvoice', $cancel->invoice_id) }}"
+                                                        method="POST" onclick="confirm('Ban co muon xoa khong?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">Xóa</button>
+                                                        <button class="btn btn-success btn-detail"
+                                                        data-id="{{ $cancel->invoice_id }}">Xem chi tiết</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <!-- End Form chi tiet don hang -->
+                                            <div class="form-orders-detail" id="form-detail-{{ $cancel->invoice_id }}"
+                                                data-id="{{ $cancel->invoice_id }}" style="display: none">
+                                                <div class="wapper-orders">
+                                                    <div class="form-order-title p-1">
+                                                        <div class="order-text mt-2">Chi tiết đơn hàng</div>
+                                                        <p class="order-close mt-2" data-id="{{ $cancel->invoice_id }}">X</p>
+                                                    </div>
+                                                    @if(isset($invoicesDetail[$cancel->invoice_id]))
+                                                        @foreach ($invoicesDetail[$cancel->invoice_id] as $detail)
+                                                            <div class="form-order-product">
+                                                                <div class="form-order-product-detail">
+                                                                    <img style="width: 150px;"
+                                                                        src="{{ asset('images/' . $detail->product_image_url)  }}"
+                                                                        alt="{{ $detail->product_name }}">
+                                                                    <div class="order-content">
+                                                                        <div class="order-name">{{ $detail->product_name }}</div>
+                                                                        <div class="order-price">
+                                                                            {{ number_format($detail->priceProduct, 0, ',', '.') }} VND
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="order-quantity">SL: {{ $detail->invoice_quantity }}
+                                                                    </div>
+                                                                </div>
+                                                                <div
+                                                                    class="action-form d-flex justify-content-between align-items-center">
+                                                                    <div class="order-total-money">
+                                                                        Tổng tiền:
+                                                                        {{ number_format($detail->priceProduct * $detail->invoice_quantity, 0, ',', '.') }}
+                                                                        VND
+                                                                    </div>
+                                                                    <button type="button"
+                                                                        class="btn btn-outline-primary mx-1 order-ok">OK</button>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
+                                                </div>
                                             </div>
-                                            <div class="order-quantity">SL: 2</div>
-                                        </div>
-
-                                        <div class="order-total-money">Tổng tiền: 123.123 VND</div>
-                                    </div>
+                                            <!-- Form chi tiet don hang -->
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <div class="mt-2">
+                                    {{ $cancellInvoice->links('pagination::bootstrap-5') }}
                                 </div>
-                            </div>
-                            <!-- End Form chi tiet don hang -->
+
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -240,6 +235,36 @@
                 }
             });
         });
+
+        document.querySelectorAll('.btn-detail').forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.dataset.id;
+                const detailRow = document.getElementById('form-detail-' + id);
+                if (detailRow) {
+                    detailRow.style.display = detailRow.style.display === 'none' ? '' : 'none';
+                }
+            });
+        });
+
+        document.querySelectorAll('.order-close').forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.dataset.id;
+                const detailRow = document.getElementById('form-detail-' + id);
+                if (detailRow) {
+                    detailRow.style.display = 'none';
+                }
+            });
+        });
+
+        document.querySelectorAll('.order-ok').forEach(button => {
+            button.addEventListener('click', function () {
+                const detailWrapper = this.closest('.form-orders-detail');
+                if (detailWrapper) {
+                    detailWrapper.style.display = 'none';
+                }
+            });
+        });
+
 
     </script>
 </body>

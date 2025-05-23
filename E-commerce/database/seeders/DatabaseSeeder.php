@@ -43,5 +43,9 @@ class DatabaseSeeder extends Seeder
             InvoiceDetailSeeder::class,
             ReviewSeeder::class,
         ]);
+        
+        $this->call([
+            ProductSeeder::class
+        ]);
     }
 }

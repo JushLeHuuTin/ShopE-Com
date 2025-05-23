@@ -21,6 +21,7 @@ class Category extends Seeder
             DB::table('categories')->insert([
                 [ 
                     'name' => 'Category'.$i,
+                    'slug' => 'e'.$i,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],

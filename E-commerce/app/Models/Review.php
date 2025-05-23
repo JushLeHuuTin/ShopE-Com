@@ -26,6 +26,6 @@ class Review extends Model
 
     public function product()
     {
-        return $this->belongsTo(Products::class, 'id_product', 'id_product');
+        return $this->belongsTo(Product::class, 'id_product', 'id_product');
     }
 }

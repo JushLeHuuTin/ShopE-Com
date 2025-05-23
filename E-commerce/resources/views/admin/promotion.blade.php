@@ -68,7 +68,7 @@ use Carbon\Carbon;
                     </span>
                 </td>
                 <td class="p-2 flex space-x-2">
-                    <a href="{{route('voucher.update',$promotion->id_promotion)}}">
+                    <a href="{{route('promotion.update',$promotion->id_promotion)}}">
     
                         <i class="fas fa-pen text-red-500 cursor-pointer">
                         </i>

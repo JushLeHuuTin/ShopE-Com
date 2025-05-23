@@ -53,7 +53,7 @@ Route::post('admin/postPromotion', [PromotionController::class, 'postPromotion']
 
 Route::get('admin/promotion/delete/{id}', [PromotionController::class, 'delete'])->name('promotion.delete');  
 Route::get('admin/promotion/update/{id}', [PromotionController::class, 'update'])->name('promotion.update'); 
-// Route::post('admin/promotion/update/', [PromotionController::class, 'postUpdate'])->name('promotion.postUpdate');
+Route::post('admin/promotion/update', [PromotionController::class, 'postUpdate'])->name('promotion.postUpdate');
 
 
 Route::get('review',[ReviewController::class, 'displayReview'])->name('review');

@@ -64,4 +64,27 @@ class PromotionController extends Controller
         }
         return redirect()->route('promotion.add')->withSuccess("Thêm chương trình khuyến mãi thành công!");
     }
+    public function update($id){
+        $promotion = promotion::findOrFail($id);
+        return view('admin.updatePromotion',['promotion'=>$promotion]);
+    }
+    public function postUpdate(Request $request){
+    $request->validate([
+        'id' => 'required|exists:promotions,id_promotion',
+        'name' => 'required|string|max:255',
+        'discount_value' => 'required|numeric|min:0',
+        'start_date' => 'required|date',
+        'end_date' => 'required|date|after_or_equal:start_date',
+    ]);
+
+        $input = $request->all();
+        $promotion = Promotion::findOrFail($input['id']);
+        // dd($promotion);
+        $promotion->name = $input['name'];
+        $promotion->discount_value = $input['discount_value'];
+        $promotion->start_date = $input['start_date'];
+        $promotion->end_date = $input['end_date'];
+        $promotion->save();
+       return redirect()->route('promotion.list')->withSuccess('Cập nhật thành công');
+    }
 }

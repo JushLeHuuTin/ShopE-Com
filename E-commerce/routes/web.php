@@ -11,6 +11,8 @@ use App\Models\Product;
 use App\Models\voucher;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CrudVoucherController;
+use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\StatisticalController;
 
 // Route::get('/', function() {
@@ -51,8 +53,8 @@ use App\Http\Controllers\StatisticalController;
 
 
 // //Statistic
-// Route::get('/admin/statistic/money', [StatisticalController::class, 'statisticMoney'])->name('statistic.statistic_money');
-// Route::post('/admin/statistic/money', [StatisticalController::class, 'totalRevenua'])->name('statistic.statistic_money');
+Route::get('/admin/statistic/money', [StatisticalController::class, 'statisticMoney'])->name('statistic.statistic_money');
+Route::post('/admin/statistic/money', [StatisticalController::class, 'totalRevenua'])->name('statistic.statistic_money');
 
 // Route::get('/admin/statistic/quantity', [StatisticalController::class, 'statisticQuantity'])->name('statistic.statistic_quantity');
 // Route::get('/admin/statistic/quantity', [StatisticalController::class, 'caculateQuantity'])->name('statistic.statistic_quantity');
@@ -133,11 +135,6 @@ use App\Http\Controllers\StatisticalController;
 // Route::delete('/managerreview/{id}/delete', [ReviewController::class, 'delete'])->name('review.delete');
 
 
-
-
-
-
-
 // Trang chủ
 Route::redirect('/', 'index');
 Route::get('index', [CrudProductController::class, 'index'])->name('index');
@@ -155,15 +152,10 @@ Route::get('/product/{id}/variant', [CrudProductController::class, 'show'])->nam
 Route::get('danhmuc/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
 
 // Review
-Route::get('/review', [ReviewController::class, 'displayReview'])->name('review.display');
-Route::post('/review', [ReviewController::class, 'review'])->name('review.submit');
+Route::get('/review', [ReviewController::class, 'displayReview'])->name('review');
+Route::post('/review', [ReviewController::class, 'review'])->name('review');
 
-Route::prefix('managerreview')->group(function () {
-    Route::get('/', [ReviewController::class, 'displayManagerReview'])->name('review.managerreview');
-    Route::post('{id}/approve', [ReviewController::class, 'approve'])->name('review.approve');
-    Route::post('{id}/hide', [ReviewController::class, 'hide'])->name('review.hide');
-    Route::delete('{id}/delete', [ReviewController::class, 'delete'])->name('review.delete');
-});
+
 
 // Giỏ hàng
 Route::prefix('cart')->group(function () {
@@ -178,6 +170,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [CrudUserController::class, 'admin'])->name('admin');
     Route::get('login', [AdminController::class, 'login'])->name('admin.login');
 
+    Route::prefix('managerreview')->group(function () {
+        Route::get('/', [ReviewController::class, 'displayManagerReview'])->name('managerreview');
+        Route::post('{id}/approve', [ReviewController::class, 'approve'])->name('review.approve');
+        Route::post('{id}/hide', [ReviewController::class, 'hide'])->name('review.hide');
+        Route::delete('{id}/delete', [ReviewController::class, 'delete'])->name('review.delete');
+    });
     // Product
     Route::prefix('product')->group(function () {
         Route::get('/', [CrudProductController::class, 'getProduct'])->name('product.list');
@@ -198,22 +196,50 @@ Route::prefix('admin')->group(function () {
     // Đơn hàng
     Route::prefix('order')->group(function () {
         Route::get('/', [OrderAdminController::class, 'orderAdmin'])->name('orders.order_admin');
+        Route::get('/', [OrderAdminController::class, 'processInvoices'])->name('orders.order_admin');
         Route::get('/cancelled', [OrderAdminController::class, 'orderCancelled'])->name('orders.order_cancelled');
-        Route::delete('/{invoice_id}/delete', [OrderAdminController::class, 'deleteInvoiceCancel'])->name('orders.delete_invoice');
+        Route::get('/cancelled', [OrderAdminController::class, 'cancellInvoice'])->name('orders.order_cancelled');
+        Route::delete('/{invoice_id}/delete', [OrderAdminController::class, 'deleteInvoiceCancel'])->name('deleteInvoice');
     });
 
     // Thống kê
     Route::prefix('statistic')->group(function () {
-        Route::get('money', [StatisticalController::class, 'statisticMoney'])->name('statistic.money');
+        Route::get('money', [StatisticalController::class, 'statisticMoney'])->name('statistic.statistic_money');
         Route::post('money', [StatisticalController::class, 'totalRevenua']);
 
-        Route::get('quantity', [StatisticalController::class, 'statisticQuantity'])->name('statistic.quantity');
-        Route::get('product', [StatisticalController::class, 'statisticProduct'])->name('statistic.product');
+        Route::get('quantity', [StatisticalController::class, 'statisticQuantity'])->name('statistic.statistic_quantity');
+        Route::get('quantity', [StatisticalController::class, 'caculateQuantity'])->name('statistic.statistic_quantity');
+
+        Route::get('product', [StatisticalController::class, 'statisticProduct'])->name('statistic.statistic_product');
+        Route::get('product', [StatisticalController::class, 'caculateRating'])->name('statistic.statistic_product');
     });
 
     // Báo cáo
     Route::prefix('report')->group(function () {
-        Route::get('customer', [ReportController::class, 'reportCustomer'])->name('report.customer');
-        Route::get('product', [ReportController::class, 'reportProduct'])->name('report.product');
+        Route::get('customer', [ReportController::class, 'reportCustomer'])->name('report.report_customer');
+    Route::get('customer', [ReportController::class, 'topCustomer'])->name('report.report_customer');
+    
+        Route::get('product', [ReportController::class, 'reportProduct'])->name('report.report_product');
+        Route::get('product', [ReportController::class, 'topProductBest'])->name('report.report_product');
     });
+
+
+    //
+
+    Route::get('admin/voucher/delete/{id}', [CrudVoucherController::class, 'delete'])->name('voucher.delete');
+    Route::get('admin/voucher/add', [CrudVoucherController::class, 'add'])->name('voucher.add');
+    Route::get('admin/voucher', [CrudVoucherController::class, 'getList'])->name('voucher.list');
+    Route::post('admin/postVoucher', [CrudVoucherController::class, 'postVoucher'])->name('voucher.postVoucher');
+    Route::get('admin/voucher/update/{id}', [CrudVoucherController::class, 'update'])->name('voucher.update');
+    Route::post('admin/voucher/update/', [CrudVoucherController::class, 'postUpdate'])->name('voucher.postUpdate');
+
+
+    Route::get('admin/promotion/add', [PromotionController::class, 'add'])->name('promotion.add');
+    Route::get('admin/promotion', [PromotionController::class, 'index'])->name('promotion.list');
+    Route::post('admin/postPromotion', [PromotionController::class, 'postPromotion'])->name('promotion.postPromotion');
+
+    Route::get('admin/promotion/delete/{id}', [PromotionController::class, 'delete'])->name('promotion.delete');
+    Route::get('admin/promotion/update/{id}', [PromotionController::class, 'update'])->name('promotion.update');
+    // Route::post('admin/promotion/update/', [PromotionController::class, 'postUpdate'])->name('promotion.postUpdate');
+
 });

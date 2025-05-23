@@ -12,7 +12,7 @@ class CartSeeder extends Seeder
     public function run()
     {
         // Giả định bạn có user ID và variant ID từ trước
-        $userIds = DB::table('user')->pluck('id_user')->toArray();
+        $userIds = DB::table('users')->pluck('id_user')->toArray();
         $variantIds = DB::table('product_variants')->pluck('id_variant')->toArray();
 
         // Chèn 10 bản ghi mẫu

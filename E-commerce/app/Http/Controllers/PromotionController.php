@@ -7,13 +7,18 @@ use App\Models\Product_Promotion;
 use App\Models\Promotion;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Exception;
+use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class PromotionController extends Controller
 {
     //
-    public function index(){
+    public function index()
+    {
         $promotions = Promotion::paginate(10);
-        return view('admin.promotion',['promotions'=>$promotions]);
+        return view('admin.promotion', ['promotions' => $promotions]);
     }
     public function add()
     {
@@ -29,7 +34,7 @@ class PromotionController extends Controller
     {
         $request->validate([
             'name' => 'required|max:100',
-            'discount_value' => 'required|numeric|min:0|max:50',
+            'discount_value' => 'required|numeric|min:0|max:100',
             'start_date' => 'required',
             'end_date' => [
                 'required',
@@ -64,18 +69,20 @@ class PromotionController extends Controller
         }
         return redirect()->route('promotion.add')->withSuccess("Thêm chương trình khuyến mãi thành công!");
     }
-    public function update($id){
+    public function update($id)
+    {
         $promotion = promotion::findOrFail($id);
-        return view('admin.updatePromotion',['promotion'=>$promotion]);
+        return view('admin.updatePromotion', ['promotion' => $promotion]);
     }
-    public function postUpdate(Request $request){
-    $request->validate([
-        'id' => 'required|exists:promotions,id_promotion',
-        'name' => 'required|string|max:255',
-        'discount_value' => 'required|numeric|min:0',
-        'start_date' => 'required|date',
-        'end_date' => 'required|date|after_or_equal:start_date',
-    ]);
+    public function postUpdate(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:promotions,id_promotion',
+            'name' => 'required|string|max:255',
+            'discount_value' => 'required|numeric|min:0',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
 
         $input = $request->all();
         $promotion = Promotion::findOrFail($input['id']);
@@ -85,6 +92,48 @@ class PromotionController extends Controller
         $promotion->start_date = $input['start_date'];
         $promotion->end_date = $input['end_date'];
         $promotion->save();
-       return redirect()->route('promotion.list')->withSuccess('Cập nhật thành công');
+        return redirect()->route('promotion.list')->withSuccess('Cập nhật thành công');
+    }
+    public function delete($id)
+    {
+        try {
+            $promotion = Promotion::findOrFail($id);
+            $promotion->delete();
+            return redirect()->route('promotion.list')->with('success', 'Xóa thành công');
+        } catch (ModelNotFoundException $e) {
+            return back()->withErrors([
+                'general' => 'Không tìm thấy khuyến mãi cần xóa.'
+            ]);
+        } catch (Exception $e) {
+            Log::error('Lỗi xóa khuyến mãi: ' . $e->getMessage());
+            return back()->withErrors([
+                'general' => 'Đã xảy ra lỗi khi xóa. Vui lòng thử lại sau.'
+            ])->withInput();
+        }
+    }
+    public function listProducts($id)
+    {
+        $promotion = Promotion::with('products')->findOrFail($id);
+        $products = $promotion->products;
+        $data = [
+            'promotion' => $promotion,
+            'products' => $products
+        ];
+        return view('admin.promotionProducts', $data);
+        try {
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('promotion.list')
+                ->with('error', 'Không tìm thấy chương trình khuyến mãi.');
+        } catch (Exception $e) {
+            Log::error('Lỗi khi load danh sách sản phẩm theo khuyến mãi: ' . $e->getMessage());
+            return redirect()->route('promotion.list')
+                ->with('error', 'Đã xảy ra lỗi khi tải danh sách sản phẩm.');
+        }
+    }
+    public function deleteProduct($promotionId, $productId)
+    {
+        $promotion = Promotion::findOrFail($promotionId);
+        $promotion->products()->detach($productId);
+        return redirect()->back()->withSuccess('Đã xoá sản phẩm khỏi khuyến mãi.');
     }
 }

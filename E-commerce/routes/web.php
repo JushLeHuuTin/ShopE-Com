@@ -55,6 +55,8 @@ Route::get('admin/promotion/delete/{id}', [PromotionController::class, 'delete']
 Route::get('admin/promotion/update/{id}', [PromotionController::class, 'update'])->name('promotion.update'); 
 Route::post('admin/promotion/update', [PromotionController::class, 'postUpdate'])->name('promotion.postUpdate');
 
+Route::get('admin/promotion/{id_promotion}/product/{id_product}', [PromotionController::class, 'deleteProduct'])->name('promotionProduct.delete');  
+Route::get('admin/promotion/{id}/products', [PromotionController::class, 'listProducts'])->name('promotion.products');
 
 Route::get('review',[ReviewController::class, 'displayReview'])->name('review');
 Route::post('/review',[ReviewController::class, 'review'])->name('review.review');

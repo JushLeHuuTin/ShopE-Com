@@ -182,7 +182,6 @@
                                                                 <div class="order-quantity">SL: {{ $detail->invoice_quantity }}
                                                                 </div>
                                                             </div>
-
                                                         @endforeach
                                                         <div
                                                             class="action-form d-flex justify-content-between  align-items-center">

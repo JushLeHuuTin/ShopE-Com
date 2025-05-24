@@ -141,15 +141,17 @@
                                                 <td>{{ $cancel->cancellation_reason }}</td>
                                                 <td>{{ $cancel->date_cancel }}</td>
                                                 <td>{{ $cancel->status_cancelled }}</td>
-                                                <td>
+                                                <td class="d-flex justify-content-center">
                                                     <form action="{{ route('deleteInvoice', $cancel->invoice_id) }}"
-                                                        method="POST" onclick="confirm('Ban co muon xoa khong?')">
+                                                        method="POST" onclick="return confirm('Ban co muon xoa khong?')">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">Xóa</button>
-                                                        <button class="btn btn-success btn-detail"
-                                                        data-id="{{ $cancel->invoice_id }}">Xem chi tiết</button>
+                                                        <button type="submit" class="btn btn-danger mx-2">Xóa</button>
                                                     </form>
+
+                                                    <button class="btn btn-success btn-detail"
+                                                        data-id="{{ $cancel->invoice_id }}">Xem chi tiết</button>
+
                                                 </td>
                                             </tr>
                                             <!-- End Form chi tiet don hang -->

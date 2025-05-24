@@ -134,6 +134,38 @@ class PromotionController extends Controller
     {
         $promotion = Promotion::findOrFail($promotionId);
         $promotion->products()->detach($productId);
-        return redirect()->back()->withSuccess('Đã xoá sản phẩm khỏi khuyến mãi.');
+        return redirect()->back()->with('success','Đã xoá sản phẩm khỏi khuyến mãi.');
+    }
+    public function addForm($promotionId)
+    {
+        $promotion = Promotion::findOrFail($promotionId);
+        $promotions = Promotion::all();
+        $products = Product::all();
+        $data = [
+            'promotions' => $promotions,
+            'products' => $products,
+            'promotion' => $promotion
+        ];
+        return view('admin.addPromotionProduct', $data);
+    }
+    public function postAdd(request $request)
+    {
+        $input = $request->all();
+        if($input['promotion'] == 0){
+            return redirect()->back()->with('error', 'Bạn chưa chọn chương trình');
+
+        }
+        if($input['product'] == 0){
+            return redirect()->back()->with('error', 'Bạn chưa chọn sản phẩm');
+
+        }
+        $promotion = Promotion::findOrFail($input['promotion']);
+        if ($promotion->products()->where('product_promotion.id_product', $input['product'])->exists()) {
+            return redirect()->back()->with('error', 'Sản phẩm đã tồn tại trong chương trình.');
+       }
+
+        $promotion->products()->attach($input['product']);
+
+        return redirect()->back()->with('success','Thêm sản phẩm thành công.');
     }
 }

@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use App\Models\Product_Promotion;
+use App\Models\Promotion;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+
+class PromotionController extends Controller
+{
+    //
+    public function index(){
+        $promotions = Promotion::paginate(10);
+        return view('admin.promotion',['promotions'=>$promotions]);
+    }
+    public function add()
+    {
+        $currentDay = Carbon::now()->format('Y-m-d');
+        $products = Product::all();
+        $data = [
+            'products' => $products,
+            'currentday' => $currentDay
+        ];
+        return view('admin.addPromotion', $data);
+    }
+    public function postPromotion(request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:100',
+            'discount_value' => 'required|numeric|min:0|max:50',
+            'start_date' => 'required',
+            'end_date' => [
+                'required',
+                function ($attribute, $value, $fail) use ($request) {
+                    $startDate = Carbon::parse($request->input('start_date'));
+                    $endDate = Carbon::parse($value);
+
+                    if ($endDate->lt($startDate)) {
+                        $fail('* Vui lòng chọn ngày kết thúc lớn hơn ngày bắt đầu');
+                    }
+                },
+            ],
+        ], [
+            'name.required' => '* Vui lòng nhập tên chương trình',
+            'name.max' => '* Tên chương trình không quá :max ký tự.',
+            'discount_value.required' => '* Vui lòng không bỏ trống',
+            'discount_value.max' => '* Vui lòng nhập giá trị 0-100%',
+        ]);
+        $input = $request->all();
+        // dd($request);
+        $promotion = Promotion::create([
+            'name' => $input['name'],
+            'discount_value' => $input['discount_value'],
+            'start_date' => $input['start_date'],
+            'end_date' => $input['end_date']
+        ]);
+        if ($input['id_product'] != 0) {
+            Product_Promotion::create([
+                'id_product' => $input['id_product'],
+                'id_promotion' => $promotion->id_promotion
+            ]);
+        }
+        return redirect()->route('promotion.add')->withSuccess("Thêm chương trình khuyến mãi thành công!");
+    }
+}

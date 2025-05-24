@@ -147,6 +147,9 @@ Route::get('register', [CrudUserController::class, 'register'])->name('register'
 // Sản phẩm
 Route::get('/product/{id}', [CrudProductController::class, 'productDetail'])->name('product.detail');
 Route::get('/product/{id}/variant', [CrudProductController::class, 'show'])->name('product.show');
+Route::get('/product/{id}/comments', [CrudProductController::class, 'allComments'])->name('comment');
+
+
 
 // Danh mục
 Route::get('danhmuc/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
@@ -154,7 +157,6 @@ Route::get('danhmuc/{category:slug}', [CategoryController::class, 'show'])->name
 // Review
 Route::get('/review', [ReviewController::class, 'displayReview'])->name('review');
 Route::post('/review', [ReviewController::class, 'review'])->name('review');
-
 
 
 // Giỏ hàng

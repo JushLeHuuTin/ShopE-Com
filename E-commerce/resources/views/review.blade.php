@@ -35,8 +35,6 @@
 
 <body>
     <!-- Start Section Review -->
-<<<<<<< HEAD
-    <!-- Start Section Review -->
     <section class="py-5">
         <div class="container d-flex justify-content-center">
             <div class="card shadow p-4 w-100" style="max-width: 700px;">
@@ -48,41 +46,6 @@
                         <div class="fs-5 fw-semibold">Áo thun nam</div>
                         <input type="hidden" name="id_user" id="id_user" value="1">
                         <input type="hidden" name="id_product" id="id_product" value="2">
-=======
-    <section>
-        <div class="nav-back">
-            <div class="back"><i class="fa-solid fa-arrow-left"></i></div>
-            <div class="content-back">Đánh giá sản phẩm</div>
-        </div>
-        <div class="review">
-            <div class="container-review">
-                <form action="{{ route('review') }}" method="POST">
-                    @csrf
-                    <div class="lab-review">
-                        <div class="data-product-review">
-                            <div class="product-image-review"><img src="{{ asset('/images/home7_6.jpg')}}" alt=""
-                                    id="image_url" name="image_url"></div>
-                            <div class="product-name-review" id="name" name="name">Áo thun nam</div>
-                            <input type="hidden" name="id_user" id="id_user" value="1">
-                            <input type="hidden" name="id_product" id="id_product" value="2">
-                        </div>
-                        <span>Đánh giá sản phẩm</span>
-                        <div class="number-review">
-                            <div type="hidden" class="star" data-value="1"></div>
-                            <div type="hidden" class="star" data-value="2"></div>
-                            <div type="hidden" class="star" data-value="3"></div>
-                            <div type="hidden" class="star" data-value="4"></div>
-                            <div type="hidden" class="star" data-value="5"></div>
-
-                            <input type="hidden" id="rating" name="rating" value="0">
-                        </div>
-                        <div class="bark-review">
-                            <span>Viết đánh giá</span>
-                            <textarea name="comment" id="comment"
-                                placeholder="Viết đánh giá sản phẩm tại đây..."></textarea>
-                            <button type="submit" class="btn-submit-review">Gửi</button>
-                        </div>
->>>>>>> trieu/f10/dislay-review/comment
                     </div>
 
                     <h5 class="mb-2">Đánh giá sản phẩm</h5>

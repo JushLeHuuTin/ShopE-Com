@@ -3,7 +3,7 @@
         <div class="col-md-12 col-lg-10">
             <div class="card shadow-0 border" style="background: #f0f2f5">
                 <div class="card-body p-4">
-                    <div class="comment-group">
+                    <div class="comment-group">  
                         <div class="card mb-4">
                             <div class="card-body">
                                 <div class="card-item">

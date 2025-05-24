@@ -80,7 +80,7 @@
                                 <i class="fas fa-pen text-red-500 cursor-pointer">
                                 </i>
                             </a>
-                            <a href="{{ route('promotion.delete', $promotion->id_promotion) }}" class="delete-promotion">
+                            <a href="{{ route('promotion.delete', $promotion->id_promotion) }}" class="delete-promotion" onclick="return confirm('Bạn chắc chắn muốn xóa chương trình khuyến mãi này?')">
                                 <i class="fas fa-trash text-red-500 cursor-pointer">
                                 </i>
                             </a>

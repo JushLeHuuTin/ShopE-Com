@@ -53,8 +53,8 @@ Route::get('/review',[ReviewController::class, 'displayReview'])->name('review')
 
 
 // //Statistic
-Route::get('/admin/statistic/money', [StatisticalController::class, 'statisticMoney'])->name('statistic.statistic_money');
-Route::post('/admin/statistic/money', [StatisticalController::class, 'totalRevenua'])->name('statistic.statistic_money');
+// Route::get('/admin/statistic/money', [StatisticalController::class, 'statisticMoney'])->name('statistic.statistic_money');
+// Route::post('/admin/statistic/money', [StatisticalController::class, 'totalRevenua'])->name('statistic.statistic_money');
 
 // Route::get('/admin/statistic/quantity', [StatisticalController::class, 'statisticQuantity'])->name('statistic.statistic_quantity');
 // Route::get('/admin/statistic/quantity', [StatisticalController::class, 'caculateQuantity'])->name('statistic.statistic_quantity');
@@ -62,9 +62,6 @@ Route::post('/admin/statistic/money', [StatisticalController::class, 'totalReven
 // Route::get('/admin/statistic/product', [StatisticalController::class, 'statisticProduct'])->name('statistic.statistic_product');
 // Route::get('/admin/statistic/product', [StatisticalController::class, 'caculateRating'])->name('statistic.statistic_product');
 
-<<<<<<< HEAD
-Route::get('/admin/report/product', [ReportController::class, 'reportProduct'])->name('report.report_product'); 
-=======
 // Route::get('managerreview', [ReviewController::class, 'displayManagerReview'])->name('review.managerreview');
 
 // Route::post('/managerreview/{id}/approve', [ReviewController::class, 'approve'])->name('review.approve');
@@ -246,4 +243,3 @@ Route::prefix('admin')->group(function () {
     // Route::post('admin/promotion/update/', [PromotionController::class, 'postUpdate'])->name('promotion.postUpdate');
 
 });
->>>>>>> trieu/f10/dislay-review/comment

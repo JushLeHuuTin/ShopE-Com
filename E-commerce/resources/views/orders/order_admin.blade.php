@@ -23,6 +23,23 @@
         table tbody tr td {
             padding: 0;
         }
+
+        .form-orders-detail {
+            animation: form 1s both;
+        }
+
+        @keyframes form {
+            0% {
+                transform: scale(2) translate(-50%, -40%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1) translate(-50%, -40%);
+                opacity: 1;
+            }
+
+        }
     </style>
 </head>
 
@@ -46,14 +63,14 @@
                                 <div class="sub-menu-items">
                                     <li><a href="{{ route('orders.order_admin') }}"><i
                                                 class="ri-arrow-right-s-fill"></i>Xác nhận đơn hàng</a></li>
-                                    <li><a href="{{ route('orders.order_process') }}"><i
-                                                class="ri-arrow-right-s-fill"></i>Đơn hàng đang xử lý</a></li>
+
                                     <li><a href="{{ route('orders.order_cancelled') }}"><i
                                                 class="ri-arrow-right-s-fill"></i>Đơn hàng bị hủy</a></li>
                                 </div>
                             </ul>
                         </li>
-                        <li><a href="{{ route('managerreview') }}"><i class="ri-feedback-line"></i>Quản lý Đánh giá</a></li>
+                        <li><a href="{{ route('managerreview') }}"><i class="ri-feedback-line"></i>Quản lý Đánh giá</a>
+                        </li>
                         <li><a href=""><i class="ri-shield-user-line"></i>Quản lý Người dùng</a></li>
                         <li><a href=""><i class="ri-bar-chart-2-line"></i>Thống kê<i
                                     class="ri-arrow-down-s-fill"></i></a>
@@ -110,63 +127,85 @@
                 </div>
                 <div class="admin-content-review">
                     <div class="admin-content-review-title">
-                        <h1>Quản lý đơn hàng</h1>
+                        <h4>Quản lý đơn hàng</h4>
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Mã đơn hàng</th>
-                                        <th>Tên khách hàng</th>
-                                        <th>Ngày tạo</th>
-                                        <th>Địa chỉ</th>
-                                        <th>Phương thức thanh toán</th>
-                                        <th>Tổng tiền</th>
-                                        <th>Trạng thái</th>
-                                        <th>Hành động</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>Trieu</td>
-                                        <td>20-4-2025</td>
-                                        <td>HCM</td>
-                                        <td>Tien mat</td>
-                                        <td>200.000</td>
-                                        <td>Chờ xác nhận</td>
-                                        <td>
-                                            <button class="btn-order">Xác nhận</button>
-                                            <button class="btn-order-detail">Xem chi tiết</button>
+                            @if ($processInvoices->isEmpty())
+                                <p class="d-flex justify-content-center">Chua co du lieu hoa don</p>
+                            @else
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Mã đơn hàng</th>
+                                            <th>Tên khách hàng</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Tổng tiền</th> 
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach ($processInvoices as $processInvoice)
+                                        <tbody>
+                                            <tr>
+                                                <td>{{ $processInvoice->invoice_id }}</td>
+                                                <td>{{ $processInvoice->customer_name }}</td>
+                                                <td>{{ $processInvoice->dateOrder }}</td>
+                                                <td>{{ number_format($processInvoice->total_money, 0, ',', '.') }}</td>
+                                                <td>{{ $processInvoice->status }}</td>
+                                                <td>
+                                                    <button class="btn-order">Xác nhận</button>
+                                                    <button class="btn-order-detail"
+                                                        data-id="{{ $processInvoice->invoice_id }}">Xem chi tiết</button>
+                                                </td>
+                                            </tr>
+                                            <div class="form-orders-detail" id="form-detail-{{ $processInvoice->invoice_id }}"
+                                                data-id="{{ $processInvoice->invoice_id }}" style="display: none;">
+                                                <div class="wapper-orders">
+                                                    <div class="form-order-title p-1">
+                                                        <div class="order-text mt-2">Chi tiết đơn hàng</div>
+                                                        <p class="order-close mt-2" data-id="{{ $processInvoice->invoice_id }}">
+                                                            X</p>
+                                                    </div>
+                                                    <div class="form-order-product">
+                                                        @foreach ($invoicesDetail[$processInvoice->invoice_id] ?? [] as $detail)
+                                                            <div class="form-order-product-detail">
+                                                                <img style="width: 150px;"
+                                                                    src="{{ asset('images/' . $detail->product_image_url) }}"
+                                                                    alt="">
+                                                                <div class="order-content">
+                                                                    <div class="order-name">{{ $detail->product_name }}</div>
+                                                                    <div class="order-price">
+                                                                        {{ number_format($detail->priceProduct, 0, ',', '.') }} VND
+                                                                    </div>
+                                                                </div>
+                                                                <div class="order-quantity">SL: {{ $detail->invoice_quantity }}
+                                                                </div>
+                                                            </div>
 
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                            <!-- Form chi tiet don hang -->
-                            <div class="form-orders-detail" style="display: none;">
-                                <div class="wapper-orders">
-                                    <div class="form-order-title">
-                                        <div class="order-text">Chi tiết đơn hàng</div>
-                                        <p class="order-close">X</p>
-                                    </div>
-                                    <div class="form-order-product">
-                                        <div class="form-order-product-detail">
-                                            <img style="width: 150px;" src="images.jpg" alt="">
-                                            <div class="order-content">
-                                                <div class="order-name">Iphone 13</div>
-                                                <div class="order-price">123.123 VND</div>
+                                                        @endforeach
+                                                        <div
+                                                            class="action-form d-flex justify-content-between  align-items-center">
+                                                            <div class="order-total-money">Tổng tiền:
+                                                                {{ number_format($processInvoice->total_money, 0, ',', '.') }}
+                                                                VND
+                                                            </div>
+                                                            <button type="button"
+                                                                class="btn btn-outline-primary mx-1 order-ok">OK</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="order-quantity">SL: 2</div>
-                                        </div>
-
-                                        <div class="order-total-money">Tổng tiền: 123.123 VND</div>
-                                    </div>
+                                            <!-- End Form chi tiet don hang -->
+                                        </tbody>
+                                    @endforeach
+                                    
+                                </table>
+                                <div class="mt-2">
+                                    {{ $processInvoices->links('pagination::bootstrap-5') }}
                                 </div>
-                            </div>
-                            <!-- End Form chi tiet don hang -->
+                            @endif
+                            <!-- Form chi tiet don hang -->
                         </div>
                     </div>
                 </div>
@@ -177,31 +216,50 @@
 
     <script>
         const menuLi = document.querySelectorAll('.admin-sidebar-content > ul > li > a');
-const submenu = document.querySelectorAll('.sub-menu');
+        const submenu = document.querySelectorAll('.sub-menu');
 
-menuLi.forEach(link => {
-    link.addEventListener('click', (e) => {
-        const currentSubMenu = link.parentElement.querySelector('.sub-menu');
+        menuLi.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const currentSubMenu = link.parentElement.querySelector('.sub-menu');
 
-        // Chỉ xử lý nếu có submenu
-        if (currentSubMenu) {
-            e.preventDefault();
+                // Chỉ xử lý nếu có submenu
+                if (currentSubMenu) {
+                    e.preventDefault();
 
-            const isActive = currentSubMenu.classList.contains('active');
+                    const isActive = currentSubMenu.classList.contains('active');
 
-            submenu.forEach(menu => {
-                menu.classList.remove('active');
-                menu.style.height = '0px';
+                    submenu.forEach(menu => {
+                        menu.classList.remove('active');
+                        menu.style.height = '0px';
+                    });
+
+                    if (!isActive) {
+                        currentSubMenu.classList.add('active');
+                        const submenuHeight = currentSubMenu.querySelector('.sub-menu-items').offsetHeight;
+                        currentSubMenu.style.height = submenuHeight + 'px';
+                    }
+                }
             });
+        });
 
-            if (!isActive) {
-                currentSubMenu.classList.add('active');
-                const submenuHeight = currentSubMenu.querySelector('.sub-menu-items').offsetHeight;
-                currentSubMenu.style.height = submenuHeight + 'px';
-            }
-        }
-    });
-});
+        document.querySelectorAll('.btn-order-detail').forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const form = document.getElementById('form-detail-' + id);
+                if (form) form.style.display = 'block';
+            });
+        });
+
+        document.querySelectorAll('.order-close, .order-ok').forEach(button => {
+            button.addEventListener('click', function () {
+                const form = this.closest('.form-orders-detail');
+                if (form) {
+                    form.style.display = 'none';
+                }
+            });
+        });
+
+
 
     </script>
 </body>

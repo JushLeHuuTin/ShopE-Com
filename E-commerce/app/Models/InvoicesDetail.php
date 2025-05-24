@@ -17,5 +17,12 @@ class InvoicesDetail extends Model
         'created_at',
         'updated_at',
     ];
-
+    public function product()
+    {
+        return $this->belongsTo(Products::class, 'id_product', 'id_product');
+    }
+    public function variant()
+    {
+        return $this->belongsTo(ProductVariant::class, 'id_variant', 'id_variant');
+    }
 }

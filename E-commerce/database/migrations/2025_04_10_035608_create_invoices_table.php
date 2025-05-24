@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('total_amount', 10, 2);
             $table->dateTime('invoice_date');
             $table->string('status', 50)->default('pending');
+            $table->dateTime('date_cancel')->nullable();
             $table->string('cancellation_reason', 255)->nullable();
             $table->enum('payment_method', ['Momo', 'COD', 'Credit Card', 'Bank Transfer', 'E-Wallet'])->default('COD');
             $table->timestamps();

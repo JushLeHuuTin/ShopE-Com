@@ -2,34 +2,32 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cart;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class CartSeeder extends Seeder
 {
-    const MAX_RECORDS = 100;
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        //delete data when add new data
-        for ($i = 1; $i < self::MAX_RECORDS; $i++) {
+        // Giả định bạn có user ID và variant ID từ trước
+        $userIds = DB::table('users')->pluck('id_user')->toArray();
+        $variantIds = DB::table('product_variants')->pluck('id_variant')->toArray();
+
+        // Chèn 10 bản ghi mẫu
+        for ($i = 0; $i < 10; $i++) {
             DB::table('cart')->insert([
-                [ 
-                    'id_user' => $i,
-                    'session_id' => $i,
-                    'id_variant' => $i,
-                    'quantity' => rand(10, 100),
-                    'price' => rand(10000, 99999),
-                    'added_at' => now(),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ],
+                'id_user'    => $userIds[array_rand($userIds)],
+                'session_id' => Str::uuid(),
+                'id_variant' => $variantIds[array_rand($variantIds)],
+                'quantity'   => rand(1, 5),
+                'price'      => rand(100, 1000), // hoặc lấy từ bảng product_variants nếu muốn
+                'added_at'   => Carbon::now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }
 }
+

@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Invoice extends Model 
+class Invoice extends Model
 {
     protected $table = 'invoices';
     protected $primaryKey = 'id_invoice';
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
         'id_user',
@@ -19,4 +19,10 @@ class Invoice extends Model
         'cancellation_reason',
         'payment_method',
     ];
+
+    public function invoiceDetails()
+    {
+        return $this->hasMany(InvoicesDetail::class, 'id_invoice', 'id_invoice');
+    }
+
 }

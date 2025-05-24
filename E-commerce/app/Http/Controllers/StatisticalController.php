@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Invoice;
+use App\Models\InvoicesDetail;
 use App\Models\Review;
 use App\Models\ProductVariant;
 use Illuminate\Support\Facades\DB;
@@ -41,7 +42,27 @@ class StatisticalController extends Controller
         return view('statistic.statistic_money', compact('startDate', 'endDate', 'totalRevenue', 'totalInvoice'));
     }
 
-    //Thong ke so luong san pham trong kho
+    //Thong ke so luong san pham ban ra
+    public function caculateQuantity()
+    {
+        $quantitySell = InvoicesDetail::select(
+            'products.id_product as product_id',
+            'products.name as product_name',
+            'products.image_url as product_image_url',
+            'categories.name as category_name',
+            DB::raw('SUM(invoices_detail.quantity) as total_quantity')
+        )
+            ->join('invoices', 'invoices_detail.id_invoice', '=', 'invoices.id_invoice')
+            ->join('product_variants', 'invoices_detail.id_variant', '=', 'product_variants.id_variant')
+            ->join('products', 'product_variants.id_product', '=', 'products.id_product')
+            ->join('categories', 'products.id_category', '=', 'categories.id_category')
+            ->where('invoices.status', 'completed')
+            ->groupBy('products.id_product', 'products.name', 'products.image_url', 'categories.name')
+            ->orderByDesc('total_quantity')
+            ->paginate(10);
+
+        return view('statistic.statistic_quantity', compact('quantitySell'));
+    }
     //Thong ke san pham co danh gia tot
     public function caculateRating()
     {

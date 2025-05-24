@@ -38,8 +38,7 @@
                                 <div class="sub-menu-items">
                                     <li><a href="{{ route('orders.order_admin') }}"><i
                                                 class="ri-arrow-right-s-fill"></i>Xác nhận đơn hàng</a></li>
-                                    <li><a href="{{ route('orders.order_process') }}"><i
-                                                class="ri-arrow-right-s-fill"></i>Đơn hàng đang xử lý</a></li>
+                                    
                                     <li><a href="{{ route('orders.order_cancelled') }}"><i
                                                 class="ri-arrow-right-s-fill"></i>Đơn hàng bị hủy</a></li>
                                 </div>
@@ -110,59 +109,65 @@
                     </div>
                     <div class="admin-content-review-table">
                         <div class="admin-content-review-table-list">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Mã đánh giá</th>
-                                        <th>Tên khách hàng</th>
-                                        <th>Hình ảnh</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Số sao</th>
-                                        <th>Nội dung</th>
-                                        <th>Ngày đánh giá</th>
-                                        <th>Trạng thái</th>
-                                        <th>Hành động</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($reviews as $review)
+                            @if ($reviews->isEmpty())
+                                <p>Khong co danh gia nao</p>
+                            @else
+                                <table>
+                                    <thead>
                                         <tr>
-                                            <td>{{ $review->id_review }}</td>
-                                            <td>{{ $review->users->username }}</td>
-                                            <td><img src="{{ asset('images/' . $review->product->image_url) }}" alt=""
-                                                    style="width: 70px;"></td>
-                                            <td>{{ $review->product->name }}</td>
-                                            <td>{{ $review->rating }}<i class="fa-solid fa-star"
-                                                    style="color: #FFD43B;"></i></td>
-                                            <td class="content-review">{{ $review->comment }}</td>
-                                            <td>{{ $review->created_at->format('H:i:s d-m-Y') }}</td>
-                                            <td>{{ $review->status }}</td>
-                                            <td>
-                                                <div class="review-action" style="justify-content: center;">
-                                                    <form action="{{ route('review.approve', $review->id_review) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn-approved">Duyệt</button>
-                                                    </form>
-                                                    <form action="{{ route('review.hide', $review->id_review) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn-pending">Ẩn</button>
-                                                    </form>
-                                                    <form action="{{ route('review.delete', $review->id_review) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn-rejected">Xóa</button>
-                                                    </form>
-                                                </div>
-                                            </td>
+                                            <th>Mã đánh giá</th>
+                                            <th>Tên khách hàng</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số sao</th>
+                                            <th>Nội dung</th>
+                                            <th>Ngày đánh giá</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($reviews as $review)
+                                            <tr>
+                                                <td>{{ $review->id_review }}</td>
+                                                <td>{{ $review->users->username }}</td>
+                                                <td><img src="{{ asset('images/' . $review->product->image_url) }}" alt=""
+                                                        style="width: 70px;"></td>
+                                                <td>{{ $review->product->name }}</td>
+                                                <td>{{ $review->rating }}<i class="fa-solid fa-star"
+                                                        style="color: #FFD43B;"></i></td>
+                                                <td class="content-review">{{ $review->comment }}</td>
+                                                <td>{{ $review->created_at }}</td>
+                                                <td>{{ $review->status }}</td>
+                                                <td>
+                                                    <div class="review-action" style="justify-content: center;">
+                                                        <form action="{{ route('approve', $review->id_review) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button type="submit" class="btn-approved">Duyệt</button>
+                                                        </form>
+                                                        <form action="{{ route('hide', $review->id_review) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <button type="submit" class="btn-pending">Ẩn</button>
+                                                        </form>
+                                                        <form action="{{ route('delete', $review->id_review) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn-rejected">Xóa</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <div class="mt-2">
+                                    {{ $reviews->links('pagination::bootstrap-5') }}
+                                </div>
+                            @endif
                         </div>
-
                     </div>
                 </div>
             </div>

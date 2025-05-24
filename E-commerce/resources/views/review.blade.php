@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -38,8 +39,8 @@
     <section class="py-5">
         <div class="container d-flex justify-content-center">
             <div class="card shadow p-4 w-100" style="max-width: 700px;">
-                {{-- <form action="{{ route('review') }}" method="POST"> --}}
-                    {{-- @csrf --}}
+                <form action="{{ route('review') }}" method="POST">
+                    @csrf
                     <div class="d-flex align-items-center gap-3 mb-3">
                         <img src="{{ asset('/images/home7_6.jpg') }}" alt="Ảnh sản phẩm" class="img-fluid rounded"
                             style="width: 100px;">
@@ -60,20 +61,21 @@
                         <label for="comment" class="form-label fw-semibold">Viết đánh giá</label>
                         <textarea name="comment" id="comment" class="form-control comment" rows="5"
                             placeholder="Viết đánh giá sản phẩm tại đây..."></textarea>
+                        <div id="commentError" class="text-danger mt-1" style="display: none;"></div>
                     </div>
 
-                    <button type="submit" class="btn btn-danger w-100 fw-bold">Gửi</button>
-                    {{--
-                </form> --}}
+                    <button type="submit" class="btn btn-danger btn-submit w-100 fw-bold">Gửi</button>
+                </form>
             </div>
         </div>
     </section>
+
     <!-- End Section Review -->
-    @include('displayreview')
 
     <script>
         const stars = document.querySelectorAll('.star');
         const rating = document.getElementById('rating');
+
 
         //star
         stars.forEach(star => {
@@ -87,13 +89,50 @@
             });
         });
 
-        // function checkComment() {
-        //     if (comment.trim() === "") {
-        //         alert("Vui lòng nhập đánh giá của bạn");
-        //         return false;
-        //     }
-        //     return true;
-        // }
+        const btnSubmit = document.querySelector('.btn-submit');
+        const commentInput = document.getElementById('comment');
+        const commentError = document.getElementById('commentError');
+
+        const regex = /^(?!\s)(?!.*\s{2})[\s\S]{1,255}$/;
+
+        // Kiểm tra lỗi ngay khi người dùng đang nhập
+        commentInput.addEventListener('input', function () {
+            const comment = commentInput.value;
+
+            if (!regex.test(comment)) {
+                commentError.style.display = 'block';
+                commentError.textContent = "Đánh giá không hợp lệ: không bắt đầu bằng khoảng trắng, không có 2 khoảng trắng liên tiếp, và tối đa 255 ký tự.";
+            } else {
+                commentError.style.display = 'none';
+                commentError.textContent = '';
+            }
+        });
+
+
+        // Kiểm tra khi nhấn nút gửi
+        btnSubmit.addEventListener('click', function (e) {
+            const comment = commentInput.value;
+            let hasError = false;
+
+
+
+            if (!regex.test(comment)) {
+                
+                e.preventDefault();
+                commentError.style.display = 'block';
+                commentError.textContent = "Đánh giá không hợp lệ: không bắt đầu bằng khoảng trắng, không có 2 khoảng trắng liên tiếp, và tối đa 255 ký tự.";
+                hasError = true;
+            }
+
+            if (parseInt(rating.value) === 0) {
+                e.preventDefault();
+                alert("Vui lòng chọn số sao đánh giá.");
+                hasError = true;
+            }
+
+            return !hasError;
+        });
+
     </script>
 </body>
 

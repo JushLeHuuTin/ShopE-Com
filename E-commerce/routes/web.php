@@ -174,9 +174,9 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('managerreview')->group(function () {
         Route::get('/', [ReviewController::class, 'displayManagerReview'])->name('managerreview');
-        Route::post('{id}/approve', [ReviewController::class, 'approve'])->name('review.approve');
-        Route::post('{id}/hide', [ReviewController::class, 'hide'])->name('review.hide');
-        Route::delete('{id}/delete', [ReviewController::class, 'delete'])->name('review.delete');
+        Route::post('{id}/approve', [ReviewController::class, 'approve'])->name('approve');
+        Route::post('{id}/hide', [ReviewController::class, 'hide'])->name('hide');
+        Route::delete('{id}/delete', [ReviewController::class, 'delete'])->name('delete');
     });
     // Product
     Route::prefix('product')->group(function () {

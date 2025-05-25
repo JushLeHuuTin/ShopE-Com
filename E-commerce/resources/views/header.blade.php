@@ -528,9 +528,11 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <input id="search-input" class="ps-1 ms-2 border-none w-100" type="text"
-                                            name="" id="" placeholder="What are you looking for?"
-                                            autofocus>
+                                        <form action="{{ route('product.search') }}">
+                                            <input id="search-input" class="ps-1 ms-2 border-none w-100" type="text"
+                                                name="s" id="" placeholder="What are you looking for?"
+                                                autofocus>
+                                        </form>
                                     </div>
                                     <div class="header__search-body mt-5">
                                         <h3 class="select-heading">POPULAR</h3>

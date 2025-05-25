@@ -21,6 +21,8 @@ Route::post('login', [CrudUserController::class, 'authUser'])->name('user.authUs
 Route::get('register', [CrudUserController::class, 'register'])->name('register');
 //detail hiển thị trang chi tiết sản phẩm
 Route::get('/product/{id}', [CrudProductController::class, 'productDetail'])->name('product.detail');
+//
+Route::get('search', [CrudProductController::class, 'search'])->name('product.search');
 //reload thuộc tính theo id_variant
 Route::get('/product/{id}/varariant', [CrudProductController::class, 'show'])->name('product.show');
 

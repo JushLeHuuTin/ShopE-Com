@@ -176,4 +176,20 @@ class CrudProductController extends Controller
         $product->save();
         return redirect()->route('product.list')->withSuccess("Cập nhật thành công");
     }
+    //search 
+    public function search(Request $request)
+    {   
+        $search = $request->query('s'); 
+        if ($search) {
+            $products = Product::where('name', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%')->paginate(8);
+        } else {
+            $products = Product::all()->paginate(8);
+        }
+        $data = [
+            'products'=>$products,
+            'search' => $search
+        ];
+        return view('search', $data);
+    }
 }

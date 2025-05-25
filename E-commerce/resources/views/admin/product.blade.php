@@ -84,7 +84,7 @@ use Illuminate\Support\Str;
                                     </i>
                                 </a>
 
-                                <a href="{{ route('product.delete', $product->id_product) }}" class="inline-block mx-1 p-1">
+                                <a href="{{ route('product.delete', $product->id_product) }}" class="inline-block mx-1 p-1"    onclick="return confirm('Bạn có chắc muốn xoá sản phẩm ?')">
                                     <i class="fas fa-trash text-red-500 cursor-pointer">
                                     </i>
                                 </a>

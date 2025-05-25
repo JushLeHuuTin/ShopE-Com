@@ -8,6 +8,10 @@
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
+        @elseif(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
         @endif
         <h1 class="border-bottom pb-2 mb-4 h5">Cập nhật sản phẩm</h1>
         <div class="row justify-content-center">
@@ -15,6 +19,7 @@
                 <form method="POST" action="{{ route('product.postEdit') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row g-3 justify-content-end">
+                        <input type="hidden" name="updated_at" value="{{ $product->updated_at }}">
                         <input name="id" type="text" value="{{ $product->id_product }}"
                             class="form-control form-control-sm" hidden />
                         <div class="col-md-6">
@@ -79,8 +84,8 @@
                             </div>
                         </div>
                         <div class="col-12 text-end">
-                            <button type="submit" style="border:1px solid black; box-shadow:1px 1px 1px black"
-                                class="btn btn-primary btn-sm">Cập nhật</button>
+                            <button id="btn-update" type="submit" style="border:1px solid black; box-shadow:1px 1px 1px black"
+                                class="btn btn-primary btn-sm btn-submit">Cập nhật</button>
                         </div>
                     </div>
 
@@ -142,22 +147,21 @@
                                 <label class="text-start" style="min-width:90px" for="size">Kích cỡ</label>
                                 <select name="" id="size" class="w-100">
                                 </select>
-
                             </div>
                             <div class="form-row d-flex my-2">
                                 <label class="text-start" style="min-width:90px" for="color">Màu sắc</label>
-                                <select name="" id="color"
-                                    class="w-100"></select>
+                                <select name="" id="color" class="w-100"></select>
                             </div>
                             <div class="form-row d-flex my-2">
-                                    <label class="text-start" style="min-width:90px" for="price">Giá</label>
-                                    <input name="" id="price"class="w-100"></input>
-                                </div>
-                                <div class="form-row d-flex my-2">
-                                    <label class="text-start" style="min-width:90px" for="quantity">Số lượng</label>
-                                    <input name="" id="quantity"class=" w-100"></input>
+                                <label class="text-start" style="min-width:90px" for="price">Giá</label>
+                                <input name="" id="price"class="w-100"></input>
                             </div>
-                            <input type="submit" class="btn-primary p-2" style="border-radius:3px" value="Thêm biến thể mới">
+                            <div class="form-row d-flex my-2">
+                                <label class="text-start" style="min-width:90px" for="quantity">Số lượng</label>
+                                <input name="" id="quantity"class=" w-100"></input>
+                            </div>
+                            <input type="submit" class="btn-primary p-2" style="border-radius:3px"
+                                value="Thêm biến thể mới">
                         </form>
                     </div>
                 </div>

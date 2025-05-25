@@ -57,6 +57,14 @@
     <div class="container-fluid p-0">
         <div class="container">
             <div class="content__product-heading">
+                <a href="{{ route('transaction.history') }}">Lịch sử giao dịch</a>
+                <a href="{{ route('profile.edit') }}">Edit Profile</a>
+                <div class="text-center mt-3">
+                    <a href="{{ route('shipping_addresses.index') }}" class="btn btn-outline-secondary">Add ship Address</a>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="{{ route('profile.password.index') }}" class="btn btn-outline-secondary">Change password</a>
+                </div>
                 Sản phẩm nổi bật
             </div>
             <!-- Display feature product  -->

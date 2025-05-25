@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     protected $table = 'invoices';
+
     protected $primaryKey = 'id_invoice';
-    public $timestamps = false;
+
+    public $timestamps = true;
 
     protected $fillable = [
         'id_user',

@@ -270,3 +270,10 @@ productImages.forEach((item) => {
 //     modalImage.src = this.src;
 //     imageModal.show();
 // }
+document.querySelector('form').addEventListener('submit', function() {
+    const btns = document.querySelectorAll('.btn-submit');
+    btns.forEach((item)=>{
+        item.disabled = true;
+        item.innerText = 'Đang xử lý...';
+    })
+});

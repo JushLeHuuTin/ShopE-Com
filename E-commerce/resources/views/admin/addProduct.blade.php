@@ -100,7 +100,7 @@
                         </div>
 
                         <div class="col-12 text-end">
-                            <button type="submit" style="border:1px solid black; box-shadow:1px 1px 1px black" class="btn btn-primary btn-sm">Thêm mới</button>
+                            <button type="submit" id="btn-add" style="border:1px solid black; box-shadow:1px 1px 1px black" class="btn btn-submit btn-primary btn-sm">Thêm mới</button>
                         </div>
                     </div>
                 </form>

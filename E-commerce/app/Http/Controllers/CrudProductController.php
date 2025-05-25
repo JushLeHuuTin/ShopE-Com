@@ -152,6 +152,9 @@ class CrudProductController extends Controller
         $input = $request->all();
         $product = Product::findOrFail($input['id']);
         // dd($input);
+        if ($product->updated_at != $request->input('updated_at')) {
+            return back()->with('error', 'Dữ liệu đã bị thay đổi bởi người khác. Vui lòng tải lại trang.');
+        }
         $product->name = $input['name'];
         $product->id_category = $input['categories'];
 
@@ -174,6 +177,6 @@ class CrudProductController extends Controller
             $product->image_url = $imagePath;
         }
         $product->save();
-        return redirect()->route('product.list')->withSuccess("Cập nhật thành công");
+        return redirect()->route('product.list')->with('success',"Cập nhật thành công");
     }
 }

@@ -30,10 +30,17 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .btn-outline-primary {
+        .btn-status {
             position: fixed;
             left: calc(50% - 25px);
             bottom: 10px;
+        }
+        .status-title {
+            width: 100%;
+            height: 30px;
+            background: blue;
+            color: white;
+            border-radius: 5px 5px 0 0;
         }
     </style>
 </head>
@@ -178,7 +185,7 @@
                                                         </form>
                                                     </div>
                                                 </td>
-                                            </tr>
+                                            </tr> 
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -194,8 +201,8 @@
     </section>
     <div class="status-container" style="display: none">
         <div class="status-infor d-block text-center">
-            <div class="status-title my-2">Thông báo</div>
-            <p class="mt-4" id="statusMessageText">Xóa thành công</p>
+            <div class="status-title">Thông báo</div>
+            <p class="mt-4" id="statusMessageText"></p>
             <button type="button" class="btn btn-outline-primary btn-status">OK</button>
         </div>
     </div>

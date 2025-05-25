@@ -34,8 +34,8 @@ use App\Http\Controllers\StatisticalController;
 // //category
 // Route::get('danhmuc/{category:slug}/', [CategoryController::class, 'show'])->name('category.show');
 
-Route::post('/review',[ReviewController::class, 'review'])->name('review');
-Route::get('/review',[ReviewController::class, 'displayReview'])->name('review');
+Route::post('/review', [ReviewController::class, 'review'])->name('review');
+Route::get('/review', [ReviewController::class, 'displayReview'])->name('review');
 
 // Route::get('/managerreview', [ReviewController::class, 'displayManagerReview'])->name('managerreview');
 
@@ -150,7 +150,6 @@ Route::get('/product/{id}/variant', [CrudProductController::class, 'show'])->nam
 Route::get('/product/{id}/comments', [CrudProductController::class, 'allComments'])->name('comment');
 
 
-
 // Danh mục
 Route::get('danhmuc/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
 
@@ -197,9 +196,10 @@ Route::prefix('admin')->group(function () {
 
     // Đơn hàng
     Route::prefix('order')->group(function () {
-        Route::get('/', [OrderAdminController::class, 'orderAdmin'])->name('orders.order_admin');
+        // Route::get('/', [OrderAdminController::class, 'orderAdmin'])->name('orders.order_admin');
         Route::get('/', [OrderAdminController::class, 'processInvoices'])->name('orders.order_admin');
-        Route::get('/cancelled', [OrderAdminController::class, 'orderCancelled'])->name('orders.order_cancelled');
+        Route::post('/{id}/confirm', [OrderAdminController::class, 'confirm'])->name('order_confirm');
+        // Route::get('/cancelled', [OrderAdminController::class, 'orderCancelled'])->name('orders.order_cancelled');
         Route::get('/cancelled', [OrderAdminController::class, 'cancellInvoice'])->name('orders.order_cancelled');
         Route::delete('/{invoice_id}/delete', [OrderAdminController::class, 'deleteInvoiceCancel'])->name('deleteInvoice');
     });
@@ -209,19 +209,19 @@ Route::prefix('admin')->group(function () {
         Route::get('money', [StatisticalController::class, 'statisticMoney'])->name('statistic.statistic_money');
         Route::post('money', [StatisticalController::class, 'totalRevenua']);
 
-        Route::get('quantity', [StatisticalController::class, 'statisticQuantity'])->name('statistic.statistic_quantity');
+        // Route::get('quantity', [StatisticalController::class, 'statisticQuantity'])->name('statistic.statistic_quantity');
         Route::get('quantity', [StatisticalController::class, 'caculateQuantity'])->name('statistic.statistic_quantity');
 
-        Route::get('product', [StatisticalController::class, 'statisticProduct'])->name('statistic.statistic_product');
+        // Route::get('product', [StatisticalController::class, 'statisticProduct'])->name('statistic.statistic_product');
         Route::get('product', [StatisticalController::class, 'caculateRating'])->name('statistic.statistic_product');
     });
 
     // Báo cáo
     Route::prefix('report')->group(function () {
-        Route::get('customer', [ReportController::class, 'reportCustomer'])->name('report.report_customer');
-    Route::get('customer', [ReportController::class, 'topCustomer'])->name('report.report_customer');
-    
-        Route::get('product', [ReportController::class, 'reportProduct'])->name('report.report_product');
+        // Route::get('customer', [ReportController::class, 'reportCustomer'])->name('report.report_customer');
+        Route::get('customer', [ReportController::class, 'topCustomer'])->name('report.report_customer');
+
+        // Route::get('product', [ReportController::class, 'reportProduct'])->name('report.report_product');
         Route::get('product', [ReportController::class, 'topProductBest'])->name('report.report_product');
     });
 

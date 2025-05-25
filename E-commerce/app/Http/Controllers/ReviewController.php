@@ -38,7 +38,7 @@ class ReviewController extends Controller
         return redirect()->back()->with('message', 'Đánh giá của bạn đã được gửi thành công!');
     }
     public function managerReview()
-    {
+    { 
         return view('managerreview');
     }
 

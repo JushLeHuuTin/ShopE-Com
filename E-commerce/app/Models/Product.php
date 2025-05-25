@@ -31,4 +31,10 @@ class Product extends Model
     {
         return $this->hasMany(product_Variant::class, 'id_product', 'id_product');
     }
+    public function scopeFeatured($query, $limit = 8)
+    {
+        return $query->with('defaultVariant')
+                     ->where('is_featured', 1)
+                     ->take($limit);
+    }
 }

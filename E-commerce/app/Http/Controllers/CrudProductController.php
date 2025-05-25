@@ -20,16 +20,13 @@ class CrudProductController extends Controller
     //hàm index get sản phẩm nổi bật 
     public function index()
     {
-        $featuredProducts = Product::with('defaultVariant')
-            ->where('is_featured', 1)
-            ->take(8)
-            ->get();
+        $featuredProducts = Product::featured()->get();
         $categories = Category::all();
-        $data = [
-            "featuredProducts" => $featuredProducts,
-            "categories" => $categories,
-        ];
-        return view('index', $data);
+
+        return view('index', [
+            'featuredProducts' => $featuredProducts,
+            'categories' => $categories,
+        ]);
     }
     //hàm lấy ra chi tiết 1 sản phẩm
     public function productDetail($id)
@@ -173,6 +170,6 @@ class CrudProductController extends Controller
             $product->image_url = $imagePath;
         }
         $product->save();
-        return redirect()->route('product.list')->with('success',"Cập nhật thành công");
+        return redirect()->route('product.list')->with('success', "Cập nhật thành công");
     }
 }

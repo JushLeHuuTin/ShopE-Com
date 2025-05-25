@@ -35,6 +35,7 @@
             left: calc(50% - 25px);
             bottom: 10px;
         }
+
         .status-title {
             width: 100%;
             height: 30px;
@@ -185,7 +186,7 @@
                                                         </form>
                                                     </div>
                                                 </td>
-                                            </tr> 
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -208,7 +209,7 @@
     </div>
 
 
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const menuLi = document.querySelectorAll('.admin-sidebar-content > ul > li > a');
         const submenu = document.querySelectorAll('.sub-menu');
@@ -259,7 +260,33 @@
             });
         });
 
+        $(document).ready(function () {
+            $('.delete-review').click(function (e) {
+                e.preventDefault();
+                if (!confirm('Bạn có muốn xóa không?')) return;
 
+                let reviewId = $(this).data('id');
+
+                $.ajax({
+                    url: '/managerreview/' + reviewId + '/delete',
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        alert(response.message);
+                        location.reload(); // Hoặc remove row nếu bạn muốn
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 404) {
+                            alert('Xóa thất bại: đánh giá không tồn tại.');
+                        } else {
+                            alert('Có lỗi xảy ra khi xóa.');
+                        }
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

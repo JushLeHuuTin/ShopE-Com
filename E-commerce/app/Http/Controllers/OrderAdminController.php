@@ -16,10 +16,6 @@ class OrderAdminController extends Controller
     {
         return view('orders.order_cancelled');
     }
-    public function orderProcess()
-    {
-        return view('orders.order_process');
-    }
     // public function cancel(Invoice $invoice)
     // {
     //     if($invoice->status !== 'pending') {
@@ -89,7 +85,7 @@ class OrderAdminController extends Controller
         )
             ->join('users', 'invoices.id_user', '=', 'users.id_user')
             ->where('invoices.status', '=', 'cancelled')
-            ->with(['invoiceDetails.variant.product']) // nested eager loading
+            ->with(['invoiceDetails.variant.product'])
             ->paginate(10);
 
         $invoicesDetail = [];

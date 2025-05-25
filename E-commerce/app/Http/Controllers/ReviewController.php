@@ -17,7 +17,6 @@ class ReviewController extends Controller
 
     public function review(Request $request)
     {
-        // dd($request->all());
         // Kiểm tra tính hợp lệ của dữ liệu
         $validated = $request->validate([
             'id_user' => 'required|exists:users,id_user',
@@ -25,7 +24,6 @@ class ReviewController extends Controller
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string|max:500',
         ]);
-
 
         // Lưu vào bảng reviews
         Review::create([
@@ -38,7 +36,7 @@ class ReviewController extends Controller
         return redirect()->back()->with('message', 'Đánh giá của bạn đã được gửi thành công!');
     }
     public function managerReview()
-    { 
+    {
         return view('managerreview');
     }
 
@@ -53,11 +51,15 @@ class ReviewController extends Controller
     //Trạng thái đang chờ duyệt
     public function approve($id)
     {
-        $review = Review::findOrFail($id);
+        $review = Review::find($id);
+
+        if (!$review) {
+            return redirect()->back()->with('error', 'Xóa không hợp lệ');
+        }
 
         if ($review->status === 'approved' || $review->status === 'hide') {
             $review->status = 'browse';
-        }else {
+        } else {
             $review->status = 'browse';
             return redirect()->back()->with('message', 'Duyệt thất bại');
         }
@@ -67,8 +69,13 @@ class ReviewController extends Controller
     //Trạng thái ẩn
     public function hide($id)
     {
-        $review = Review::findOrFail($id);
-        if($review->status === 'browse' || $review->status === 'approved' || $review->status === 'hide') {
+        $review = Review::find($id);
+
+        if (!$review) {
+            return redirect()->back()->with('error', 'Xóa không hợp lệ');
+        }
+
+        if ($review->status === 'browse' || $review->status === 'approved' || $review->status === 'hide') {
             $review->status = 'hide';
         }
         $review->save();
@@ -77,7 +84,10 @@ class ReviewController extends Controller
     //Trạng thái xóa
     public function delete($id)
     {
-        $review = Review::findOrFail( $id);
+        $review = Review::find($id);
+        if (!$review) {
+            return redirect()->back()->with('error', 'Xóa không hợp lệ');
+        }
         $review->delete();
         return redirect()->back()->with('message', 'Xóa đánh giá thành công');
     }

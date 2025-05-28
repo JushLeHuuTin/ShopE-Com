@@ -24,94 +24,76 @@
 
 @extends('layout.admin')
 
-<<<<<<< HEAD
-=======
-        .btn-status {
-            position: fixed;
-            left: calc(50% - 25px);
-            bottom: 10px;
-        }
-
-        .status-title {
-            width: 100%;
-            height: 30px;
-            background: blue;
-            color: white;
-            border-radius: 5px 5px 0 0;
-        }
-    </style>
-</head>
->>>>>>> trieu/f9/update-invoice-cancel
 
 @section('title', 'Quản lý Đánh Giá')
 
 @section('content')
-        <div class="admin-content">
-            <div class="admin-content-review">
-                <div class="admin-content-review-title">
-                    <h1 class="border-bottom pb-2 mb-4 h5">Quản lý đánh giá</h1>
-                </div>
-                <div class="admin-content-review-table">
-                    <div class="admin-content-review-table-list">
-                        @if ($reviews->isEmpty())
-                            <p>Khong co danh gia nao</p>
-                        @else
-                            <table>
-                                <thead>
+    <div class="admin-content">
+        <div class="admin-content-review">
+            <div class="admin-content-review-title">
+                <h1 class="border-bottom pb-2 mb-4 h5">Quản lý đánh giá</h1>
+            </div>
+            <div class="admin-content-review-table">
+                <div class="admin-content-review-table-list">
+                    @if ($reviews->isEmpty())
+                        <p>Khong co danh gia nao</p>
+                    @else
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mã đánh giá</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số sao</th>
+                                    <th>Nội dung</th>
+                                    <th>Ngày đánh giá</th>
+                                    <th>Trạng thái</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($reviews as $review)
                                     <tr>
-                                        <th>Mã đánh giá</th>
-                                        <th>Tên khách hàng</th>
-                                        <th>Hình ảnh</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Số sao</th>
-                                        <th>Nội dung</th>
-                                        <th>Ngày đánh giá</th>
-                                        <th>Trạng thái</th>
-                                        <th>Hành động</th>
+                                        <td>{{ $review->id_review }}</td>
+                                        <td>{{ $review->users->username }}</td>
+                                        <td><img src="{{ asset('images/' . $review->product->image_url) }}" alt=""
+                                                style="width: 70px;"></td>
+                                        <td>{{ $review->product->name }}</td>
+                                        <td>{{ $review->rating }}⭐</td>
+                                        <td class="content-review">{{ $review->comment }}</td>
+                                        <td>{{ $review->created_at }}</td>
+                                        <td>{{ $review->status }}</td>
+                                        <td>
+                                            <div class="review-action" style="justify-content: center;">
+                                                <form action="{{ route('approve', $review->id_review) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn-approved">Duyệt</button>
+                                                </form>
+                                                <form action="{{ route('hide', $review->id_review) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn-pending">Ẩn</button>
+                                                </form>
+                                                <form action="{{ route('delete', $review->id_review) }}" method="POST"
+                                                    onclick="return confirm('Bạn có muốn xóa không?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn-rejected">Xóa</button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($reviews as $review)
-                                        <tr>
-                                            <td>{{ $review->id_review }}</td>
-                                            <td>{{ $review->users->username }}</td>
-                                            <td><img src="{{ asset('images/' . $review->product->image_url) }}" alt=""
-                                                    style="width: 70px;"></td>
-                                            <td>{{ $review->product->name }}</td>
-                                            <td>{{ $review->rating }}⭐</td>
-                                            <td class="content-review">{{ $review->comment }}</td>
-                                            <td>{{ $review->created_at }}</td>
-                                            <td>{{ $review->status }}</td>
-                                            <td>
-                                                <div class="review-action" style="justify-content: center;">
-                                                    <form action="{{ route('approve', $review->id_review) }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn-approved">Duyệt</button>
-                                                    </form>
-                                                    <form action="{{ route('hide', $review->id_review) }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn-pending">Ẩn</button>
-                                                    </form>
-                                                    <form action="{{ route('delete', $review->id_review) }}" method="POST"
-                                                        onclick="return confirm('Bạn có muốn xóa không?')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn-rejected">Xóa</button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <div class="mt-2">
-                                {{ $reviews->links('pagination::bootstrap-5') }}
-                            </div>
-                        @endif
-                    </div>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="mt-2">
+                            {{ $reviews->links('pagination::bootstrap-5') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
+    </div>
     <div class="status-container" style="display: none">
         <div class="status-infor d-block text-center">
             <div class="status-title">Thông báo</div>
@@ -125,7 +107,6 @@
     const menuLi = document.querySelectorAll('.admin-sidebar-content > ul > li > a');
     const submenu = document.querySelectorAll('.sub-menu');
 
-<<<<<<< HEAD
     menuLi.forEach(link => {
         link.addEventListener('click', (e) => {
             const currentSubMenu = link.parentElement.querySelector('.sub-menu');
@@ -133,12 +114,6 @@
             // Chỉ xử lý nếu có submenu
             if (currentSubMenu) {
                 e.preventDefault();
-=======
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        const menuLi = document.querySelectorAll('.admin-sidebar-content > ul > li > a');
-        const submenu = document.querySelectorAll('.sub-menu');
->>>>>>> trieu/f9/update-invoice-cancel
 
                 const isActive = currentSubMenu.classList.contains('active');
 
@@ -178,38 +153,5 @@
         });
     });
 
-        $(document).ready(function () {
-            $('.delete-review').click(function (e) {
-                e.preventDefault();
-                if (!confirm('Bạn có muốn xóa không?')) return;
-
-<<<<<<< HEAD
+    
 </script>
-=======
-                let reviewId = $(this).data('id');
-
-                $.ajax({
-                    url: '/managerreview/' + reviewId + '/delete',
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function (response) {
-                        alert(response.message);
-                        location.reload(); // Hoặc remove row nếu bạn muốn
-                    },
-                    error: function (xhr) {
-                        if (xhr.status === 404) {
-                            alert('Xóa thất bại: đánh giá không tồn tại.');
-                        } else {
-                            alert('Có lỗi xảy ra khi xóa.');
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-</body>
-
-</html>
->>>>>>> trieu/f9/update-invoice-cancel

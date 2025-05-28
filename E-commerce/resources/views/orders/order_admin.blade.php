@@ -29,7 +29,9 @@
 </style>
 
 @extends('layout.admin')
+
 @section('title', 'Quản lý Đơn hàng')
+
 @section('content')
     <div class="admin-content">
         <div class="admin-content-review">

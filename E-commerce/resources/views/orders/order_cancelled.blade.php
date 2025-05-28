@@ -10,6 +10,33 @@
     table tbody tr td {
         padding: 0;
     }
+     .status-container {
+            position: fixed;
+            width: 300px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            background: #fee2e2;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .btn-status {
+            position: fixed;
+            left: calc(50% - 25px);
+            bottom: 10px;
+        }
+
+        .status-title {
+            width: 100%;
+            height: 30px;
+            background: blue;
+            color: white;
+            border-radius: 5px 5px 0 0;
+        }
 </style>
 
 

@@ -26,13 +26,14 @@
             <thead>
                 <tr class="bg-green-500 text-white">
                     <th class="p-2">
-                        Mã khuyến mãi
-                    </th>
-                    <th class="p-2">
                         Tên chương trình
+                        
                     </th>
                     <th class="p-2">
                         Phần trăm giảm
+                    </th>
+                    <th class="p-2">
+                        Ngày bắt đầu
                     </th>
                     <th class="p-2">
                         Ngày kết thúc

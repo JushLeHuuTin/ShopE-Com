@@ -62,10 +62,11 @@
                                         <td>{{ $processInvoice->dateOrder }}</td>
                                         <td>{{ number_format($processInvoice->total_money, 0, ',', '.') }}</td>
                                         <td>{{ $processInvoice->status }}</td>
-                                        <td>
-
-                                            <button type="submit" class="btn-order">Xác nhận</button>
-
+                                        <td class="d-flex justify-content-center">
+                                            <form action="{{ route('order_confirm', $processInvoice->invoice_id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn-order mx-2">Xác nhận</button>
+                                            </form>
                                             <button class="btn-order-detail" data-id="{{ $processInvoice->invoice_id }}">Xem chi
                                                 tiết</button>
                                         </td>
@@ -118,6 +119,13 @@
             </div>
         </div>
     </div>
+    <div class="status-container" style="display: none">
+        <div class="status-infor d-block text-center">
+            <div class="status-title">Thông báo</div>
+            <p class="mt-4" id="statusMessageText"></p>
+            <button type="button" class="btn btn-outline-primary btn-status">OK</button>
+        </div>
+    </div>
 @endsection
 
 <script>
@@ -165,4 +173,26 @@
         });
     });
 
+    window.addEventListener('DOMContentLoaded', () => {
+        const formStatus = document.querySelector('.status-container');
+        const messageText = document.getElementById('statusMessageText');
+        const btnStatus = document.querySelector('.btn-status');
+
+        // Lấy thông báo từ session
+        @if (session('message'))
+            formStatus.style.display = 'block';
+            messageText.innerText = "{{ session('message') }}";
+        @endif
+
+        @if (session('error'))
+            formStatus.style.display = 'block';
+            messageText.innerText = "{{ session('error') }}";
+            formStatus.style.backgroundColor = '#f8d7da'; // màu đỏ cho lỗi
+        @endif
+
+        // Xử lý nút OK
+        btnStatus?.addEventListener('click', () => {
+            formStatus.style.display = 'none';
+        });
+    });
 </script>

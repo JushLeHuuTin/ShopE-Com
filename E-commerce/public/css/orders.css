@@ -208,7 +208,10 @@ td {
 .admin-content-review-table-list table tbody tr td {
     padding: 5px 0;
 }
-
+table tbody tr td img {
+    display: block;
+    margin: auto;
+}
 .content-review {
     width: 300px;
     word-wrap: break-word;
@@ -311,5 +314,6 @@ td {
     padding: 10px;
 }
 .revenua {
+    margin: auto;
     width: 150px;
 }

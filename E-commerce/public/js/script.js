@@ -226,8 +226,8 @@ document.addEventListener('DOMContentLoaded', function () {
             item.classList.add('active');
         });
     });
-}); 
-  function toggleMenu(id) {
+});
+function toggleMenu(id) {
     const menu = document.getElementById(id);
     menu.classList.toggle('hidden');
 }

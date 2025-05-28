@@ -40,6 +40,34 @@
             }
 
         }
+
+        .status-container {
+            position: fixed;
+            width: 300px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            background: #fee2e2;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .btn-status {
+            position: fixed;
+            left: calc(50% - 25px);
+            bottom: 10px;
+        }
+
+        .status-title {
+            width: 100%;
+            height: 30px;
+            background: blue;
+            color: white;
+            border-radius: 5px 5px 0 0;
+        }
     </style>
 </head>
 
@@ -140,7 +168,7 @@
                                             <th>Mã đơn hàng</th>
                                             <th>Tên khách hàng</th>
                                             <th>Ngày tạo</th>
-                                            <th>Tổng tiền</th> 
+                                            <th>Tổng tiền</th>
                                             <th>Trạng thái</th>
                                             <th>Hành động</th>
                                         </tr>
@@ -153,8 +181,12 @@
                                                 <td>{{ $processInvoice->dateOrder }}</td>
                                                 <td>{{ number_format($processInvoice->total_money, 0, ',', '.') }}</td>
                                                 <td>{{ $processInvoice->status }}</td>
-                                                <td>
-                                                    <button class="btn-order">Xác nhận</button>
+                                                <td class="d-flex justify-content-center">
+                                                    <form action="{{ route('order_confirm', $processInvoice->invoice_id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="btn-order mx-2">Xác nhận</button>
+                                                    </form>
                                                     <button class="btn-order-detail"
                                                         data-id="{{ $processInvoice->invoice_id }}">Xem chi tiết</button>
                                                 </td>
@@ -182,7 +214,6 @@
                                                                 <div class="order-quantity">SL: {{ $detail->invoice_quantity }}
                                                                 </div>
                                                             </div>
-
                                                         @endforeach
                                                         <div
                                                             class="action-form d-flex justify-content-between  align-items-center">
@@ -199,7 +230,7 @@
                                             <!-- End Form chi tiet don hang -->
                                         </tbody>
                                     @endforeach
-                                    
+
                                 </table>
                                 <div class="mt-2">
                                     {{ $processInvoices->links('pagination::bootstrap-5') }}
@@ -213,6 +244,13 @@
         </div>
     </section>
     <!-- End Layout -->
+    <div class="status-container" style="display: none">
+        <div class="status-infor d-block text-center">
+            <div class="status-title">Thông báo</div>
+            <p class="mt-4" id="statusMessageText"></p>
+            <button type="button" class="btn btn-outline-primary btn-status">OK</button>
+        </div>
+    </div>
 
     <script>
         const menuLi = document.querySelectorAll('.admin-sidebar-content > ul > li > a');
@@ -259,6 +297,28 @@
             });
         });
 
+        window.addEventListener('DOMContentLoaded', () => {
+            const formStatus = document.querySelector('.status-container');
+            const messageText = document.getElementById('statusMessageText');
+            const btnStatus = document.querySelector('.btn-status');
+
+            // Lấy thông báo từ session
+            @if (session('message'))
+                formStatus.style.display = 'block';
+                messageText.innerText = "{{ session('message') }}";
+            @endif
+
+            @if (session('error'))
+                formStatus.style.display = 'block';
+                messageText.innerText = "{{ session('error') }}";
+                formStatus.style.backgroundColor = '#f8d7da'; // màu đỏ cho lỗi
+            @endif
+
+            // Xử lý nút OK
+            btnStatus?.addEventListener('click', () => {
+                formStatus.style.display = 'none';
+            });
+        });
 
 
     </script>

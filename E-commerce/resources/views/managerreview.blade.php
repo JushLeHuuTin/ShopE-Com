@@ -15,6 +15,35 @@
 
     <link rel="stylesheet" href="{{ asset('/css/managerreview.css') }}">
     <title>Quản lý đánh giá</title>
+    <style>
+        .status-container {
+            position: fixed;
+            width: 300px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            background: #fee2e2;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .btn-status {
+            position: fixed;
+            left: calc(50% - 25px);
+            bottom: 10px;
+        }
+
+        .status-title {
+            width: 100%;
+            height: 30px;
+            background: blue;
+            color: white;
+            border-radius: 5px 5px 0 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -38,7 +67,7 @@
                                 <div class="sub-menu-items">
                                     <li><a href="{{ route('orders.order_admin') }}"><i
                                                 class="ri-arrow-right-s-fill"></i>Xác nhận đơn hàng</a></li>
-                                    
+
                                     <li><a href="{{ route('orders.order_cancelled') }}"><i
                                                 class="ri-arrow-right-s-fill"></i>Đơn hàng bị hủy</a></li>
                                 </div>
@@ -141,18 +170,16 @@
                                                 <td>{{ $review->status }}</td>
                                                 <td>
                                                     <div class="review-action" style="justify-content: center;">
-                                                        <form action="{{ route('approve', $review->id_review) }}"
-                                                            method="POST">
+                                                        <form action="{{ route('approve', $review->id_review) }}" method="POST">
                                                             @csrf
                                                             <button type="submit" class="btn-approved">Duyệt</button>
                                                         </form>
-                                                        <form action="{{ route('hide', $review->id_review) }}"
-                                                            method="POST">
+                                                        <form action="{{ route('hide', $review->id_review) }}" method="POST">
                                                             @csrf
                                                             <button type="submit" class="btn-pending">Ẩn</button>
                                                         </form>
-                                                        <form action="{{ route('delete', $review->id_review) }}"
-                                                            method="POST">
+                                                        <form action="{{ route('delete', $review->id_review) }}" method="POST"
+                                                            onclick="return confirm('Bạn có muốn xóa không?')">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn-rejected">Xóa</button>
@@ -173,8 +200,16 @@
             </div>
         </div>
     </section>
-    <!-- End Layout -->
+    <div class="status-container" style="display: none">
+        <div class="status-infor d-block text-center">
+            <div class="status-title">Thông báo</div>
+            <p class="mt-4" id="statusMessageText"></p>
+            <button type="button" class="btn btn-outline-primary btn-status">OK</button>
+        </div>
+    </div>
 
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const menuLi = document.querySelectorAll('.admin-sidebar-content > ul > li > a');
         const submenu = document.querySelectorAll('.sub-menu');
@@ -202,9 +237,56 @@
                 }
             });
         });
+        window.addEventListener('DOMContentLoaded', () => {
+            const formStatus = document.querySelector('.status-container');
+            const messageText = document.getElementById('statusMessageText');
+            const btnStatus = document.querySelector('.btn-status');
 
+            // Lấy thông báo từ session
+            @if (session('message'))
+                formStatus.style.display = 'block';
+                messageText.innerText = "{{ session('message') }}";
+            @endif
 
+            @if (session('error'))
+                formStatus.style.display = 'block';
+                messageText.innerText = "{{ session('error') }}";
+                formStatus.style.backgroundColor = '#f8d7da'; // màu đỏ cho lỗi
+            @endif
 
+            // Xử lý nút OK
+            btnStatus?.addEventListener('click', () => {
+                formStatus.style.display = 'none';
+            });
+        });
+
+        $(document).ready(function () {
+            $('.delete-review').click(function (e) {
+                e.preventDefault();
+                if (!confirm('Bạn có muốn xóa không?')) return;
+
+                let reviewId = $(this).data('id');
+
+                $.ajax({
+                    url: '/managerreview/' + reviewId + '/delete',
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        alert(response.message);
+                        location.reload(); // Hoặc remove row nếu bạn muốn
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 404) {
+                            alert('Xóa thất bại: đánh giá không tồn tại.');
+                        } else {
+                            alert('Có lỗi xảy ra khi xóa.');
+                        }
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

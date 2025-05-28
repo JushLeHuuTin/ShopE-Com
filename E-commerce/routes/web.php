@@ -198,7 +198,7 @@ Route::prefix('admin')->group(function () {
     Route::prefix('order')->group(function () {
         // Route::get('/', [OrderAdminController::class, 'orderAdmin'])->name('orders.order_admin');
         Route::get('/', [OrderAdminController::class, 'processInvoices'])->name('orders.order_admin');
-        Route::post('/{id}/confirm', [OrderAdminController::class, 'confirm'])->name('order_confirm');
+        Route::post('/confirm/{id}', [OrderAdminController::class, 'confirm'])->name('order_confirm');
         // Route::get('/cancelled', [OrderAdminController::class, 'orderCancelled'])->name('orders.order_cancelled');
         Route::get('/cancelled', [OrderAdminController::class, 'cancellInvoice'])->name('orders.order_cancelled');
         Route::delete('/{invoice_id}/delete', [OrderAdminController::class, 'deleteInvoiceCancel'])->name('deleteInvoice');

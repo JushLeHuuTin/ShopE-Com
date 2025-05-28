@@ -63,7 +63,9 @@
                                         <td>{{ number_format($processInvoice->total_money, 0, ',', '.') }}</td>
                                         <td>{{ $processInvoice->status }}</td>
                                         <td>
-                                            <button class="btn-order">Xác nhận</button>
+
+                                            <button type="submit" class="btn-order">Xác nhận</button>
+
                                             <button class="btn-order-detail" data-id="{{ $processInvoice->invoice_id }}">Xem chi
                                                 tiết</button>
                                         </td>

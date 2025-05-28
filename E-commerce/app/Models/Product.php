@@ -37,4 +37,13 @@ class Product extends Model
                      ->where('is_featured', 1)
                      ->take($limit);
     }
+    public static function searchByKeyword($keyword)
+{
+    return self::when($keyword, function ($query) use ($keyword) {
+            $query->where('name', 'like', '%' . $keyword . '%')
+                  ->orWhere('description', 'like', '%' . $keyword . '%');
+        })
+        ->paginate(8)
+        ->appends(['s' => $keyword]);
+}
 }

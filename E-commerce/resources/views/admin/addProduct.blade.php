@@ -50,6 +50,9 @@
                                     <option value="{{ $categies->id_category }}">{{ $categies->name }}</option>
                                 @endforeach
                             </select>
+                            @if ($errors->has('categories'))
+                            <div class="text-danger small">{{ $errors->first('categories') }}</div>
+                        @endif
                         </div>
 
                         <div class="col-md-6">

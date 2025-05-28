@@ -153,6 +153,8 @@ Route::get('register', [CrudUserController::class, 'register'])->name('register'
 
 // Sản phẩm
 Route::get('/product/{id}', [CrudProductController::class, 'productDetail'])->name('product.detail');
+//
+Route::get('search', [CrudProductController::class, 'search'])->name('product.search');
 Route::get('/product/{id}/variant', [CrudProductController::class, 'show'])->name('product.show');
 
 // Danh mục

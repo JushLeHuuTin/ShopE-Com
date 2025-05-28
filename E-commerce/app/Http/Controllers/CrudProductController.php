@@ -66,16 +66,24 @@ class CrudProductController extends Controller
         $request->validate([
             'name' => ['required', new CleanText(100)],
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'price' => 'required',
-            'quantity' => 'required'
+            'price' => 'required|numeric|min:0|max:99999999',
+            'quantity' => 'required|integer|min:0|max:10000',
+            'categories' => ['required', 'integer', 'exists:categories,id_category'],
         ], [
             'name.required' => '* Vui lòng nhập tên sản phẩm',
             'image.required' => '* Vui lòng chọn hình ảnh sản phẩm.',
             'image.image' => '* Tệp tải lên phải là hình ảnh.',
             'image.mimes' => '* Hình ảnh phải có định dạng: jpg, jpeg hoặc png.',
             'image.max' => '* Dung lượng ảnh không được vượt quá 2MB.',
+            'quantity.required' => '* Vui lòng nhập số lượng',
+            'quantity.integer' => '* Số lượng phải là số nguyên',
+            'quantity.min' => '* Số lượng không được nhỏ hơn 0',
+            'quantity.max' => '* Số lượng không được vượt quá 10.000',
             'price.required' => '* Vui lòng nhập giá',
             'quantity.required' => '* Vui lòng nhập số lượng',
+            'categories.required' => '* Vui lòng chọn danh mục sản phẩm',
+            'categories.integer' => '* Giá trị danh mục không hợp lệ',
+            'categories.exists' => '* Danh mục không tồn tại',
         ]);
         //
 
@@ -88,7 +96,7 @@ class CrudProductController extends Controller
             $imagePath =   $imageName;
         }
         //
-       
+
         //
         $input = $request->all();
         $product = Product::create([
@@ -135,8 +143,7 @@ class CrudProductController extends Controller
         $request->validate([
             'name' => ['required', new CleanText(100)],
             'image' => 'nullable|image|mimes:jpg,png|max:2048',
-            // 'price' => 'required',
-            // 'quantity' => 'required'
+            'categories' => ['required', 'integer', 'exists:categories,id_category'],
         ], [
             'name.required' => '* Vui lòng nhập tên sản phẩm',
             'name.max' => '* Tên sản phẩm không được vượt quá :max ký tự.',
@@ -144,12 +151,14 @@ class CrudProductController extends Controller
             'image.image' => '* Tệp tải lên phải là hình ảnh.',
             'image.mimes' => '* Hình ảnh phải có định dạng: jpg, hoặc png.',
             'image.max' => '* Dung lượng ảnh không được vượt quá 2MB.',
-            'price.required' => '* Vui lòng nhập giá',
             'quantity.required' => '* Vui lòng nhập số lượng',
+            'categories.required' => '* Vui lòng chọn danh mục sản phẩm',
+            'categories.integer' => '* Giá trị danh mục không hợp lệ',
+            'categories.exists' => '* Danh mục không tồn tại',
         ]);
 
         $input = $request->all();
-        
+
         $product = Product::findOrFail($input['id']);
         if ($product->updated_at != $request->input('updated_at')) {
             return back()->with('error', 'Dữ liệu đã bị thay đổi bởi người khác.');
@@ -177,5 +186,16 @@ class CrudProductController extends Controller
         }
         $product->save();
         return redirect()->route('product.list')->with('success', "Cập nhật thành công");
+    }
+    //search 
+    public function search(Request $request)
+    {
+        $search = $request->query('s');
+        $products = Product::searchByKeyword($search);
+
+        return view('search', [
+            'products' => $products,
+            'search'   => $search
+        ]);
     }
 }

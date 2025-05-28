@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Ap Supper')</title>
+    <title>@yield('title', 'Overflow Store')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="icon" href="//img6.wsimg.com/ux-assets/favicon/favicon-96x96.png">
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/reponsive.css') }}">
 </head>
@@ -532,9 +532,11 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <input id="search-input" class="ps-1 ms-2 border-none w-100" type="text"
-                                            name="" id="" placeholder="What are you looking for?"
-                                            autofocus>
+                                        <form action="{{ route('product.search') }}">
+                                            <input id="search-input" class="ps-1 ms-2 border-none w-100" type="text"
+                                                name="s" id="" placeholder="What are you looking for?"
+                                                autofocus>
+                                        </form>
                                     </div>
                                     <div class="header__search-body mt-5">
                                         <h3 class="select-heading">POPULAR</h3>

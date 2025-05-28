@@ -10,13 +10,15 @@ class Review extends Model
 
     protected $table = 'reviews';
     protected $primaryKey = 'id_review';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'id_user',
         'id_product',
         'rating', 
         'comment',
+        'created_at',
+        'updated_at'
     ];
 
     public function users()

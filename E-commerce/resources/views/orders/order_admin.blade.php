@@ -99,42 +99,42 @@
                                                 tiết</button>
                                         </td>
                                     </tr>
-                                    <div class="form-orders-detail" id="form-detail-{{ $processInvoice->invoice_id }}"
-                                        data-id="{{ $processInvoice->invoice_id }}" style="display: none;">
-                                        <div class="wapper-orders">
-                                            <div class="form-order-title p-1">
-                                                <div class="order-text mt-2">Chi tiết đơn hàng</div>
-                                                <p class="order-close mt-2" data-id="{{ $processInvoice->invoice_id }}">
-                                                    X</p>
-                                            </div>
-                                            <div class="form-order-product">
-                                                @foreach ($invoicesDetail[$processInvoice->invoice_id] ?? [] as $detail)
-                                                    <div class="form-order-product-detail">
-                                                        <img style="width: 150px;"
-                                                            src="{{ asset('images/' . $detail->product_image_url) }}" alt="">
-                                                        <div class="order-content">
-                                                            <div class="order-name">{{ $detail->product_name }}</div>
-                                                            <div class="order-price">
-                                                                {{ number_format($detail->priceProduct, 0, ',', '.') }} VND
-                                                            </div>
-                                                        </div>
-                                                        <div class="order-quantity">SL: {{ $detail->invoice_quantity }}
+                                </tbody>
+                                <div class="form-orders-detail" id="form-detail-{{ $processInvoice->invoice_id }}"
+                                    data-id="{{ $processInvoice->invoice_id }}" style="display: none;">
+                                    <div class="wapper-orders">
+                                        <div class="form-order-title p-1">
+                                            <div class="order-text mt-2">Chi tiết đơn hàng</div>
+                                            <p class="order-close mt-2" data-id="{{ $processInvoice->invoice_id }}">
+                                                X</p>
+                                        </div>
+                                        <div class="form-order-product">
+                                            @foreach ($invoicesDetail[$processInvoice->invoice_id] ?? [] as $detail)
+                                                <div class="form-order-product-detail">
+                                                    <img style="width: 150px;" src="{{ asset('images/' . $detail->product_image_url) }}"
+                                                        alt="">
+                                                    <div class="order-content">
+                                                        <div class="order-name">{{ $detail->product_name }}</div>
+                                                        <div class="order-price">
+                                                            {{ number_format($detail->priceProduct, 0, ',', '.') }} VND
                                                         </div>
                                                     </div>
-
-                                                @endforeach
-                                                <div class="action-form d-flex justify-content-between  align-items-center">
-                                                    <div class="order-total-money">Tổng tiền:
-                                                        {{ number_format($processInvoice->total_money, 0, ',', '.') }}
-                                                        VND
+                                                    <div class="order-quantity">SL: {{ $detail->invoice_quantity }}
                                                     </div>
-                                                    <button type="button" class="btn btn-outline-primary mx-1 order-ok">OK</button>
                                                 </div>
+
+                                            @endforeach
+                                            <div class="action-form d-flex justify-content-between  align-items-center">
+                                                <div class="order-total-money">Tổng tiền:
+                                                    {{ number_format($processInvoice->total_money, 0, ',', '.') }}
+                                                    VND
+                                                </div>
+                                                <button type="button" class="btn btn-outline-primary mx-1 order-ok">OK</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Form chi tiet don hang -->
-                                </tbody>
+                                </div>
+                                <!-- End Form chi tiet don hang -->
                             @endforeach
 
                         </table>
@@ -154,73 +154,74 @@
             <button type="button" class="btn btn-outline-primary btn-status">OK</button>
         </div>
     </div>
-@endsection
 
-<script>
-    const menuLi = document.querySelectorAll('.admin-sidebar-content > ul > li > a');
-    const submenu = document.querySelectorAll('.sub-menu');
+    <script>
+        const menuLi = document.querySelectorAll('.admin-sidebar-content > ul > li > a');
+        const submenu = document.querySelectorAll('.sub-menu');
 
-    menuLi.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const currentSubMenu = link.parentElement.querySelector('.sub-menu');
+        menuLi.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const currentSubMenu = link.parentElement.querySelector('.sub-menu');
 
-            // Chỉ xử lý nếu có submenu
-            if (currentSubMenu) {
-                e.preventDefault();
+                // Chỉ xử lý nếu có submenu
+                if (currentSubMenu) {
+                    e.preventDefault();
 
-                const isActive = currentSubMenu.classList.contains('active');
+                    const isActive = currentSubMenu.classList.contains('active');
 
-                submenu.forEach(menu => {
-                    menu.classList.remove('active');
-                    menu.style.height = '0px';
-                });
+                    submenu.forEach(menu => {
+                        menu.classList.remove('active');
+                        menu.style.height = '0px';
+                    });
 
-                if (!isActive) {
-                    currentSubMenu.classList.add('active');
-                    const submenuHeight = currentSubMenu.querySelector('.sub-menu-items').offsetHeight;
-                    currentSubMenu.style.height = submenuHeight + 'px';
+                    if (!isActive) {
+                        currentSubMenu.classList.add('active');
+                        const submenuHeight = currentSubMenu.querySelector('.sub-menu-items').offsetHeight;
+                        currentSubMenu.style.height = submenuHeight + 'px';
+                    }
                 }
-            }
+            });
         });
-    });
 
-    document.querySelectorAll('.btn-order-detail').forEach(button => {
-        button.addEventListener('click', function () {
-            const id = this.getAttribute('data-id');
-            const form = document.getElementById('form-detail-' + id);
-            if (form) form.style.display = 'block';
+        document.querySelectorAll('.btn-order-detail').forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                console.log("Hiện chi tiết cho:", id);
+                const form = document.getElementById('form-detail-' + id);
+                if (form) form.style.display = 'block';
+            });
         });
-    });
 
-    document.querySelectorAll('.order-close, .order-ok').forEach(button => {
-        button.addEventListener('click', function () {
-            const form = this.closest('.form-orders-detail');
-            if (form) {
-                form.style.display = 'none';
-            }
+        document.querySelectorAll('.order-close, .order-ok').forEach(button => {
+            button.addEventListener('click', function () {
+                const form = this.closest('.form-orders-detail');
+                if (form) {
+                    form.style.display = 'none';
+                }
+            });
         });
-    });
 
-    window.addEventListener('DOMContentLoaded', () => {
-        const formStatus = document.querySelector('.status-container');
-        const messageText = document.getElementById('statusMessageText');
-        const btnStatus = document.querySelector('.btn-status');
+        window.addEventListener('DOMContentLoaded', () => {
+            const formStatus = document.querySelector('.status-container');
+            const messageText = document.getElementById('statusMessageText');
+            const btnStatus = document.querySelector('.btn-status');
 
-        // Lấy thông báo từ session
-        @if (session('message'))
-            formStatus.style.display = 'block';
-            messageText.innerText = "{{ session('message') }}";
-        @endif
+            // Lấy thông báo từ session
+            @if (session('message'))
+                formStatus.style.display = 'block';
+                messageText.innerText = "{{ session('message') }}";
+            @endif
 
-        @if (session('error'))
-            formStatus.style.display = 'block';
-            messageText.innerText = "{{ session('error') }}";
-            formStatus.style.backgroundColor = '#f8d7da'; // màu đỏ cho lỗi
-        @endif
+            @if (session('error'))
+                formStatus.style.display = 'block';
+                messageText.innerText = "{{ session('error') }}";
+                formStatus.style.backgroundColor = '#f8d7da'; // màu đỏ cho lỗi
+            @endif
 
-        // Xử lý nút OK
-        btnStatus?.addEventListener('click', () => {
-            formStatus.style.display = 'none';
+            // Xử lý nút OK
+            btnStatus?.addEventListener('click', () => {
+                formStatus.style.display = 'none';
+            });
         });
-    });
-</script>
+    </script>
+@endsection

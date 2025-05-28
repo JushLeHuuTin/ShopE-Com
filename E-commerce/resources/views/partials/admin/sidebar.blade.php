@@ -29,7 +29,7 @@
             </span>
         </li>
         <ul id="invoiceMenu" class="ml-6 mt-2 space-y-2 hidden">
-            <li><a href="{{ route('orders.order_admin') }}" class="text-sm text-gray-700 hover:text-green-600">➕ Xác
+            <li><a href="{{ route('orders.order_admin') }}" class="text-sm text-gray-700 hover:text-green-600">🧾 Xác
                     nhận đơn hàng</a></li>
             <li><a href="{{ route('orders.order_cancelled') }}" class="text-sm text-gray-700 hover:text-green-600">📋
                     Đơn hàng bị hủy</a></li>
@@ -53,9 +53,9 @@
             </span>
         </li>
         <ul id="statisticMenu" class="ml-6 mt-2 space-y-2 hidden">
-            <li><a href="{{ route('statistic.statistic_money') }}" class="text-sm text-gray-700 hover:text-green-600">Doanh thu</a></li>
-            <li><a href="{{ route('statistic.statistic_quantity') }}" class="text-sm text-gray-700 hover:text-green-600">Số lượng sản phẩm</a></li>
-            <li><a href="{{ route('statistic.statistic_product') }}" class="text-sm text-gray-700 hover:text-green-600">Sản phẩm có đánh giá tốt</a></li>
+            <li><a href="{{ route('statistic.statistic_money') }}" class="text-sm text-gray-700 hover:text-green-600">💰 Doanh thu</a></li>
+            <li><a href="{{ route('statistic.statistic_quantity') }}" class="text-sm text-gray-700 hover:text-green-600">🔢Số lượng sản phẩm</a></li>
+            <li><a href="{{ route('statistic.statistic_product') }}" class="text-sm text-gray-700 hover:text-green-600">✡️Sản phẩm có đánh giá tốt</a></li>
         </ul>
 
         <li class="flex items-center cursor-pointer" onclick="toggleMenu('reportMenu')">
@@ -66,8 +66,8 @@
             </span>
         </li>
         <ul id="reportMenu" class="ml-6 mt-2 space-y-2 hidden" >
-            <li><a href="{{ route('report.report_product') }}" class="text-sm text-gray-700 hover:text-green-600">Sản phẩm tốt nhất</a></li>
-            <li><a href="{{ route('report.report_customer') }}" class="text-sm text-gray-700 hover:text-green-600">Top khách hàng</a></li>
+            <li><a href="{{ route('report.report_product') }}" class="text-sm text-gray-700 hover:text-green-600">👔Sản phẩm tốt nhất</a></li>
+            <li><a href="{{ route('report.report_customer') }}" class="text-sm text-gray-700 hover:text-green-600">🏃Top khách hàng</a></li>
         </ul>
         <li class="flex items-center " onclick="{toggleMenu('promotion')}">
             <i class="fas fa-tags mr-2">

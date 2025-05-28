@@ -23,6 +23,7 @@ class ReviewController extends Controller
             'id_product' => 'required|exists:products,id_product',
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string|max:500',
+            
         ]);
 
         // Lưu vào bảng reviews

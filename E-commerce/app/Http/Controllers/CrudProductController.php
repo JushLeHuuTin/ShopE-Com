@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 use App\Models\Product_Variant;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Rules\CleanText;
 use Symfony\Contracts\Service\Attribute\Required;
 use Illuminate\Support\Facades\Session as FacadesSession;
 
@@ -61,13 +64,12 @@ class CrudProductController extends Controller
     {
         //
         $request->validate([
-            'name' => 'required|max:100',
+            'name' => ['required', new CleanText(100)],
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'price' => 'required',
             'quantity' => 'required'
         ], [
             'name.required' => '* Vui lòng nhập tên sản phẩm',
-            'name.max' => '* Tên sản phẩm không được vượt quá :max ký tự.',
             'image.required' => '* Vui lòng chọn hình ảnh sản phẩm.',
             'image.image' => '* Tệp tải lên phải là hình ảnh.',
             'image.mimes' => '* Hình ảnh phải có định dạng: jpg, jpeg hoặc png.',
@@ -76,6 +78,8 @@ class CrudProductController extends Controller
             'quantity.required' => '* Vui lòng nhập số lượng',
         ]);
         //
+
+
         $imagePath = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -84,17 +88,14 @@ class CrudProductController extends Controller
             $imagePath =   $imageName;
         }
         //
-        $category = Category::all();
-        $data = [
-            'category' => $category
-        ];
+       
         //
         $input = $request->all();
         $product = Product::create([
-            'name' => $input['name'],
+            'name' => strip_tags($request->input('name')),
             'id_category' => $input['categories'],
             'is_featured' => isset($input['is_featured']) ? 1 : 0,
-            'description' => $input['desc'],
+            'description' => strip_tags($request->input('desc')),
             'image_url' => $imagePath ?? 'null'
         ]);
         if (
@@ -104,7 +105,7 @@ class CrudProductController extends Controller
             Product_Variant::create([
                 'id_product' => $product->id_product,
                 'stock' => $input['quantity'],
-                'price' => $input['price'],
+                'price' => str_replace([',', '.'], '', $input['price']),
                 'size' => $input['size'],
                 'color' => $input['color'] != 'custom' ? $input['color'] : $input['colorOther']
             ]);
@@ -114,20 +115,25 @@ class CrudProductController extends Controller
     //delete san pham by id
     public function delete($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::find($id);
+        if (!$product) {
+            return redirect()->route('product.list')->with('error', "Sản phẩm không tồn tại hoặc đã bị xoá.");
+        }
         $product->delete();
         return redirect()->route('product.list')->withSuccess("Xoá thành công");
     }
     //cap nhap lai san pham
     public function edit($id)
     {
+
         $product = Product::findOrFail($id);
         return view('admin.updateProduct', ['product' => $product]);
+        return redirect()->route('voucher.list')->with('error', 'Không tìm thấy sản phẩm');
     }
     public function postEdit(request $request)
     {
         $request->validate([
-            'name' => 'required|max:100',
+            'name' => ['required', new CleanText(100)],
             'image' => 'nullable|image|mimes:jpg,png|max:2048',
             // 'price' => 'required',
             // 'quantity' => 'required'
@@ -143,19 +149,19 @@ class CrudProductController extends Controller
         ]);
 
         $input = $request->all();
+        
         $product = Product::findOrFail($input['id']);
-        // dd($input);
         if ($product->updated_at != $request->input('updated_at')) {
-            return back()->with('error', 'Dữ liệu đã bị thay đổi bởi người khác. Vui lòng tải lại trang.');
+            return back()->with('error', 'Dữ liệu đã bị thay đổi bởi người khác.');
         }
-        $product->name = $input['name'];
+
+        $product->name = strip_tags($request->input('name'));
+        $product->description = strip_tags($request->input('desc'));
+
         $product->id_category = $input['categories'];
 
-        if ($request->has('is_featured')) {
-
-            $product->is_featured = $input['is_featured'] == 'on' ? 1 : 0;
-        }
-        $product->description = $input['desc'];
+        $product->is_featured = isset($input['is_featured']) ? 1 : 0;
+        // $product->description = $input['desc'];
         if ($request->has('image')) {
             $imagePath = null;
             $image = $request->file('image');

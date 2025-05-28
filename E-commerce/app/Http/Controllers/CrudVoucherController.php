@@ -19,6 +19,9 @@ class CrudVoucherController extends BaseController
     public function delete($id)
     {
         $voucher = Voucher::findOrFail($id);
+        if (!$voucher) {
+            return redirect()->route('product.list')->withErrors("Sản phẩm không tồn tại hoặc đã bị xoá.");
+        }
         $voucher->delete();
         return redirect()->route('voucher.list')->withSuccess("Xoá thành công");
     }
@@ -39,8 +42,8 @@ class CrudVoucherController extends BaseController
                 },
             ],
             'discount_value' => 'required',
-            'discount_value' => 'required|numeric|min:0|max:50',
-            'max_uses' => 'required'
+            'discount_value' => 'required|numeric|min:0|max:100',
+            'max_uses' => 'required|numeric|min:1|max:200'
         ], [
             'code.required' => '* Vui lòng không bỏ trống',
             'code.max' => '* Mã không được vượt quá :max ký tự.',
@@ -48,6 +51,7 @@ class CrudVoucherController extends BaseController
             'discount_value.max' => '* Vui lòng nhập giá trị 0-100%',
             'discount_value.required' => '* Vui lòng không bỏ trống',
             'max_uses.required' => '* Vui lòng không bỏ trống',
+            'max_uses.max' => '* Vui lòng nhập giá trị 1 - :max',
         ]);
         $input = $request->all();
         //  dd($input);
@@ -90,6 +94,9 @@ class CrudVoucherController extends BaseController
         
         $input = $request->all();
         $voucher = Voucher::findOrFail($input['id']);
+        if ($voucher->updated_at != $request->input('updated_at')) {
+            return back()->with('error', 'Dữ liệu đã bị thay đổi bởi người khác.');
+        }
         $voucher->code = $input['code'];
         $voucher->discount_value = $input['discount_value'];
         $voucher->expiration_date = $input['expiration_date'];

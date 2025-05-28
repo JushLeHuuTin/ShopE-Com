@@ -88,8 +88,6 @@
                 @empty
                 <p>Không có sản phẩm nổi bật nào.</p>
                 @endforelse
-<<<<<<< HEAD
-=======
                         
                     </div>
                 </div>
@@ -402,7 +400,6 @@
                     </div>
 
                 </div>
->>>>>>> origin/hao/f1/resgister
             </div>
         </div>
         <!-- feedback -->

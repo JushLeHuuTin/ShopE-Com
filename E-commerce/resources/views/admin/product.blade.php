@@ -11,6 +11,10 @@ use Illuminate\Support\Str;
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
+        @elseif(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
         @endif
         <h1 class="border-bottom pb-2 mb-4 h5">Danh Sách Sản Phẩm</h1>
 
@@ -56,16 +60,17 @@ use Illuminate\Support\Str;
                                 @endif
                             </td>
                             <td class="p-2">
-                              
+                                {{ $product->category->name }}
                             </td>
                             <td class="p-2">
                                 @if ($product->image_url != 'null')
-                                    <img src="{{ asset("images/$product->image_url") }}" class="display_img"alt="" class="mx-auto"
-                                        style="object-fit: cover; height:60px !important" width="50" height="60">
+                                    <img src="{{ asset("images/$product->image_url") }}" class="display_img"alt=""
+                                        class="mx-auto" style="object-fit: cover; height:60px !important" width="50"
+                                        height="60">
                                 @else
                                     Chưa cập nhật
                                 @endif
-                             
+
                             </td>
                             <td class="p-2">
                                 {{-- {{ $tong = 0}} --}}
@@ -84,7 +89,8 @@ use Illuminate\Support\Str;
                                     </i>
                                 </a>
 
-                                <a href="{{ route('product.delete', $product->id_product) }}" class="inline-block mx-1 p-1"    onclick="return confirm('Bạn có chắc muốn xoá sản phẩm ?')">
+                                <a href="{{ route('product.delete', $product->id_product) }}" class="inline-block mx-1 p-1"
+                                    onclick="return confirm('Bạn có chắc muốn xoá sản phẩm ?')">
                                     <i class="fas fa-trash text-red-500 cursor-pointer">
                                     </i>
                                 </a>
@@ -93,17 +99,17 @@ use Illuminate\Support\Str;
 
                         </tr>
                     @endforeach
-                       <!-- Modal hiển thị ảnh to -->
-                       <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel"
-                       aria-hidden="true">
-                       <div class="modal-dialog modal-dialog-centered modal-lg">
-                           <div class="modal-content">
-                               <div class="modal-body p-0">
-                                   <img id="modalImage" src="" alt="Ảnh to" class="w-100">
-                               </div>
-                           </div>
-                       </div>
-                   </div>
+                    <!-- Modal hiển thị ảnh to -->
+                    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-body p-0">
+                                    <img id="modalImage" src="" alt="Ảnh to" class="w-100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </tbody>
             </table>
             {{ $products->links() }}

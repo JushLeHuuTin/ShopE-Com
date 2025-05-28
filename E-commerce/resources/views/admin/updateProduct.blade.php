@@ -20,6 +20,7 @@
                     @csrf
                     <div class="row g-3 justify-content-end">
                         <input type="hidden" name="updated_at" value="{{ $product->updated_at }}">
+                        {{-- {{dd($product->updated_at );}} --}}
                         <input name="id" type="text" value="{{ $product->id_product }}"
                             class="form-control form-control-sm" hidden />
                         <div class="col-md-6">

@@ -197,10 +197,20 @@ Route::prefix('admin')->group(function () {
     });
 
     // Voucher
-    Route::get('voucher', function () {
-        $vouchers = App\Models\Voucher::get();
-        return view('admin.voucher', compact('vouchers'));
-    })->name('admin.voucher');
+    Route::prefix('voucher')->group(function () {
+        Route::get('/', [CrudVoucherController::class, 'getList'])->name('voucher.list');
+        Route::get('add', [CrudVoucherController::class, 'add'])->name('voucher.add');
+        Route::post('add', [CrudVoucherController::class, 'postVoucher'])->name('voucher.postVoucher');
+        Route::get('update/{id}', [CrudVoucherController::class, 'update'])->name('voucher.update');
+        Route::post('update', [CrudVoucherController::class, 'postUpdate'])->name('voucher.postUpdate');
+        Route::get('delete/{id}', [CrudVoucherController::class, 'delete'])->name('voucher.delete');
+
+
+    });
+        // Route::get('voucher', function () {
+        //     $vouchers = App\Models\Voucher::get();
+        //     return view('admin.voucher', compact('vouchers'));
+        // })->name('admin.voucher');
 
     // Đơn hàng
     Route::prefix('order')->group(function () {
@@ -227,7 +237,6 @@ Route::prefix('admin')->group(function () {
     Route::prefix('report')->group(function () {
         Route::get('customer', [ReportController::class, 'reportCustomer'])->name('report.report_customer');
     Route::get('customer', [ReportController::class, 'topCustomer'])->name('report.report_customer');
-    
         Route::get('product', [ReportController::class, 'reportProduct'])->name('report.report_product');
         Route::get('product', [ReportController::class, 'topProductBest'])->name('report.report_product');
     });
@@ -235,18 +244,17 @@ Route::prefix('admin')->group(function () {
 
     //
 
-    Route::get('admin/voucher/delete/{id}', [CrudVoucherController::class, 'delete'])->name('voucher.delete');
-    Route::get('admin/voucher/add', [CrudVoucherController::class, 'add'])->name('voucher.add');
-    Route::get('admin/voucher', [CrudVoucherController::class, 'getList'])->name('voucher.list');
-    Route::post('admin/postVoucher', [CrudVoucherController::class, 'postVoucher'])->name('voucher.postVoucher');
-    Route::get('admin/voucher/update/{id}', [CrudVoucherController::class, 'update'])->name('voucher.update');
-    Route::post('admin/voucher/update/', [CrudVoucherController::class, 'postUpdate'])->name('voucher.postUpdate');
+    // Route::get('admin/voucher/delete/{id}', [CrudVoucherController::class, 'delete'])->name('voucher.delete');
+    // Route::get('admin/voucher/add', [CrudVoucherController::class, 'add'])->name('voucher.add');
+    // Route::get('admin/voucher', [CrudVoucherController::class, 'getList'])->name('voucher.list');
+    // Route::post('admin/postVoucher', [CrudVoucherController::class, 'postVoucher'])->name('voucher.postVoucher');
+    // Route::get('admin/voucher/update/{id}', [CrudVoucherController::class, 'update'])->name('voucher.update');
+    // Route::post('admin/voucher/update/', [CrudVoucherController::class, 'postUpdate'])->name('voucher.postUpdate');
 
 
     Route::get('admin/promotion/add', [PromotionController::class, 'add'])->name('promotion.add');
     Route::get('admin/promotion', [PromotionController::class, 'index'])->name('promotion.list');
     Route::post('admin/postPromotion', [PromotionController::class, 'postPromotion'])->name('promotion.postPromotion');
-
     Route::get('admin/promotion/delete/{id}', [PromotionController::class, 'delete'])->name('promotion.delete');
     Route::get('admin/promotion/update/{id}', [PromotionController::class, 'update'])->name('promotion.update');
     // Route::post('admin/promotion/update/', [PromotionController::class, 'postUpdate'])->name('promotion.postUpdate');

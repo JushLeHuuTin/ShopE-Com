@@ -16,21 +16,19 @@ class OrderAdminController extends Controller
     {
         return view('orders.order_cancelled');
     }
-    public function orderProcess()
-    {
-        return view('orders.order_process');
-    }
-    public function cancel(Invoice $invoice)
-    {
-        if($invoice->status !== 'pending') {
-            return back()->with('error', 'Khong the huy don hang');
-        }
-        $invoice->status = 'cancelled';
-        $invoice->date_cancel = now();
-        $invoice->save();
+    // public function cancel(Invoice $invoice)
+    // {
+    //     if($invoice->status !== 'pending') {
+    //         return back()->with('error', 'Không thể hủy đơn hàng');
+    //     }
+    //     $invoice->status = 'cancelled';
+    //     $invoice->date_cancel = now();
+    //     $invoice->save();
 
-        return back()->with('sussess', 'Don hang da duoc huy');
-    }
+    //     return back()->with('sussess', 'Đơn hàng đã được hủy');
+    // }
+
+
     public function processInvoices()
     {
         $processInvoices = Invoice::select(
@@ -41,7 +39,8 @@ class OrderAdminController extends Controller
             'invoices.status as status'
         )
             ->join('users', 'invoices.id_user', '=', 'users.id_user')
-            ->where('invoices.status', '=', 'pending')
+            ->whereIn('invoices.status', ['pending', 'delivering', 'complete'])
+            ->orderByRaw("FIELD(invoices.status, 'pending', 'delivering', 'complete')")
             ->with(['invoiceDetails.variant.product']) // nested eager loading
             ->paginate(10);
         $invoicesDetail = [];
@@ -63,6 +62,18 @@ class OrderAdminController extends Controller
         return view('orders.order_admin', compact('processInvoices', 'invoicesDetail'));
     }
 
+    public function confirm($id)
+    {
+        $invoice = Invoice::findOrFail($id);
+        if ($invoice->status === 'pending') {
+            $invoice->status = 'delivering';
+            $invoice->save();
+
+            return redirect()->back()->with('message', 'Xác nhận đơn hàng thành công');
+        }
+        return redirect()->back()->with('error', 'Xác nhận đơn hàng thất bại. Đơn hàng đang ở trạng thái khác');
+    }
+
     public function cancellInvoice()
     {
         $cancellInvoice = Invoice::select(
@@ -74,7 +85,7 @@ class OrderAdminController extends Controller
         )
             ->join('users', 'invoices.id_user', '=', 'users.id_user')
             ->where('invoices.status', '=', 'cancelled')
-            ->with(['invoiceDetails.variant.product']) // nested eager loading
+            ->with(['invoiceDetails.variant.product'])
             ->paginate(10);
 
         $invoicesDetail = [];
@@ -99,17 +110,15 @@ class OrderAdminController extends Controller
     {
         $invoice = Invoice::find($invoice_id);
 
-        if(!$invoice) {
-            return redirect()->back()->with('error', 'Khong tim thay don hang');
+        if (!$invoice) {
+            return redirect()->back()->with('error', 'Không tìm thấy đơn hàng');
         }
-        try
-        {
+        try {
             $invoice->invoiceDetails()->delete();
             $invoice->delete();
-            return redirect()->back()->with('success', 'Xoa don hang thanh cong');
-        }
-        catch(\Exception $e) {
-            return redirect()->back()->with('error', 'Co loi khi xoa don hang: '.$e->getMessage());
+            return redirect()->back()->with('message', 'Xóa đơn hàng thành công');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Có lỗi khi xóa đơn hàng: ' . $e->getMessage());
         }
     }
 }

@@ -21,13 +21,18 @@
                     đã xoá</a></li>
         </ul>
 
+<<<<<<< HEAD
         <li class="flex items-center cursor-pointer" onclick="toggleMenu('invoiceMenu')">
+=======
+        <li class="flex items-center">
+>>>>>>> trieu/f9/update-invoice-cancel
             <i class="fas fa-shopping-cart mr-2">
             </i>
             <span>
                 Quản lý Đơn hàng
             </span>
         </li>
+<<<<<<< HEAD
         <ul id="invoiceMenu" class="ml-6 mt-2 space-y-2 hidden">
             <li><a href="{{ route('orders.order_admin') }}" class="text-sm text-gray-700 hover:text-green-600">➕ Xác
                     nhận đơn hàng</a></li>
@@ -37,6 +42,15 @@
 
         <li class="flex items-center">
             <a href="{{ route('managerreview') }}"><i class="fas fa-star mr-2"></i><span>Quản lý Đánh giá</span></a>
+=======
+
+        <li class="flex items-center">
+            <i class="fas fa-star mr-2">
+            </i>
+            <span>
+                Quản lý Đánh giá
+            </span>
+>>>>>>> trieu/f9/update-invoice-cancel
         </li>
         <li class="flex items-center">
             <i class="fas fa-user mr-2">
@@ -45,13 +59,18 @@
                 Quản lý Người dùng
             </span>
         </li>
+<<<<<<< HEAD
         <li class="flex items-center cursor-pointer" onclick="toggleMenu('statisticMenu')">
+=======
+        <li class="flex items-center">
+>>>>>>> trieu/f9/update-invoice-cancel
             <i class="fas fa-chart-bar mr-2">
             </i>
             <span>
                 Thống kê
             </span>
         </li>
+<<<<<<< HEAD
         <ul id="statisticMenu" class="ml-6 mt-2 space-y-2 hidden">
             <li><a href="{{ route('statistic.statistic_money') }}" class="text-sm text-gray-700 hover:text-green-600">Doanh thu</a></li>
             <li><a href="{{ route('statistic.statistic_quantity') }}" class="text-sm text-gray-700 hover:text-green-600">Số lượng sản phẩm</a></li>
@@ -59,16 +78,22 @@
         </ul>
 
         <li class="flex items-center cursor-pointer" onclick="toggleMenu('reportMenu')">
+=======
+        <li class="flex items-center">
+>>>>>>> trieu/f9/update-invoice-cancel
             <i class="fas fa-file-alt mr-2">
             </i>
             <span>
                 Báo cáo
             </span>
         </li>
+<<<<<<< HEAD
         <ul id="reportMenu" class="ml-6 mt-2 space-y-2 hidden" >
             <li><a href="{{ route('report.report_product') }}" class="text-sm text-gray-700 hover:text-green-600">Sản phẩm tốt nhất</a></li>
             <li><a href="{{ route('report.report_customer') }}" class="text-sm text-gray-700 hover:text-green-600">Top khách hàng</a></li>
         </ul>
+=======
+>>>>>>> trieu/f9/update-invoice-cancel
         <li class="flex items-center " onclick="{toggleMenu('promotion')}">
             <i class="fas fa-tags mr-2">
             </i>

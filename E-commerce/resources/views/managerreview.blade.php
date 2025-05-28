@@ -24,6 +24,24 @@
 
 @extends('layout.admin')
 
+<<<<<<< HEAD
+=======
+        .btn-status {
+            position: fixed;
+            left: calc(50% - 25px);
+            bottom: 10px;
+        }
+
+        .status-title {
+            width: 100%;
+            height: 30px;
+            background: blue;
+            color: white;
+            border-radius: 5px 5px 0 0;
+        }
+    </style>
+</head>
+>>>>>>> trieu/f9/update-invoice-cancel
 
 @section('title', 'Quản lý Đánh Giá')
 
@@ -96,8 +114,8 @@
         </div>
     <div class="status-container" style="display: none">
         <div class="status-infor d-block text-center">
-            <div class="status-title my-2">Thông báo</div>
-            <p class="mt-4" id="statusMessageText">Xóa thành công</p>
+            <div class="status-title">Thông báo</div>
+            <p class="mt-4" id="statusMessageText"></p>
             <button type="button" class="btn btn-outline-primary btn-status">OK</button>
         </div>
     </div>
@@ -107,6 +125,7 @@
     const menuLi = document.querySelectorAll('.admin-sidebar-content > ul > li > a');
     const submenu = document.querySelectorAll('.sub-menu');
 
+<<<<<<< HEAD
     menuLi.forEach(link => {
         link.addEventListener('click', (e) => {
             const currentSubMenu = link.parentElement.querySelector('.sub-menu');
@@ -114,6 +133,12 @@
             // Chỉ xử lý nếu có submenu
             if (currentSubMenu) {
                 e.preventDefault();
+=======
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const menuLi = document.querySelectorAll('.admin-sidebar-content > ul > li > a');
+        const submenu = document.querySelectorAll('.sub-menu');
+>>>>>>> trieu/f9/update-invoice-cancel
 
                 const isActive = currentSubMenu.classList.contains('active');
 
@@ -153,5 +178,38 @@
         });
     });
 
+        $(document).ready(function () {
+            $('.delete-review').click(function (e) {
+                e.preventDefault();
+                if (!confirm('Bạn có muốn xóa không?')) return;
 
+<<<<<<< HEAD
 </script>
+=======
+                let reviewId = $(this).data('id');
+
+                $.ajax({
+                    url: '/managerreview/' + reviewId + '/delete',
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        alert(response.message);
+                        location.reload(); // Hoặc remove row nếu bạn muốn
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 404) {
+                            alert('Xóa thất bại: đánh giá không tồn tại.');
+                        } else {
+                            alert('Có lỗi xảy ra khi xóa.');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
+>>>>>>> trieu/f9/update-invoice-cancel

@@ -16,8 +16,11 @@ class Invoice extends Model
         'total_amount',
         'invoice_date',
         'status',
+        'date_cancel',
         'cancellation_reason',
         'payment_method',
+        'created_at',
+        'updated_at'
     ];
 
     public function invoiceDetails()

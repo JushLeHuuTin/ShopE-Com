@@ -60,17 +60,19 @@ use Illuminate\Support\Str;
                                 @endif
                             </td>
                             <td class="p-2">
-                                {{ $product->category->name }}
+                                @if ($product->category)
+                                    {{ $product->category->name }}
+                                @else
+                                    Danh mục đã xoá
+                                @endif
                             </td>
                             <td class="p-2">
                                 @if ($product->image_url && file_exists(public_path("images/$product->image_url")))
                                     <img src="{{ asset("images/$product->image_url") }}" class="display_img mx-auto h-auto"
-                                        style="object-fit: cover;" width="50"
-                                        alt="">
+                                        style="object-fit: cover;" width="50" alt="">
                                 @else
                                     <img src="{{ asset('images/logo.png') }}" class="display_img mx-auto h-auto"
-                                        style="object-fit: cover; " width="50" 
-                                        alt="Chưa cập nhật">
+                                        style="object-fit: cover; " width="50" alt="Chưa cập nhật">
                                 @endif
 
                             </td>

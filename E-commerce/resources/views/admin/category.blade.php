@@ -28,13 +28,24 @@ use Illuminate\Support\Str;
                     <a href="{{ route('category.edit', $category->id_category) }}" class="mx-1 p-1 text-blue-500">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <a href="{{ route('category.delete', $category->id_category) }}" onclick="return confirm('Bạn có chắc muốn xoá?')" class="mx-1 p-1 text-red-500">
+                    <a href="{{ route('category.delete', $category->id_category) }}" 
+                        onclick="return confirmDelete({{ $category->products->count() }})"
+                        class="mx-1 p-1 text-red-500">
                         <i class="fas fa-trash"></i>
-                    </a>
+                     </a>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
     {{ $categoriess->links() }}
+    <script>
+        function confirmDelete(productCount) {
+            if (productCount > 0) {
+                return confirm('Danh mục này đang có ' + productCount + ' sản phẩm. Bạn có chắc muốn xoá?');
+            } else {
+                return confirm('Bạn có chắc muốn xoá danh mục này?');
+            }
+        }
+        </script>
 @endsection

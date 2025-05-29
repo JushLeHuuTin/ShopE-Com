@@ -36,7 +36,7 @@
                             <select name="categories" class="form-select form-select-sm">
                                 <option value="1">Chọn danh mục</option>
                                 @foreach ($categories as $item)
-                                    @if ($item->id_category != $product->category->id_category)
+                                    @if (!$product->category || $item->id_category != $product->category->id_category)
                                         <option value="{{ $item->id_category }}">{{ $item->name }}</option>
                                     @else
                                         <option value="{{ $item->id_category }}" selected>{{ $item->name }}</option>
@@ -85,7 +85,8 @@
                             </div>
                         </div>
                         <div class="col-12 text-end">
-                            <button id="btn-update" type="submit" style="border:1px solid black; box-shadow:1px 1px 1px black"
+                            <button id="btn-update" type="submit"
+                                style="border:1px solid black; box-shadow:1px 1px 1px black"
                                 class="btn btn-primary btn-sm btn-submit">Cập nhật</button>
                         </div>
                     </div>

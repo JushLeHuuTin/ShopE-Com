@@ -20,7 +20,10 @@ class Promotion extends Model
 
     public function products():BelongsToMany
     {
-        return $this->BelongsToMany(Product::class, 'Product_Promotion');
+        return $this->BelongsToMany(Product::class, 'product_promotion','id_promotion','id_product')->withTimestamps();
     }
- 
+    public function hasProduct($productId)
+    {
+        return $this->products()->where('product_promotion.id_product', $productId)->exists();
+    }
 }

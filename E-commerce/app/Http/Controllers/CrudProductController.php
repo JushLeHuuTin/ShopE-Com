@@ -84,10 +84,8 @@ class CrudProductController extends Controller
             'categories.required' => '* Vui lòng chọn danh mục sản phẩm',
             'categories.integer' => '* Giá trị danh mục không hợp lệ',
             'categories.exists' => '* Danh mục không tồn tại',
+            'required.required' => '* Vui lòng chọn ngày băt',
         ]);
-        //
-
-
         $imagePath = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -95,9 +93,6 @@ class CrudProductController extends Controller
             $image->move(public_path('images'), $imageName);
             $imagePath =   $imageName;
         }
-        //
-
-        //
         $input = $request->all();
         $product = Product::create([
             'name' => strip_tags($request->input('name')),

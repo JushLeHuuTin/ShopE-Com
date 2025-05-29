@@ -77,7 +77,7 @@
                             <i class="fas fa-pen text-red-500 cursor-pointer">
                             </i>
                         </a>
-                        <a href="{{ route('voucher.delete', $voucher->id_discount) }}" class="delete-voucher">
+                        <a href="{{ route('voucher.delete', $voucher->id_discount) }}" class="delete-voucher" onclick="return confirm('Bạn có chắc muốn xoá mã {{$voucher->code}}?')">
                             <i class="fas fa-trash text-red-500 cursor-pointer">
                             </i>
                         </a>

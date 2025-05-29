@@ -1,6 +1,6 @@
 @extends('layout.admin')
 
-@section('title', 'Thêm Khuyến Mãi')
+@section('title', 'Cập nhật khuyến mãi')
 
 @section('content')
     <div class="container mt-4">
@@ -8,16 +8,27 @@
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
+        @elseif(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @elseif ($errors->has('id'))
+            <div class="alert alert-danger">
+                {{ $errors->first('id') }}
+            </div>
         @endif
-        <h1 class="border-bottom pb-2 mb-4 h5">Thêm Khuyến Mãi</h1>
+        <h1 class="border-bottom pb-2 mb-4 h5">Cập Nhật Chương Trình Khuyến Mãi</h1>
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <form method="POST" action="{{ route('promotion.postPromotion') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('promotion.postUpdate') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row g-3 justify-content-center">
+                        <input type="hidden" name="updated_at" value="{{ $promotion->updated_at }}">
+                        <input type="text" name="id" value="{{ $promotion->id_promotion }}" hidden>
                         <div class="col-md-8">
                             <label class="form-label">Tên chương trình</label>
-                            <input name="name" type="text" class="form-control form-control-sm" />
+                            <input value="{{ $promotion->name }}" name="name" type="text"
+                                class="form-control form-control-sm" />
                             @if ($errors->has('name'))
                                 <div class="text-danger small">{{ $errors->first('name') }}</div>
                             @endif
@@ -25,7 +36,7 @@
 
                         <div class="col-md-8">
                             <label class="form-label">Mức giảm giá</label>
-                            <input name="discount_value" type="number"
+                            <input name="discount_value" value="{{ $promotion->discount_value }}" type="number"
                                 onkeydown="return !['e', 'E', '+', '-'].includes(event.key)" step="0.01"
                                 class="form-control form-control-sm" />
                             @if ($errors->has('discount_value'))
@@ -34,7 +45,7 @@
                         </div>
                         <div class="col-md-8">
                             <label class="form-label">Ngày bắt đầu</label>
-                            <input type="date" value="{{ $currentday }}" name="start_date"
+                            <input type="date" value="{{ $promotion->start_date }}" name="start_date"
                                 class="form-control form-control-sm" max="2099-12-31T23:59" />
                             @if ($errors->has('start_date'))
                                 <div class="text-danger small">{{ $errors->first('start_date') }}</div>
@@ -42,29 +53,15 @@
                         </div>
                         <div class="col-md-8">
                             <label class="form-label">Ngày kết thúc</label>
-                            <input type="date" name="end_date" class="form-control form-control-sm"
-                                max="2099-12-31T23:59" />
+                            <input type="date" value="{{ $promotion->end_date }}" name="end_date"
+                                class="form-control form-control-sm" max="2099-12-31T23:59" />
                             @if ($errors->has('end_date'))
                                 <div class="text-danger small">{{ $errors->first('end_date') }}</div>
                             @endif
                         </div>
-
-
-                        <div class="col-md-8">
-                            <label class="form-label">Sản phẩm áp dụng</label>
-                            <select name="id_product" class="form-select form-select-sm">
-                                <option value="0">Chọn sản phẩm</option>
-                                @foreach ($products as $item)
-                                    <option value="{{ $item->id_product }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->has('id_product'))
-                                <div class="text-danger small">{{ $errors->first('id_product') }}</div>
-                            @endif
-                        </div>
                         <div class="col-12 text-end">
                             <button type="submit" style="border:1px solid black; box-shadow:1px 1px 1px black"
-                                class="btn btn-submit btn-primary btn-sm">Thêm mới</button>
+                                class="btn btn-primary btn-sm">Cập nhật</button>
                         </div>
                     </div>
                 </form>

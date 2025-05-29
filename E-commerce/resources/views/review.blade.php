@@ -129,7 +129,7 @@
         const statusMessageText = document.getElementById('statusMessageText');
         const btnStatus = document.querySelector('.btn-status');
 
-        const regex = /^(?!\s)(?!.*\s{2})[\s\S]{1,255}$/;
+        const regex = /^(?!\s)(?!.*\s{2})[\s\S]{1,500}$/;
 
         // Kiểm tra lỗi ngay khi người dùng đang nhập comment (có thể giữ hoặc bỏ)
         commentInput.addEventListener('input', function () {
@@ -137,7 +137,7 @@
 
             if (!regex.test(comment)) {
                 commentError.style.display = 'block';
-                commentError.textContent = "Đánh giá không hợp lệ: không bắt đầu bằng khoảng trắng, không có 2 khoảng trắng liên tiếp, và tối đa 255 ký tự.";
+                commentError.textContent = "Đánh giá không hợp lệ: không bắt đầu bằng khoảng trắng, không có 2 khoảng trắng liên tiếp, và tối đa 500 ký tự.";
             } else {
                 commentError.style.display = 'none';
                 commentError.textContent = '';

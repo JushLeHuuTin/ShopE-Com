@@ -210,8 +210,8 @@ Route::prefix('admin')->group(function () {
        // Voucher
        Route::prefix('category')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('category.list');
-        Route::get('add', [CategoryController::class, 'add'])->name('category.add');
-        Route::post('add', [CategoryController::class, 'postcategory'])->name('category.postVoucher');
+        Route::get('add', [CategoryController::class, 'create'])->name('category.add');
+        Route::post('add', [CategoryController::class, 'store'])->name('category.store');
         Route::get('update/{id}', [CategoryController::class, 'edit'])->name('category.edit');
         Route::post('update', [CategoryController::class, 'postEdit'])->name('category.postEdit');
         Route::get('delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');

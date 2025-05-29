@@ -18,6 +18,28 @@ class CategoryController extends Controller
         $categories = Category::paginate(8);
         return view('admin.category', ["categoriess" => $categories]);
     }
+    public function create() {
+        return view('admin.addcategory');
+    }
+
+    public function store(Request $request) {
+        $request->validate([
+            'name' => ['required', 'max:255', new CleanText(255)],
+            'slug' => ['required','unique:categories,slug','string','max:255','regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', new CleanText(100)]
+        ], [
+            'name.required' => '* Vui lòng nhập tên danh mục',
+            'name.max' => '* Tên danh mục không được vượt quá :max ký tự.',
+            'slug.required' => '* Vui lòng nhập Slug',
+            'slug.max' => '* Slug không được vượt quá :max ký tự.',
+            'slug.regex' =>'* Slug không đúng định dạng',
+            'slug.unique' => '* Slug đã tồn tại, vui lòng chọn slug khác'
+        ]);
+        Category::create([
+            'name' => strip_tags($request->input('name')),
+            'slug' => strip_tags($request->input('slug')),
+        ]);
+        return redirect()->route('category.store')->withSuccess("Tạo danh mục thành công");
+    }
     public function destroy($id)
     {
         $category = Category::find($id);
@@ -36,13 +58,15 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => ['required', new CleanText(255)],
-            'slug' => ['required','string','max:255','regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', new CleanText(100)]
+            'slug' => ['required','unique:categories','string','max:255','regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', new CleanText(100)]
         ], [
             'name.required' => '* Vui lòng nhập tên danh mục',
             'name.max' => '* Tên danh mục không được vượt quá :max ký tự.',
             'slug.required' => '* Vui lòng nhập Slug',
             'slug.max' => '* Slug không được vượt quá :max ký tự.',
-            'slug.regex' =>'* Slug không đúng định dạng'
+            'slug.regex' =>'* Slug không đúng định dạng',
+            'slug.unique' => '* Slug đã tồn tại, vui lòng chọn slug khác'
+
         ]);
 
         $input = $request->all();
@@ -54,7 +78,7 @@ class CategoryController extends Controller
  
         $category->name = strip_tags($request->input('name'));
         $category->slug = strip_tags($request->input('slug'));
-        
+
         $category->save();
         return redirect()->route('category.list')->with('success', "Cập nhật thành công");
     }

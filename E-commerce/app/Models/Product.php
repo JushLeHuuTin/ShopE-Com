@@ -20,7 +20,7 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo(Categories::class, 'id_category', 'id_category');
+        return $this->belongsTo(category::class, 'id_category', 'id_category');
     }
     //hàm chỉ lấy 1 giá mặc định 
     public function defaultVariant()

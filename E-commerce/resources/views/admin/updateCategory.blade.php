@@ -35,7 +35,7 @@
                 @endif
             </div>
 
-            <button type="submit" class="btn btn-primary">Cập Nhật</button>
+            <button type="submit" class="btn btn-submit btn-primary">Cập Nhật</button>
             <a href="{{ route('category.list') }}" class="btn btn-secondary">Quay lại</a>
         </form>
     </div>

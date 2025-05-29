@@ -13,7 +13,14 @@
         <ul id="productMenu" class="ml-6 mt-2 space-y-2 hidden">
             <li><a href="{{ route('product.add') }}" class="text-sm text-gray-700 hover:text-green-600">➕ Thêm sản phẩm</a></li>
             <li><a href="{{ route('product.list') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách sản phẩm</a></li>
-            <li><a href="{{ route('product.deleted') }}" class="text-sm text-gray-700 hover:text-green-600">🗑️ Sản phẩm đã xoá</a></li>
+        </ul>
+        <li class="flex items-center cursor-pointer" onclick="toggleMenu('categoryMenu')">
+            <i class="fas fa-list mr-2"></i>
+            <span>Quản lý danh mục</span>
+        </li>
+        <ul id="categoryMenu" class="ml-6 mt-2 space-y-2 hidden">
+            <li><a href="{{ route('category.add') }}" class="text-sm text-gray-700 hover:text-green-600">➕ Thêm danh mục</a></li>
+            <li><a href="{{ route('category.list') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách danh mục</a></li>
         </ul>
         
      <li class="flex items-center">

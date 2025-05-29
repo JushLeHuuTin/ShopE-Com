@@ -212,8 +212,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('category.list');
         Route::get('add', [CategoryController::class, 'add'])->name('category.add');
         Route::post('add', [CategoryController::class, 'postcategory'])->name('category.postVoucher');
-        Route::get('update/{id}', [CategoryController::class, 'update'])->name('category.edit');
-        Route::post('update', [CategoryController::class, 'postUpdate'])->name('category.edit');
+        Route::get('update/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+        Route::post('update', [CategoryController::class, 'postEdit'])->name('category.postEdit');
         Route::get('delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
 
 

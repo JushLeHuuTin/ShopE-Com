@@ -136,7 +136,6 @@ class CrudProductController extends Controller
 
         $product = Product::findOrFail($id);
         return view('admin.updateProduct', ['product' => $product]);
-        return redirect()->route('voucher.list')->with('error', 'Không tìm thấy sản phẩm');
     }
     public function postEdit(request $request)
     {

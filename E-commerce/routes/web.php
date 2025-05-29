@@ -207,6 +207,17 @@ Route::prefix('admin')->group(function () {
 
 
     });
+       // Voucher
+       Route::prefix('category')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('voucher.list');
+        Route::get('add', [CategoryController::class, 'add'])->name('voucher.add');
+        Route::post('add', [CategoryController::class, 'postVoucher'])->name('voucher.postVoucher');
+        Route::get('update/{id}', [CategoryController::class, 'update'])->name('category.edit');
+        Route::post('update', [CategoryController::class, 'postUpdate'])->name('category.edit');
+        Route::get('delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
+
+
+    });
         // Route::get('voucher', function () {
         //     $vouchers = App\Models\Voucher::get();
         //     return view('admin.voucher', compact('vouchers'));

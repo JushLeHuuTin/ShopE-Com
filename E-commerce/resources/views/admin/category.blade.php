@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
             </tr>
         </thead>
         <tbody>
-            @foreach ($categories as $category)
+            @foreach ($categoriess as $category)
             <tr class="border-b">
                 <td class="p-2">{{ $category->id_category }}</td>
                 <td class="p-2">{{ $category->name }}</td>
@@ -36,5 +36,5 @@ use Illuminate\Support\Str;
             @endforeach
         </tbody>
     </table>
-    {{ $categories->links() }}
+    {{ $categoriess->links() }}
 @endsection

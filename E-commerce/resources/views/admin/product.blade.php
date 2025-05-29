@@ -27,7 +27,7 @@ use Illuminate\Support\Str;
                         </th>
                         <th class="p-2" colspan="1">
                             Tên sản phẩm
-                        </th>
+                        </th> 
                         <th class="p-2" colspan="1">
                             Giá
                         </th>

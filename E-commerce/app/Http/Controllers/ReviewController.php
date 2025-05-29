@@ -4,25 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Review;
+use App\Models\Product;
+
+use function Laravel\Prompts\alert;
 
 class ReviewController extends Controller
 {
-    public function displayReview() 
+    public function displayReview()
     {
         return view('review');
     }
-    
+
     public function review(Request $request)
     {
-        // dd($request->all());
         // Kiểm tra tính hợp lệ của dữ liệu
         $validated = $request->validate([
             'id_user' => 'required|exists:users,id_user',
             'id_product' => 'required|exists:products,id_product',
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string|max:500',
+            
         ]);
-
 
         // Lưu vào bảng reviews
         Review::create([
@@ -34,7 +36,7 @@ class ReviewController extends Controller
 
         return redirect()->back()->with('message', 'Đánh giá của bạn đã được gửi thành công!');
     }
-    public function managerReview() 
+    public function managerReview()
     {
         return view('managerreview');
     }
@@ -42,33 +44,52 @@ class ReviewController extends Controller
     public function displayManagerReview()
     {
         $reviews = Review::with(['users', 'product'])
-        ->orderBy('created_at', 'desc')
-        ->paginate(9);
+            ->orderBy('created_at', 'desc')
+            ->paginate(9);
         return view('managerreview', compact('reviews'));
     }
 
     //Trạng thái đang chờ duyệt
-    public function apporve($id)
+    public function approve($id)
     {
-        $review = Review::findOrFail($id);
-        $review->status = 'Đang chờ duyệt';
+        $review = Review::find($id);
+
+        if (!$review) {
+            return redirect()->back()->with('error', 'Xóa không hợp lệ');
+        }
+
+        if ($review->status === 'approved' || $review->status === 'hide') {
+            $review->status = 'browse';
+        } else {
+            $review->status = 'browse';
+            return redirect()->back()->with('message', 'Duyệt thất bại');
+        }
         $review->save();
-        return redirect()->back()->with('message', 'Đánh giá đã được duyệt!');
+        return redirect()->back()->with('message', 'Cập nhật đánh giá thành công');
     }
     //Trạng thái ẩn
     public function hide($id)
     {
-        $review = Review::findOrFail($id);
-        $review->status = 'Ẩn';
+        $review = Review::find($id);
+
+        if (!$review) {
+            return redirect()->back()->with('error', 'Xóa không hợp lệ');
+        }
+
+        if ($review->status === 'browse' || $review->status === 'approved' || $review->status === 'hide') {
+            $review->status = 'hide';
+        }
         $review->save();
         return redirect()->back()->with('message', 'Đánh giá đã được ẩn!');
     }
     //Trạng thái xóa
     public function delete($id)
     {
-        $review = Review::findOrFail($id);
-        $review->status = 'Xóa';
-        $review->save();
-        return redirect()->back()->with('message', 'Đánh giá đã được xóa!');
+        $review = Review::find($id);
+        if (!$review) {
+            return redirect()->back()->with('error', 'Xóa không hợp lệ');
+        }
+        $review->delete();
+        return redirect()->back()->with('message', 'Xóa đánh giá thành công');
     }
 }

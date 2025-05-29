@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\Product_Variant;
@@ -35,8 +36,56 @@ class CrudProductController extends Controller
     public function productDetail($id)
     {
         $product = Product::with('Product_Variants')->findOrFail($id);
-        return view('productdetail', compact('product'));
+        $allComments = Review::select(
+            'users.username as username',
+            'reviews.rating as rating',
+            'reviews.comment as comment',
+            'products.name as product_name'
+        )
+            ->join('users', 'reviews.id_user', '=', 'users.id_user')
+            ->join('products', 'reviews.id_product', '=', 'products.id_product')
+            ->where('reviews.id_product', $product->id_product)  // chú ý phải đúng trường khóa chính
+            ->where('reviews.status', 'browse')
+            ->get();
+
+
+        $commentCount = $allComments->count();
+
+        if ($commentCount > 0) {
+            $averageRating = round($allComments->avg('rating'), 1);
+        } else {
+            $averageRating = 0;
+        }
+        $comments = $allComments->take(3);
+        return view('productdetail', compact('product', 'comments', 'commentCount', 'averageRating'));
     }
+    public function allComments($id)
+    {
+        $product = Product::findOrFail($id);
+
+        $comments = Review::select(
+            'users.username as username',
+            'reviews.rating as rating',
+            'reviews.comment as comment',
+            'products.name as product_name'
+        )
+            ->join('users', 'reviews.id_user', '=', 'users.id_user')
+            ->join('products', 'reviews.id_product', '=', 'products.id_product')
+            ->where('reviews.id_product', $product->id_product)
+            ->where('reviews.status', 'browse')
+            ->get();
+
+        $commentCount = $comments->count();
+         if ($commentCount > 0) {
+            $averageRating = round($comments->avg('rating'), 1);
+        } else {
+            $averageRating = 0;
+        }
+
+        return view('comment', compact('product', 'comments', 'commentCount', 'averageRating'));
+    }
+
+
     //hàm lấy ra chi tiết thuộc tính theo id_variant
     public function show(Request $request, $id)
     {

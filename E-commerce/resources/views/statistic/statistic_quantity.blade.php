@@ -24,7 +24,7 @@
             <div class="admin-content-review-table">
                 <div class="admin-content-review-table-list">
                     @if ($quantitySell->isEmpty())
-                        <p>Chưa có dữ liệu sản phẩm</p>
+                        <p>Chưa có dữ liệu bán hàng</p>
                     @else
                         <table>
                             <thead>

@@ -142,7 +142,7 @@
 
                                 {{-- {{ dd($comments) }} --}}
                                 @if ($comments->isEmpty())
-                                    <p>No comments found</p>
+                                    <p>Chưa có đánh giá cho sản phẩm này</p>
                                     <p>Để lại bình luận</p>
                                     <p>Bạn cần <a href="{{ route('login') }}" class="text-success">đăng nhập</a> để phản hồi</p>
                                 @else

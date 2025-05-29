@@ -25,29 +25,32 @@
             </div>
             <div class="admin-content-review-table">
                 <div class="admin-content-review-table-list">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Ảnh</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Giá</th>
-                                <th>Đánh giá trung bình</th>
-                                <th>Số đánh giá</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($topProducts as $product)
+                    @if ($topProducts->isEmpty())
+                        <p>Chưa có đánh giá nào</p>
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td><img style="width: 70px;" src="{{ asset('images/' . $product->product_image_url) }}"
-                                            alt=""></td>
-                                    <td>{{ $product->product_name }}</td>
-                                    <td>{{ number_format($product->product_price, 0, ',', '.') }}</td>
-                                    <td>{{ number_format($product->average_rating, 1) }}⭐</td>
-                                    <td>{{ $product->total_review }}</td>
+                                    <th>Ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Đánh giá trung bình</th>
+                                    <th>Số đánh giá</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($topProducts as $product)
+                                    <tr>
+                                        <td><img style="width: 70px;" src="{{ asset('images/' . $product->product_image_url) }}"
+                                                alt=""></td>
+                                        <td>{{ $product->product_name }}</td>
+                                        <td>{{ number_format($product->product_price, 0, ',', '.') }}</td>
+                                        <td>{{ number_format($product->average_rating, 1) }}⭐</td>
+                                        <td>{{ $product->total_review }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
             </div>
         </div>

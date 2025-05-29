@@ -53,7 +53,7 @@
             <div class="admin-content-review-table">
                 <div class="admin-content-review-table-list">
                     @if ($cancellInvoice->isEmpty())
-                        <p class="d-flex justify-content-center">Chua co du lieu hoa don</p>
+                        <p class="d-flex justify-content-center">Chưa có đơn hàng bị hủy</p>
                     @else
                         <table>
                             <thead>

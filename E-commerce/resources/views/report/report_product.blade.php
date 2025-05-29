@@ -47,9 +47,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="mt-2">
-                            {{ $topProductBest->links('pagination::bootstrap-5') }}
-                        </div>
                     @endif
                 </div>
             </div>

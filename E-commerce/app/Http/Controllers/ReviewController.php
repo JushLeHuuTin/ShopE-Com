@@ -65,7 +65,7 @@ class ReviewController extends Controller
             return redirect()->back()->with('message', 'Duyệt thất bại');
         }
         $review->save();
-        return redirect()->back()->with('message', 'Duyệt thành công');
+        return redirect()->back()->with('message', 'Cập nhật đánh giá thành công');
     }
     //Trạng thái ẩn
     public function hide($id)

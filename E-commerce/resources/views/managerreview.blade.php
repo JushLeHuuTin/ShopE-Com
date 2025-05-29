@@ -45,7 +45,7 @@
             <div class="admin-content-review-table">
                 <div class="admin-content-review-table-list">
                     @if ($reviews->isEmpty())
-                        <p>Khong co danh gia nao</p>
+                        <p>Không tìm thấy đánh giá nào</p>
                     @else
                         <table>
                             <thead>

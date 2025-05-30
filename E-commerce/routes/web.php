@@ -8,9 +8,16 @@ use App\Models\Product;
 use App\Models\voucher;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\LoginController;
+use Illuminate\Auth\Events\Login;
+
 Route::get('/', function() {
     return redirect('index');
 });
+Route::get('/admin/users', [LoginController::class, 'index'])->name('admin.users.index');
+
 //index hiển thị sản phẩm nổi bật
 Route::get('index', [CrudProductController::class, 'index'])->name('index');
 //login hiển thị trang login
@@ -54,3 +61,31 @@ Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.dest
 
 Route::post('/cart/update-quantity', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/shipping/save', [CartController::class, 'saveShipping'])->name('shipping.save');
+Route::post('/apply-discount', [CartController::class, 'applyDiscount'])->name('cart.applyDiscount');
+
+//middleware('auth') kiểm tra xem có đăng nhập hay chưa
+//Route::post('/checkout', [CartController::class, 'showCheckout'])->middleware('auth')->name('checkout.show');
+//Route::post('/checkout', [CartController::class, 'showCheckout'])->name('checkout.show');
+// Route::post('/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
+Route::match(['get', 'post'], '/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
+
+Route::post('/checkout/clear-session', [CheckoutController::class, 'clearSession'])->name('checkout.clear_session');
+//Xử lý voucher
+Route::post('/checkout/apply-discount', [CheckoutController::class, 'applyDiscount'])->name('checkout.applyDiscount');
+// đặt hàng
+Route::post('/checkout/placeOrder', [CheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
+
+
+
+// Hủy đơn (PUT hoặc PATCH)
+Route::put('/invoices/{id}/cancel', [InvoiceController::class, 'cancel'])->name('invoice.cancel');  
+Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+
+Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
+
+
+
+
+
+

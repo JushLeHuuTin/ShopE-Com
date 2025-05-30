@@ -579,7 +579,7 @@
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                         </svg>
                                         <div class="cart-label">
-                                            0
+                                            {{ $cartQuantity ?? 0 }}
                                         </div>
                                     </a>
                                 </label>

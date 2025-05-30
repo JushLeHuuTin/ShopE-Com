@@ -102,6 +102,7 @@ class InvoiceController extends Controller
         $invoice->cancellation_reason = 'Hủy bởi khách hàng';
         $invoice->save();
 
-        return back()->with('success', 'Đơn hàng đã được hủy.');
+        return redirect()->route('invoices.index')->with('success', 'Đơn hàng đã được hủy.');
+
     }
 }

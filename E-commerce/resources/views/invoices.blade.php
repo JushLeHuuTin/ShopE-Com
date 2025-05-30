@@ -19,11 +19,11 @@
             @foreach($invoice->details as $detail)
             <div class="row mb-3 align-items-center">
                 <div class="col-md-2">
-                    <img src="{{ $detail->variant->product->image ?? 'https://via.placeholder.com/100' }}" alt="Ảnh sản phẩm" class="img-fluid">
+                    <img src="{{ 'images/'.$detail->variant->product->image_url ?? 'https://via.placeholder.com/100' }}" alt="Ảnh sản phẩm" class="img-fluid">
                 </div>
                 <div class="col-md-6">
                     <h6>{{ $detail->variant->product->name }}</h6>
-                    <p class="mb-0">Phân loại: {{ $detail->variant->name ?? 'Không rõ' }}</p>
+                    <p class="mb-0">Phân loại: {{ $detail->variant->size ?? 'Không rõ' }}, {{ $detail->variant->color ?? 'Không rõ' }}</p>
                 </div>
                 <div class="col-md-2 text-center">
                     x{{ $detail->quantity }}

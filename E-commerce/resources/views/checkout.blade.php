@@ -26,7 +26,7 @@
             @forelse ($cartItems as $item)
             <div class="row align-items-center mb-3">
                 <div class="col-md-2 text-center">
-                    <img src="{{ $item->variant->product->image }}" alt="{{ $item->variant->product->name }}" class="img-fluid rounded border">
+                    <img src="{{ 'images/'.$item->variant->product->image_url }}" alt="{{ $item->variant->product->name }}" class="img-fluid rounded border">
                 </div>
                 <div class="col-md-10">
                     <div class="row">
@@ -121,21 +121,7 @@
             <div class="text-end w-100 w-md-auto">
                 <button type="submit" class="btn btn-primary px-4 py-2 mt-3 mt-md-0">Đặt hàng</button>
             </div>
-            <form action="{{ route('checkout.placeOrder') }}" method="POST">
-                @csrf
-
-                {{-- Gửi danh sách id_cart đã chọn --}}
-                @foreach ($cartItems as $item)
-                <input type="hidden" name="selected[]" value="{{ $item->id_cart }}">
-                @endforeach
-
-                {{-- Gửi tổng thanh toán và phương thức thanh toán --}}
-                <input type="hidden" name="tong_thanhtoan" value="{{ $total }}">
-                <input type="hidden" name="payment_method" value="COD">
-
-                <button type="submit">Đặt hàng</button>
-            </form>
-
+           
         </div>
     </form>
 </div>

@@ -135,6 +135,9 @@
                                 Trống
                                 @endif
                             </div>
+                            <div class="write-comment">
+                                <a href="{{ route('review.display', ['id' =>  $product->id_product]) }}" class="text-decoration-none fs-5"> 🖌 Viết đánh giá</a>
+                            </div>
                         </div>
                         <div class="tab__panel px-3 d-none">
                             <div class="product-review">

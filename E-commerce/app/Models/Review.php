@@ -21,7 +21,7 @@ class Review extends Model
         'updated_at'
     ];
 
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class, 'id_user', 'id_user');
     }

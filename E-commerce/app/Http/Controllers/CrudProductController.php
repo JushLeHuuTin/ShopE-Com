@@ -116,24 +116,23 @@ class CrudProductController extends Controller
             'name' => ['required', new CleanText(100)],
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'price' => 'required|numeric|min:0|max:99999999',
-            'quantity' => 'required|integer|min:0|max:10000',
+            'quantity' => 'integer|min:0|max:10000',
             'categories' => ['required', 'integer', 'exists:categories,id_category'],
+            'color' => [ new CleanText(20)],
+            'size' => [ new CleanText(20)],
         ], [
             'name.required' => '* Vui lòng nhập tên sản phẩm',
             'image.required' => '* Vui lòng chọn hình ảnh sản phẩm.',
             'image.image' => '* Tệp tải lên phải là hình ảnh.',
             'image.mimes' => '* Hình ảnh phải có định dạng: jpg, jpeg hoặc png.',
             'image.max' => '* Dung lượng ảnh không được vượt quá 2MB.',
-            'quantity.required' => '* Vui lòng nhập số lượng',
-            'quantity.integer' => '* Số lượng phải là số nguyên',
-            'quantity.min' => '* Số lượng không được nhỏ hơn 0',
             'quantity.max' => '* Số lượng không được vượt quá 10.000',
             'price.required' => '* Vui lòng nhập giá',
+            'price.max' => '* Vui lòng nhập giá bé hơn 99.999.999đ',
             'quantity.required' => '* Vui lòng nhập số lượng',
             'categories.required' => '* Vui lòng chọn danh mục sản phẩm',
             'categories.integer' => '* Giá trị danh mục không hợp lệ',
             'categories.exists' => '* Danh mục không tồn tại',
-            'required.required' => '* Vui lòng chọn ngày băt',
         ]);
         $imagePath = null;
         if ($request->hasFile('image')) {
@@ -154,12 +153,13 @@ class CrudProductController extends Controller
             isset($input['size']) && isset($input['color'])
             && isset($input['price']) && isset($input['quantity'])
         ) {
+            
             Product_Variant::create([
                 'id_product' => $product->id_product,
                 'stock' => $input['quantity'],
                 'price' => str_replace([',', '.'], '', $input['price']),
-                'size' => $input['size'],
-                'color' => $input['color'] != 'custom' ? $input['color'] : $input['colorOther']
+                'size' => strip_tags($request->input('size')),
+                'color' => strip_tags($request->input('color')),
             ]);
         }
         return redirect()->route('product.add')->withSuccess("Tạo sản phẩm thành công");
@@ -190,16 +190,14 @@ class CrudProductController extends Controller
         ], [
             'name.required' => '* Vui lòng nhập tên sản phẩm',
             'name.max' => '* Tên sản phẩm không được vượt quá :max ký tự.',
-            'image.required' => '* Vui lòng chọn hình ảnh sản phẩm.',
             'image.image' => '* Tệp tải lên phải là hình ảnh.',
             'image.mimes' => '* Hình ảnh phải có định dạng: jpg, hoặc png.',
             'image.max' => '* Dung lượng ảnh không được vượt quá 2MB.',
-            'quantity.required' => '* Vui lòng nhập số lượng',
             'categories.required' => '* Vui lòng chọn danh mục sản phẩm',
             'categories.integer' => '* Giá trị danh mục không hợp lệ',
             'categories.exists' => '* Danh mục không tồn tại',
         ]);
-
+        
         $input = $request->all();
 
         $product = Product::findOrFail($input['id']);
@@ -209,7 +207,6 @@ class CrudProductController extends Controller
 
         $product->name = strip_tags($request->input('name'));
         $product->description = strip_tags($request->input('desc'));
-
         $product->id_category = $input['categories'];
 
         $product->is_featured = isset($input['is_featured']) ? 1 : 0;
@@ -219,9 +216,6 @@ class CrudProductController extends Controller
             $image = $request->file('image');
             $extension = $image->getClientOriginalExtension();
 
-            if (strtolower($extension) !== 'jpg' && strtolower($extension) !== 'png') {
-                return back()->withErrors(['image' => '* Chỉ chấp nhận file JPG hoặc PNG']);
-            }
             $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $imageName);
             $imagePath =   $imageName;

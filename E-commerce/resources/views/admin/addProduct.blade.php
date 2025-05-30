@@ -51,8 +51,8 @@
                                 @endforeach
                             </select>
                             @if ($errors->has('categories'))
-                            <div class="text-danger small">{{ $errors->first('categories') }}</div>
-                        @endif
+                                <div class="text-danger small">{{ $errors->first('categories') }}</div>
+                            @endif
                         </div>
 
                         <div class="col-md-6">
@@ -75,18 +75,17 @@
                                 <option value="XXL">XXL</option>
                                 <option value="XXXL">XXXL</option>
                             </select>
+                            @if ($errors->has('size'))
+                                <div class="text-danger small">{{ $errors->first('size') }}</div>
+                            @endif
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label">Màu sắc</label>
-                            <select name="color" id="colorSelect" class="form-select form-select-sm"
-                                onchange="handleColorChange()">
-                                <option value="Đen">Đen</option>
-                                <option value="Đỏ">Đỏ</option>
-                                <option value="custom">Khác...</option>
-                            </select>
-                            <input name="colorOther" type="text" id="customColorInput"
-                                class="form-control form-control-sm mt-2 d-none" placeholder="Nhập màu sắc...">
+                            <input name="color" type="text" class="form-control form-control-sm">
+                            @if ($errors->has('color'))
+                                <div class="text-danger small">{{ $errors->first('color') }}</div>
+                            @endif
                         </div>
 
                         <div class="col-md-12">
@@ -103,7 +102,9 @@
                         </div>
 
                         <div class="col-12 text-end">
-                            <button type="submit" id="btn-add" style="border:1px solid black; box-shadow:1px 1px 1px black" class="btn btn-submit btn-primary btn-sm">Thêm mới</button>
+                            <button type="submit" id="btn-add"
+                                style="border:1px solid black; box-shadow:1px 1px 1px black"
+                                class="btn btn-submit btn-primary btn-sm">Thêm mới</button>
                         </div>
                     </div>
                 </form>

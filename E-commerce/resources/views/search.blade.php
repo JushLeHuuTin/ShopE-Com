@@ -40,7 +40,7 @@
                     </div>
                 </a>
                 @empty
-                <p>Không có sản phẩm nổi bật nào.</p>
+                <p>Không có sản phẩm nào.</p>
                 @endforelse
             </div>
             {{$products->links();}}

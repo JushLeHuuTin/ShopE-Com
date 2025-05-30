@@ -18,6 +18,7 @@ use Illuminate\Support\Str;
         @endif
         <h1 class="border-bottom pb-2 mb-4 h5">Danh Sách Sản Phẩm</h1>
 
+        @if(isset($products) && $products->total() > 0)
         <div class="row justify-content-center text-center">
             <table class="w-full bg-white rounded shadow mb-4">
                 <tbody style="background: #f8f9fa;">
@@ -118,5 +119,8 @@ use Illuminate\Support\Str;
             </table>
             {{ $products->links() }}
         </div>
+        @else
+        Trống
+        @endif
     </div>
 @endsection

@@ -1,31 +1,39 @@
-<?php
-
-namespace Database\Seeders;
-
-use App\Models\Categories;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+<?
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
-class Category extends Seeder
+class CategorySeeder extends Seeder
 {
-    const MAX_RECORDS = 100;
-    /**
-     * Run the database seeds.
-     */
+    public const MAX_RECORDS = 10;
+
     public function run(): void
     {
-        //delete data when add new data
-        for ($i = 1; $i < self::MAX_RECORDS; $i++) {
-            DB::table('categories')->insert([
-                [ 
-                    'name' => 'Category'.$i,
-                    'slug' => 'e'.$i,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ],
-            ]);
+        // Xoá dữ liệu cũ
+        DB::table('categories')->truncate();
+
+        $categories = [];
+
+        // Thêm option 0 là Khác
+        $categories[] = [
+            'id'         => 0,
+            'name'       => 'Khác',
+            'slug'       => 'khac',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+
+        // Seed các category khác
+        for ($i = 1; $i <= self::MAX_RECORDS; $i++) {
+            $categories[] = [
+                'name'       => 'Category '.$i,
+                'slug'       => 'category-'.$i,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
         }
+
+        // Insert 1 lần
+        DB::table('categories')->insert($categories);
     }
 }

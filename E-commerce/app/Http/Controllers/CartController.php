@@ -15,7 +15,7 @@ class CartController extends Controller
 
     public function index()
     {
-        $userId ='1';
+        $userId = Auth::id() ?? 1;
 
         // Kiểm tra xem người dùng đã đăng nhập chưa
         // if (!$userId) {
@@ -79,8 +79,8 @@ class CartController extends Controller
         // // Xác định người dùng hoặc session
         // $userId = Auth::check() ? Auth::id() : null;
 
-        //test 1
-        $userId ='1';
+
+        $userId = Auth::id() ?? 1;
         $sessionId = session()->getId(); // mã phiên mặc định của Laravel
 
         // Kiểm tra nếu đã tồn tại variant trong giỏ thì cập nhật số lượng

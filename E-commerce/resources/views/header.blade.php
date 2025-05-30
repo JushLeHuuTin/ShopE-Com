@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Overflow Store')</title>
+    <title>Demo Ap Supper</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="icon" href="//img6.wsimg.com/ux-assets/favicon/favicon-96x96.png">
+
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/reponsive.css') }}">
 </head>
@@ -532,11 +532,9 @@
                                                 </path>
                                             </svg>
                                         </a>
-                                        <form action="{{ route('product.search') }}">
-                                            <input id="search-input" class="ps-1 ms-2 border-none w-100" type="text"
-                                                name="s" id="" placeholder="What are you looking for?"
-                                                autofocus>
-                                        </form>
+                                        <input id="search-input" class="ps-1 ms-2 border-none w-100" type="text"
+                                            name="" id="" placeholder="What are you looking for?"
+                                            autofocus>
                                     </div>
                                     <div class="header__search-body mt-5">
                                         <h3 class="select-heading">POPULAR</h3>
@@ -577,26 +575,92 @@
                                 </a>
                                 <!-- Select - user -->
                                 <ul class="user-select list-unstyled position-absolute p-2">
+
+                                    {{-- Nếu chưa đăng nhập --}}
+                                    @guest
+                                        <li>
+                                            <a id="loginName"
+                                            class="d-block fs-12px text-link text-decoration-none"
+                                            href="{{ route('login') }}">
+                                            Login
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="registerName"
+                                            class="d-block fs-12px text-link text-decoration-none"
+                                            href="{{ route('register') }}">
+                                            Register
+                                            </a>
+                                        </li>
+                                    @endguest
+
+                                    {{-- Nếu đã đăng nhập --}}
+                                    @auth
+                                        <li>
+                                            <span class="d-block fs-12px text-link text-decoration-none">
+                                                👋 Hello, {{ Auth::user()->username }}
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('profile.edit') }}"
+                                            class="d-block fs-12px text-link text-decoration-none"
+                                            style="cursor: pointer;">
+                                                Edit Profile
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="{{ route('transaction.history') }}"
+                                            class="d-block fs-12px text-link text-decoration-none"
+                                            style="cursor: pointer;">
+                                                Transaction History
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="{{ route('shipping_addresses.index') }}"
+                                            class="d-block fs-12px text-link text-decoration-none"
+                                            style="cursor: pointer;">
+                                                Shipping Addresses
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="{{ route('profile.password.index') }}"
+                                            class="d-block fs-12px text-link text-decoration-none"
+                                            style="cursor: pointer;">
+                                               Profile Password
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <form action="{{ route('logout') }}" method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                        class="btn btn-link d-block fs-12px text-link text-decoration-none p-0 m-0"
+                                                        style="cursor: pointer;">
+                                                    Logout
+                                                </button>
+                                            </form>
+                                        </li>
+                                    @endauth
+
+                                    {{-- Các mục chung --}}
                                     <li>
-                                        <a class=" d-block fs-12px text-link text-decoration-none" id="loginName"
-                                            href="{{ route('login') }}">Login</a>
+                                        <a id="checkOut"
+                                        class="d-block fs-12px text-link text-decoration-none"
+                                        style="cursor: pointer;">
+                                        Check out
+                                        </a>
                                     </li>
                                     <li>
-                                        <a class=" d-block fs-12px text-link text-decoration-none" id="registerName"
-                                            href="{{ route('register') }}">Register</a>
-                                    </li>
-                                    <li>
-                                        <a style="cursor: pointer;"
-                                            class=" d-block fs-12px text-link text-decoration-none"
-                                            id="checkOut">Check
-                                            out</a>
-                                    </li>
-                                    <li>
-                                        <a class=" d-block fs-12px text-link text-decoration-none"
-                                            href="">Compare
-                                            (0)</a>
+                                        <a class="d-block fs-12px text-link text-decoration-none"
+                                        href="#">
+                                        Compare (0)
+                                        </a>
                                     </li>
                                 </ul>
+
+
                             </div>
                             <a href="" class="text-decoration-none me-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"

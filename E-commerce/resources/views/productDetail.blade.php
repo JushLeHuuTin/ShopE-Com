@@ -20,7 +20,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="product__gallery">
                         <div class="product__gallery--img-wrapper">
-                            <img src="{{ asset('images/'.$product->image_url) }}" alt="" class="product__gallery--img w-100">
+                            <img src="{{ asset('/images/'.$product->image_url) }}" alt="" class="product__gallery--img w-100">
                         </div>
                     </div>
                 </div>
@@ -138,39 +138,10 @@
                         </div>
                         <div class="tab__panel px-3 d-none">
                             <div class="product-review">
-                                <div class="title my-2 fs-5">{{ $averageRating }}⭐ Đánh giá sản phẩm({{ $commentCount }})</div>
-
-                                {{-- {{ dd($comments) }} --}}
-                                @if ($comments->isEmpty())
-                                    <p>Chưa có đánh giá cho sản phẩm này</p>
-                                    <p>Để lại bình luận</p>
-                                    <p>Bạn cần <a href="{{ route('login') }}" class="text-success">đăng nhập</a> để phản hồi</p>
-                                @else
-                                    @foreach($comments as $comment)
-                                        <div class="card mb-4">
-                                            <div class="card-body " style="background: #efefef;">
-                                                <div class="card-item">
-                                                    <div class="card-infor d-flex gap-3 align-items-center">
-                                                        <img style="width:40px;" src="{{ asset('images/user.png') }}" alt="">
-                                                        <div class="user-name">{{ $comment->username }}</div>
-                                                    </div>
-                                                    <div class="card-rating my-2">
-                                                        {{ str_repeat('⭐', $comment->rating) }}
-                                                    </div>
-                                                    <div class="card-product-name my-2">
-                                                        {{ $comment->product_name }}
-                                                    </div>
-                                                    <p>{{ $comment->comment }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                    @if ($commentCount > 3)
-                                        <div class="text-center">
-                                            <a class="text-decoration-none fs-5" href="{{ route('comment', ['id' => $product->id_product]) }}" >Xem tất cả đánh giá</a>
-                                        </div>
-                                    @endif
-                                @endif
+                                <div class="title">Đánh giá</div>
+                                <p>No comments found</p>
+                                <p>Để lại bình luận</p>
+                                <p>Bạn cần <a href="{{ route('login') }}" class="text-success">đăng nhập</a> để phản hoài</p>
                             </div>
                         </div>
                     </div>

@@ -11,7 +11,6 @@ class Product_Promotion extends Model
 {
     protected $table = 'product_promotion';
     protected $primaryKey = 'id';
-    public $timestamps = true;
 
     protected $fillable = [
         'id_product', 'id_promotion'

@@ -8,5 +8,5 @@
             <i class="fas fa-caret-down ml-1"></i>
         </div>
     </div>
-
+    <input type="text" class="border rounded p-2" placeholder="Tìm kiếm...">
 </div>

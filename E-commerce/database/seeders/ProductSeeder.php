@@ -11,14 +11,14 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        // Tắt kiểm tra khóa ngoại
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+         // Tắt kiểm tra khóa ngoại
+    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        // Xóa dữ liệu bảng products
-        DB::table('products')->truncate();
+    // Xóa dữ liệu bảng products
+    DB::table('products')->truncate();
 
-        // Bật lại kiểm tra khóa ngoại
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    // Bật lại kiểm tra khóa ngoại
+    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $faker = Faker::create();
 
@@ -26,11 +26,9 @@ class ProductSeeder extends Seeder
             Product::create([
                 'name' => 'Sản phẩm ' . $i,
                 'id_category' => $faker->numberBetween(1, 4), // giả sử có 5 category
-                'is_featured' => $faker->boolean() ? 1 : 0,
+                'is_featured' => $faker->boolean() ?1:0,
                 'description' => $faker->sentence(10),
-                'image_url' => 'Sweater.png',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'image_url' => 'uploads/products/product_' . $i . '.jpg',
             ]);
         }
     }

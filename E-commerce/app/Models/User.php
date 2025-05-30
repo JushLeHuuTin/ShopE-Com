@@ -10,13 +10,9 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-
+    // Đảm bảo chỉ định tên bảng là 'user' thay vì 'users'
     protected $table = 'users';
+
     protected $primaryKey = 'id_user';
 
     protected $fillable = [

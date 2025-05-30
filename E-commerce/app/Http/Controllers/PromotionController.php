@@ -152,7 +152,7 @@ class PromotionController extends Controller
     
         // Kiểm tra sản phẩm có trong promotion không
         if (!$promotion->hasProduct($productId)) {
-            return redirect()->back()->with('error', 'Sản phẩm không thuộc chương trình này.');
+            return redirect()->back()->with('error', 'Sản phẩm không thuộc chương trình này hoặc đã bị xoá.');
         }
     
         // Thực hiện tách

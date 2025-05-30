@@ -10,20 +10,18 @@ class Review extends Model
 
     protected $table = 'reviews';
     protected $primaryKey = 'id_review';
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
         'id_user',
         'id_product',
-        'rating',
+        'rating', 
         'comment',
-        'created_at',
-        'updated_at'
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id_user');
+        return $this->belongsTo(Users::class, 'id_user', 'id_user');
     }
 
     public function product()

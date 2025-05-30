@@ -35,30 +35,30 @@ class CrudUserController extends Controller
         // }
         // return redirect()->route('admin.login');
     }
-    public function cart()
-    {
-        return view('cart');
-        $users = User::paginate(10); // lấy 10 người dùng mỗi trang
-        return view('admin.users.index', compact('users'));
-    }
+    // public function cart()
+    // {
+    //     return view('cart');
+    //     $users = User::paginate(10); // lấy 10 người dùng mỗi trang
+    //     return view('admin.users.index', compact('users'));
+    // }
 
-    public function lock($id)
-    {
-        $user = User::findOrFail($id);
-        $user->is_active = false;
-        $user->save();
+    // public function lock($id)
+    // {
+    //     $user = User::findOrFail($id);
+    //     $user->is_active = false;
+    //     $user->save();
 
-        return back()->with('success', 'Người dùng đã bị khóa.');
-    }
+    //     return back()->with('success', 'Người dùng đã bị khóa.');
+    // }
 
-    public function unlock($id)
-    {
-        $user = User::findOrFail($id);
-        $user->is_active = true;
-        $user->save();
+    // public function unlock($id)
+    // {
+    //     $user = User::findOrFail($id);
+    //     $user->is_active = true;
+    //     $user->save();
 
-        return back()->with('success', 'Người dùng đã được kích hoạt.');
-    }
+    //     return back()->with('success', 'Người dùng đã được kích hoạt.');
+    // }
 
     public function changePassword(Request $request)
     {

@@ -39,6 +39,8 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                            <p class="text-center mt-3">Bạn chưa có tài khoản?<a href="{{ route('register') }}">Đăng ký</a>
+                            </p>
                         </form>
                     </div>
                 </div>

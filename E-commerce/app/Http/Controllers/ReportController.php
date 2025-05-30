@@ -52,8 +52,7 @@ class ReportController extends Controller
             ->where('invoices.status', 'completed')
             ->groupBy('products.id_product', 'products.name', 'products.image_url', 'product_variants.price')
             ->orderByDesc('total_sold')
-            ->limit(10)
-            ->get();
+            ->paginate(8);
 
         return view('report.report_product', compact('topProductBest'));
     }

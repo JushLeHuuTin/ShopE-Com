@@ -24,7 +24,7 @@
 </head>
 
 <body class="bg-gray-100">
-    <div class="flex flex-wrap">
+    <div class="flex">
         @include('partials.admin.sidebar')
         <div class="w-4/5" style="margin-bottom: 70px;">
             @include('partials.admin.header')

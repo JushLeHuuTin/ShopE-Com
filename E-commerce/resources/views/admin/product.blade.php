@@ -11,14 +11,9 @@ use Illuminate\Support\Str;
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
-        @elseif(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
         @endif
         <h1 class="border-bottom pb-2 mb-4 h5">Danh Sách Sản Phẩm</h1>
 
-        @if(isset($products) && $products->total() > 0)
         <div class="row justify-content-center text-center">
             <table class="w-full bg-white rounded shadow mb-4">
                 <tbody style="background: #f8f9fa;">
@@ -28,7 +23,7 @@ use Illuminate\Support\Str;
                         </th>
                         <th class="p-2" colspan="1">
                             Tên sản phẩm
-                        </th> 
+                        </th>
                         <th class="p-2" colspan="1">
                             Giá
                         </th>
@@ -61,21 +56,16 @@ use Illuminate\Support\Str;
                                 @endif
                             </td>
                             <td class="p-2">
-                                @if ($product->category)
-                                    {{ $product->category->name }}
-                                @else
-                                    Danh mục đã xoá
-                                @endif
+                              
                             </td>
                             <td class="p-2">
-                                @if ($product->image_url && file_exists(public_path("images/$product->image_url")))
-                                    <img src="{{ asset("images/$product->image_url") }}" class="display_img mx-auto h-auto"
-                                        style="object-fit: cover;" width="50" alt="">
+                                @if ($product->image_url != 'null')
+                                    <img src="{{ asset("images/$product->image_url") }}" class="display_img"alt="" class="mx-auto"
+                                        style="object-fit: cover; height:60px !important" width="50" height="60">
                                 @else
-                                    <img src="{{ asset('images/logo.png') }}" class="display_img mx-auto h-auto"
-                                        style="object-fit: cover; " width="50" alt="Chưa cập nhật">
+                                    Chưa cập nhật
                                 @endif
-
+                             
                             </td>
                             <td class="p-2">
                                 {{-- {{ $tong = 0}} --}}
@@ -94,8 +84,7 @@ use Illuminate\Support\Str;
                                     </i>
                                 </a>
 
-                                <a href="{{ route('product.delete', $product->id_product) }}" class="inline-block mx-1 p-1"
-                                    onclick="return confirm('Bạn có chắc muốn xoá sản phẩm ?')">
+                                <a href="{{ route('product.delete', $product->id_product) }}" class="inline-block mx-1 p-1">
                                     <i class="fas fa-trash text-red-500 cursor-pointer">
                                     </i>
                                 </a>
@@ -104,23 +93,20 @@ use Illuminate\Support\Str;
 
                         </tr>
                     @endforeach
-                    <!-- Modal hiển thị ảnh to -->
-                    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-body p-0">
-                                    <img id="modalImage" src="" alt="Ảnh to" class="w-100">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                       <!-- Modal hiển thị ảnh to -->
+                       <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel"
+                       aria-hidden="true">
+                       <div class="modal-dialog modal-dialog-centered modal-lg">
+                           <div class="modal-content">
+                               <div class="modal-body p-0">
+                                   <img id="modalImage" src="" alt="Ảnh to" class="w-100">
+                               </div>
+                           </div>
+                       </div>
+                   </div>
                 </tbody>
             </table>
             {{ $products->links() }}
         </div>
-        @else
-        Trống
-        @endif
     </div>
 @endsection

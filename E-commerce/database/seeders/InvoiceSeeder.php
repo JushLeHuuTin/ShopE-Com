@@ -27,8 +27,7 @@ class InvoiceSeeder extends Seeder
                 'total_amount' => rand(100000, 999999), // Tạm thời
                 'invoice_date' => Carbon::now()->subDays(rand(0, 365)),
                 'status' => $statu[array_rand($statu)],
-                'date_cancel' => Carbon::create(2025, 6, 6)->format('Y-m-d'),
-                'cancellation_reason' => 'Giao nham hang',
+                'cancellation_reason' => '',
                 'payment_method' => $methods[array_rand($methods)],
                 'created_at' => now(),
                 'updated_at' => now(),

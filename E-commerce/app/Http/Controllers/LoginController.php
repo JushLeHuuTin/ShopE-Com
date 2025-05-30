@@ -44,7 +44,7 @@ class LoginController extends Controller
             // Phân quyền theo role
             if ($user->is_active === 2) {
                 \Log::info('Đăng nhập thành công với role: ' . $user->role);
-                return redirect()->route('admin.users.index')->with('success', 'Đăng nhập thành công với quyền Admin!');
+                return redirect()->route('admin')->with('success', 'Đăng nhập thành công với quyền Admin!');
                 ;  // Đảm bảo rằng route này đã được định nghĩa trong web.php
 
             } elseif ($user->is_active === 1) {

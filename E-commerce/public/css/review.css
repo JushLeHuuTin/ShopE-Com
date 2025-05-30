@@ -1,4 +1,5 @@
 :root {
+    --main-bg: rgba(118, 212, 118, .9);
     --main-font-nav: 1.2em;
     --main-font-content: 1.1em;
 }
@@ -72,20 +73,21 @@
     border-radius: 10px;
     margin-top: 10px;
 }
-.lab-review {
-    display: flex;
-    justify-content: center;
+.review .container-review .lab-review {
+    margin: -15px 40px;
 }
 .review .container-review .data-product-review {
     display: flex;
 }
-.product-image-review img{
+.review .container-review .data-product-review .product-image-review img{
     width: 100px;
     height: auto;
+    margin-top: 35px;
 }
-.product-name-review {
+.review .container-review .lab-review .data-product-review .product-name-review {
     font-size: var(--main-font-content);
     align-items: center;
+    margin: 70px 20px;
 }
 
 .review .container-review .number-review {

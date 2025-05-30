@@ -67,14 +67,15 @@
     <section class="py-5">
         <div class="container d-flex justify-content-center">
             <div class="card shadow p-4 w-100" style="max-width: 700px;">
-                <form action="{{ route('review') }}" method="POST">
+                <form action="{{ route('review', ['id' => $product->id_product]) }}" method="POST">
                     @csrf
+                    <input type="hidden" name="id_product" value="{{ $product->id_product }}">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <img src="{{ asset('/images/home7_6.jpg') }}" alt="Ảnh sản phẩm" class="img-fluid rounded"
+                        <img src="{{ asset('images/' . $product->image_url) }}" alt="Ảnh sản phẩm" class="img-fluid rounded"
                             style="width: 100px;">
-                        <div class="fs-5 fw-semibold">Áo thun nam</div>
-                        <input type="hidden" name="id_user" id="id_user" value="1">
-                        <input type="hidden" name="id_product" id="id_product" value="2">
+                        <div class="fs-5 fw-semibold">{{ $product->name }}</div>
+                        {{-- <input type="hidden" name="id_user" id="id_user" value="11"> --}}
+                        <input type="hidden" name="id_product" id="id_product" value="{{ $product->id_product }}">
                     </div>
 
                     <h5 class="mb-2">Đánh giá sản phẩm</h5>
@@ -151,7 +152,7 @@
 
         // Xử lý gửi form
         document.querySelector('form').addEventListener('submit', function (e) {
-            e.preventDefault(); // Chặn gửi form mặc định
+            e.preventDefault();
 
             // Ẩn lỗi comment cũ
             commentError.style.display = 'none';

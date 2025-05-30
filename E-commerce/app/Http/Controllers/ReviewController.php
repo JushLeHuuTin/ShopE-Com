@@ -5,37 +5,37 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Review;
 use App\Models\Product;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 use function Laravel\Prompts\alert;
 
 class ReviewController extends Controller
 {
-    public function displayReview()
+    public function displayReview($id, Request $request)
     {
-        return view('review');
+        $product = Product::findOrFail($id);
+        $id_user =  $request->query('user_id');
+        return view('review', compact('product', 'id_user'));
     }
+
 
     public function review(Request $request)
     {
-        // Kiểm tra tính hợp lệ của dữ liệu
-        $validated = $request->validate([
-            'id_user' => 'required|exists:users,id_user',
-            'id_product' => 'required|exists:products,id_product',
-            'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'nullable|string|max:500',
-            
+
+        $review = new Review([
+            'id_user' => Auth::id(),
+            'id_product' => $request->input('id_product'),
+            'rating' => $request->input('rating'),
+            'comment' => $request->input('comment'),
+            'status' => 'approved'
         ]);
 
-        // Lưu vào bảng reviews
-        Review::create([
-            'id_user' => $validated['id_user'],
-            'id_product' => $validated['id_product'],
-            'rating' => $validated['rating'],
-            'comment' => $validated['comment'],
-        ]);
+        $review->save();
 
         return redirect()->back()->with('message', 'Đánh giá của bạn đã được gửi thành công!');
     }
+
     public function managerReview()
     {
         return view('managerreview');

@@ -163,8 +163,8 @@ Route::get('/product/{id}/comments', [CrudProductController::class, 'allComments
 Route::get('danhmuc/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
 
 // Review
-Route::get('/review', [ReviewController::class, 'displayReview'])->name('review');
-Route::post('/review', [ReviewController::class, 'review'])->name('review');
+Route::get('/review/{id}', [ReviewController::class, 'displayReview'])->name('review.display');
+Route::post('/review/{id}', [ReviewController::class, 'review'])->middleware('auth')->name('review');
 
 
 // Giỏ hàng

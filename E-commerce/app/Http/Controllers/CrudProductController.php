@@ -63,7 +63,7 @@ class CrudProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        $comments = Review::select(
+        $comments = Review::select( 
             'users.username as username',
             'reviews.rating as rating',
             'reviews.comment as comment',

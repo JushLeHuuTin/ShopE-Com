@@ -150,7 +150,7 @@
                             </div>
                             <div class="tab__panel px-3 d-none">
                                 <div class="product-review">
-                                    @if (isset($averageRating) && isset($comment))
+                                    {{-- @if (isset($averageRating) && isset($comment)) --}}
                                         <div class="title my-2 fs-5">{{ $averageRating }}⭐ Đánh giá sản
                                             phẩm({{ $commentCount }})</div>
                                             {{-- {{ dd($comments) }} --}}
@@ -188,7 +188,8 @@
                                                     </div>
                                                 @endif
                                             @endif
-                                    @endif
+                                        </div>
+                                    {{-- @endif --}}
                                 </div>
                             </div>
                         </div>

@@ -55,7 +55,7 @@ class ReviewController extends Controller
         $review = Review::find($id);
 
         if (!$review) {
-            return redirect()->back()->with('error', 'Xóa không hợp lệ');
+            return redirect()->back()->with('error', 'Duyệt không hợp lệ');
         }
 
         if ($review->status === 'approved' || $review->status === 'hide') {
@@ -73,7 +73,7 @@ class ReviewController extends Controller
         $review = Review::find($id);
 
         if (!$review) {
-            return redirect()->back()->with('error', 'Xóa không hợp lệ');
+            return redirect()->back()->with('error', 'Ẩn không hợp lệ');
         }
 
         if ($review->status === 'browse' || $review->status === 'approved' || $review->status === 'hide') {

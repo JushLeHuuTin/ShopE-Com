@@ -27,6 +27,7 @@
                 <div class="admin-content-review-table-list">
                     @if ($topProducts->isEmpty())
                         <p>Chưa có đánh giá nào</p>
+                    @else
                         <table>
                             <thead>
                                 <tr>

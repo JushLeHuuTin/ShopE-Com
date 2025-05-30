@@ -20,9 +20,9 @@ use Carbon\Carbon;
     <table class="w-full bg-white rounded shadow">
         <thead>
             <tr class="bg-green-500 text-white">
-                <th class="p-2">
+                <!-- <th class="p-2">
                     Mã khuyến mãi
-                </th>
+                </th> -->
                 <th class="p-2">
                     Tên chương trình
                 </th>

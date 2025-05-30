@@ -65,6 +65,7 @@
 <body>
     <!-- Start Section Review -->
     <section class="py-5">
+        
         <div class="container d-flex justify-content-center">
             <div class="card shadow p-4 w-100" style="max-width: 700px;">
                 <form action="{{ route('review', ['id' => $product->id_product]) }}" method="POST">

@@ -22,7 +22,7 @@ class CrudVoucherController extends BaseController
     {
         $voucher = Voucher::find($id);
         if (!$voucher) {
-            return redirect()->route('voucher.list')->with('error',"Sản phẩm không tồn tại hoặc đã bị xoá.");
+            return redirect()->route('voucher.list')->with('error',"Voucher không tồn tại hoặc đã bị xoá.");
         }
         $voucher->delete();
         return redirect()->route('voucher.list')->withSuccess("Xoá thành công");

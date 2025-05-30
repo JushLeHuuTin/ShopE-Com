@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Validation\Rule;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Rules\CleanText;
@@ -58,7 +58,14 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => ['required', new CleanText(255)],
-            'slug' => ['required','unique:categories','string','max:255','regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', new CleanText(100)]
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
+                Rule::unique('categories')->ignore($request->input('id'), 'id_category'),
+                new CleanText(100)
+            ]
         ], [
             'name.required' => '* Vui lòng nhập tên danh mục',
             'name.max' => '* Tên danh mục không được vượt quá :max ký tự.',
@@ -66,9 +73,7 @@ class CategoryController extends Controller
             'slug.max' => '* Slug không được vượt quá :max ký tự.',
             'slug.regex' =>'* Slug không đúng định dạng',
             'slug.unique' => '* Slug đã tồn tại, vui lòng chọn slug khác'
-
         ]);
-
         $input = $request->all();
 
         $category = category::findOrFail($input['id']);

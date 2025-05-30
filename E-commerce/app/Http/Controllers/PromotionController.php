@@ -85,7 +85,7 @@ class PromotionController extends Controller
     {
         $request->validate([
             'id' => 'required|exists:promotions,id_promotion',
-            'name' => ['required','string',new CleanText(50)],
+            'name' => ['required','string',new CleanText(100)],
             'discount_value' => 'required|numeric|min:0|max:100',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
@@ -115,7 +115,7 @@ class PromotionController extends Controller
     {
         $promotion = promotion::find($id);
         if (!$promotion) {
-            return redirect()->route('promotion.list')->with('error', "Sản phẩm không tồn tại hoặc đã bị xoá.");
+            return redirect()->route('promotion.list')->with('error', "Chương trình không tồn tại hoặc đã bị xoá.");
         }
         $promotion->delete();
         return redirect()->route('promotion.list')->withSuccess("Xoá thành công");

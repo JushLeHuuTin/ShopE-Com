@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,           
             AddressSeeder::class,            
             Session::class, 
-            Category::class, 
+            CategorySeeder::class, 
             Product::class,     
             Product_Variant::class, 
             CartSeeder::class, 

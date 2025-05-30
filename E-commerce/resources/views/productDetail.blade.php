@@ -144,6 +144,7 @@
                                 <div class="title my-2 fs-5">{{ $averageRating }}⭐ Đánh giá sản phẩm({{ $commentCount }})</div>
 
                                 {{-- {{ dd($comments) }} --}}
+                                
                                 @if ($comments->isEmpty())
                                     <p>No comments found</p>
                                     <p>Để lại bình luận</p>

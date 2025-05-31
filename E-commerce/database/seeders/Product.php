@@ -20,7 +20,7 @@ class Product extends Seeder
             DB::table('products')->insert([
                 [
                     'name' => 'Product'.$i,
-                    'id_category' => $i,
+                    'id_category' => rand(1, 4),
                     'is_featured' => rand(0, 1),
                     'description' => 'This is a good product',
                     'image_url' => 'Sweater.png',

@@ -105,7 +105,7 @@
                                 value="{{ $shipping->phone ?? '' }}">
                         </div>
                         <div class="mb-2">
-                            <input type="email" class="form-control" value="{{ $shipping->user->email }}" placeholder="Email" disabled>
+                            <input type="email" class="form-control" value="{{ $shipping->user->email ?? '' }}" placeholder="Email" disabled>
                         </div>
                         <div class="mb-2">
                             <input type="text" class="form-control" name="address" placeholder="Địa chỉ cụ thể"

@@ -15,15 +15,24 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 1; $i <= self::MAX_RECORDS; $i++) {
+        $categories = [
+            'Đồ thể thao',
+            'Đồ tập gym',
+            'Đồ chạy bộ',
+            'Đồ bơi',
+            'Category Random 1',
+            'Category Random 2',
+            'Category Random 3',
+            'Category Random 4',
+        ];
+
+        foreach ($categories as $index => $name) {
             DB::table('categories')->insert([
-                [
-                    'id_category' => $i,
-                    'name' => 'Category ' . $i,
-                    'slug' => Str::slug('Category ' . $i) . '-' . $i, // đảm bảo slug là duy nhất
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]
+                'id_category' => $index + 1,
+                'name' => $name,
+                'slug' => Str::slug($name) . '-' . ($index + 1),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }

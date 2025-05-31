@@ -151,8 +151,10 @@
                                         @if ($comments->isEmpty())
                                             <p>Chưa có đánh giá cho sản phẩm này</p>
                                             <p>Để lại bình luận</p>
+                                            @if(!Auth::check() )
                                             <p>Bạn cần <a href="{{ route('login') }}" class="text-success">đăng nhập</a> để
                                                 phản hồi</p>
+                                                @endif
                                         @else
                                             @foreach ($comments as $comment)
                                                 <div class="card mb-4">

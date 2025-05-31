@@ -185,7 +185,7 @@ Route::prefix('cart')->group(function () {
 });
 
 // Admin
-Route::prefix('admin')->middleware(['web', 'auth'])->group(function () {
+Route::prefix('admin')->middleware(['web', 'auth', 'admin'])->group(function () {
     Route::get('/', [CrudUserController::class, 'admin'])->name('admin');
     Route::get('login', [AdminController::class, 'login'])->name('admin.login');
 

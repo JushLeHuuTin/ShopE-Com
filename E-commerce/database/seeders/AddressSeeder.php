@@ -9,7 +9,7 @@ use Illuminate\Database\Seeder;
 
 class AddressSeeder extends Seeder
 {
-    const MAX_RECORDS = 100;
+    const MAX_RECORDS = 50;
     /**
      * Run the database seeds.
      */

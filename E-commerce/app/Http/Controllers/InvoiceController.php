@@ -60,7 +60,7 @@ class InvoiceController extends Controller
     // Hiển thị danh sách hóa đơn của người dùng đang đăng nhập
     public function index()
     {
-        $userId = "1"; //Auth::id(); // Lấy ID user hiện tại
+        $userId = Auth::id(); //Auth::id(); // Lấy ID user hiện tại
 
         if (!$userId) {
             return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để xem đơn hàng.');

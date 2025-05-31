@@ -131,7 +131,7 @@
                         </li>
                   @php $count = 0; @endphp
                         @foreach ($categories as $item)
-                        @if ($count++ <5)
+                        @if ($count++ <4)
                         
                         <li class="header__navbar-item mx-3">
                             <a class="header__navbar-link text-decoration-none fw-bold"
@@ -577,24 +577,88 @@
                                 </a>
                                 <!-- Select - user -->
                                 <ul class="user-select list-unstyled position-absolute p-2">
+
+                                    {{-- Nếu chưa đăng nhập --}}
+                                    @guest
+                                        <li>
+                                            <a id="loginName"
+                                            class="d-block fs-12px text-link text-decoration-none"
+                                            href="{{ route('login') }}">
+                                            Login
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="registerName"
+                                            class="d-block fs-12px text-link text-decoration-none"
+                                            href="{{ route('register') }}">
+                                            Register
+                                            </a>
+                                        </li>
+                                    @endguest
+
+                                    {{-- Nếu đã đăng nhập --}}
+                                    @auth
+                                        <li>
+                                            <span class="d-block fs-12px text-link text-decoration-none">
+                                                👋 Hello, {{ Auth::user()->username }}
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('profile.edit') }}"
+                                            class="d-block fs-12px text-link text-decoration-none"
+                                            style="cursor: pointer;">
+                                                Edit Profile
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="{{ route('transaction.history') }}"
+                                            class="d-block fs-12px text-link text-decoration-none"
+                                            style="cursor: pointer;">
+                                                Transaction History
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="{{ route('shipping_addresses.index') }}"
+                                            class="d-block fs-12px text-link text-decoration-none"
+                                            style="cursor: pointer;">
+                                                Shipping Addresses
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="{{ route('profile.password.index') }}"
+                                            class="d-block fs-12px text-link text-decoration-none"
+                                            style="cursor: pointer;">
+                                               Profile Password
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <form action="{{ route('logout') }}" method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                        class="btn btn-link d-block fs-12px text-link text-decoration-none p-0 m-0"
+                                                        style="cursor: pointer;">
+                                                    Logout
+                                                </button>
+                                            </form>
+                                        </li>
+                                    @endauth
+
+                                    {{-- Các mục chung --}}
                                     <li>
-                                        <a class=" d-block fs-12px text-link text-decoration-none" id="loginName"
-                                            href="{{ route('login') }}">Login</a>
+                                        <a id="checkOut"
+                                        class="d-block fs-12px text-link text-decoration-none"
+                                        style="cursor: pointer;">
+                                        Check out
+                                        </a>
                                     </li>
                                     <li>
-                                        <a class=" d-block fs-12px text-link text-decoration-none" id="registerName"
-                                            href="{{ route('register') }}">Register</a>
-                                    </li>
-                                    <li>
-                                        <a style="cursor: pointer;"
-                                            class=" d-block fs-12px text-link text-decoration-none"
-                                            id="checkOut">Check
-                                            out</a>
-                                    </li>
-                                    <li>
-                                        <a class=" d-block fs-12px text-link text-decoration-none"
-                                            href="">Compare
-                                            (0)</a>
+                                        <a class="d-block fs-12px text-link text-decoration-none"
+                                        href="#">
+                                        Compare (0)
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

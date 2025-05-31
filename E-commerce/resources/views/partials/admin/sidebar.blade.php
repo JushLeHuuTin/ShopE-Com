@@ -3,9 +3,13 @@
         <img alt="User avatar" class="rounded-full" height="50"
             src="https://storage.googleapis.com/a1aa/image/h68SfOi0HcbSpoV3jRIwqaVWa-pL3o6LmhtU7v5vBUQ.jpg"
             width="50" />
-        <span class="ml-2">
-            Name
-        </span>
+        <!-- <span class="ml-2"> -->
+            @auth
+                                            <span class="d-block fs-12px text-link text-decoration-none">
+                                                👋 Hello, {{ Auth::user()->username }}
+                                            </span> 
+            @endauth                            
+        <!-- </span> -->
     </div>
     <ul class="space-y-4">
         <li class="flex items-center cursor-pointer" onclick="toggleMenu('productMenu')">
@@ -42,13 +46,16 @@
         <li class="flex items-center">
             <a href="{{ route('managerreview') }}"><i class="fas fa-star mr-2"></i><span>Quản lý Đánh giá</span></a>
         </li>
-        <li class="flex items-center">
-            <i class="fas fa-user mr-2">
-            </i>
-            <span>
-                Quản lý Người dùng
-            </span>
-        </li>
+        <li class="flex items-center" onclick="toggleMenu('productUser')">
+      <i class="fas fa-user mr-2">
+      </i>
+      <span>
+       Quản lý Người dùng
+      </span>
+      <ul id="productUser" class="ml-6 mt-2 space-y-2 hidden">
+            <li><a href="{{ route('admin.users.index') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách người dùng</a></li>
+        </ul>
+     </li>
         <li class="flex items-center cursor-pointer" onclick="toggleMenu('statisticMenu')">
             <i class="fas fa-chart-bar mr-2">
             </i>

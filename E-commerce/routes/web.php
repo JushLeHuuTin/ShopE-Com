@@ -183,18 +183,7 @@ Route::prefix('cart')->group(function () {
     Route::post('update-quantity', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
     Route::delete('{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 });
-Route::get('admin/promotion/add', [PromotionController::class, 'add'])->name('promotion.add');
-Route::get('admin/promotion', [PromotionController::class, 'index'])->name('promotion.list');
-Route::post('admin/postPromotion', [PromotionController::class, 'postPromotion'])->name('promotion.postPromotion');
 
-Route::get('admin/promotion/delete/{id}', [PromotionController::class, 'delete'])->name('promotion.delete');
-Route::get('admin/promotion/update/{id}', [PromotionController::class, 'update'])->name('promotion.update');
-Route::post('admin/promotion/update', [PromotionController::class, 'postUpdate'])->name('promotion.postUpdate');
-
-Route::get('admin/promotion/{id_promotion}/product/{id_product}', [PromotionController::class, 'deleteProduct'])->name('promotionProduct.delete');
-Route::get('admin/promotion/{id_promotion}', [PromotionController::class, 'addForm'])->name('promotionProduct.addForm');
-Route::post('admin/promotion/product/add', [PromotionController::class, 'postAdd'])->name('promotionProduct.postAdd');
-Route::get('admin/promotion/{id}/products', [PromotionController::class, 'listProducts'])->name('promotion.products');
 // Admin
 Route::prefix('admin')->middleware(['web', 'auth'])->group(function () {
     Route::get('/', [CrudUserController::class, 'admin'])->name('admin');
@@ -235,11 +224,21 @@ Route::prefix('admin')->middleware(['web', 'auth'])->group(function () {
         Route::post('update', [CategoryController::class, 'postEdit'])->name('category.postEdit');
         Route::get('delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
     });
-
-    // Route::get('voucher', function () {
-    //     $vouchers = App\Models\Voucher::get();
-    //     return view('admin.voucher', compact('vouchers'));
-    // })->name('admin.voucher');
+    Route::prefix('promotion')->group(function () {
+        Route::get('/', [PromotionController::class, 'index'])->name('promotion.list');
+        Route::get('add', [PromotionController::class, 'add'])->name('promotion.add');
+        Route::post('postPromotion', [PromotionController::class, 'postPromotion'])->name('promotion.postPromotion');
+    
+        Route::get('/delete/{id}', [PromotionController::class, 'delete'])->name('promotion.delete');
+        Route::get('update/{id}', [PromotionController::class, 'update'])->name('promotion.update');
+        Route::post('update', [PromotionController::class, 'postUpdate'])->name('promotion.postUpdate');
+    
+        Route::get('{id_promotion}/product/{id_product}', [PromotionController::class, 'deleteProduct'])->name('promotionProduct.delete');
+        Route::get('{id_promotion}', [PromotionController::class, 'addForm'])->name('promotionProduct.addForm');
+        Route::post('product/add', [PromotionController::class, 'postAdd'])->name('promotionProduct.postAdd');
+        Route::get('{id}/products', [PromotionController::class, 'listProducts'])->name('promotion.products');
+    });
+   
 
     // Đơn hàng
     Route::prefix('order')->group(function () {
@@ -271,7 +270,6 @@ Route::prefix('admin')->middleware(['web', 'auth'])->group(function () {
         // Route::get('product', [ReportController::class, 'reportProduct'])->name('report.report_product');
         Route::get('product', [ReportController::class, 'topProductBest'])->name('report.report_product');
     });
-
 });
 ///
 
@@ -297,12 +295,11 @@ Route::middleware(['web'])->group(function () {
     Route::post('/admin/users/{id}/unlock', [AdminController::class, 'unlockUser'])->name('admin.users.unlock');
 });
 
-Route::middleware(['web', 'auth', 'admin' ])->prefix('admin')->group(function () {
+Route::middleware(['web', 'auth', 'admin'])->prefix('admin')->group(function () {
     // Route::get('/admin', [AdminController::class, 'index'])->name('admin.users.index');
     Route::get('/admin/index', [AdminController::class, 'index'])->name('admin.users.index');
     // Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');
     Route::get('/', [CrudUserController::class, 'admin'])->name('admin');
-
 });
 
 // Nhóm route dành cho người dùng đã đăng nhập (không cần là admin)
@@ -357,7 +354,7 @@ Route::post('/checkout/placeOrder', [CheckoutController::class, 'placeOrder'])->
 
 
 // Hủy đơn (PUT hoặc PATCH)
-Route::put('/invoices/{id}/cancel', [InvoiceController::class, 'cancel'])->name('invoice.cancel');  
+Route::put('/invoices/{id}/cancel', [InvoiceController::class, 'cancel'])->name('invoice.cancel');
 Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
 
 Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');

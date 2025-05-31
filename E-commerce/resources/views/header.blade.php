@@ -131,7 +131,7 @@
                         </li>
                   @php $count = 0; @endphp
                         @foreach ($categories as $item)
-                        @if ($count++ <5)
+                        @if ($count++ <4)
                         
                         <li class="header__navbar-item mx-3">
                             <a class="header__navbar-link text-decoration-none fw-bold"

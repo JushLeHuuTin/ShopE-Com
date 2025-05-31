@@ -25,7 +25,7 @@ class AdminMiddleware
         // 2. Kiểm tra vai trò của người dùng (dùng cột is_active = 2 cho Admin)
         // Auth::user() sẽ trả về đối tượng User của người dùng đang đăng nhập.
         // Bạn đã nói rằng 1 là User, 2 là Admin.
-        if (Auth::user()->is_active !== 2) {
+        if (Auth::user()->role !== 'admin') {
             // Nếu người dùng không phải là admin (is_active không phải 2)
             // Hiển thị lỗi 403 Forbidden hoặc chuyển hướng về trang chủ
             abort(403, 'Bạn không có quyền truy cập trang quản trị này.'); // Hiển thị lỗi 403

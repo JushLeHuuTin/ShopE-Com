@@ -297,11 +297,18 @@ Route::middleware(['web'])->group(function () {
     Route::post('/admin/users/{id}/unlock', [AdminController::class, 'unlockUser'])->name('admin.users.unlock');
 });
 
-Route::middleware(['web', 'auth'])->group(function () {
+Route::middleware(['web', 'auth', 'admin' ])->prefix('admin')->group(function () {
     // Route::get('/admin', [AdminController::class, 'index'])->name('admin.users.index');
     Route::get('/admin/index', [AdminController::class, 'index'])->name('admin.users.index');
-    Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');
+    // Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');
+    Route::get('/', [CrudUserController::class, 'admin'])->name('admin');
+
+});
+
+// Nhóm route dành cho người dùng đã đăng nhập (không cần là admin)
+Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/transaction-history', [InvoiceController::class, 'index'])->name('transaction.history');
+    // Thêm các route người dùng thường khác vào đây
 });
 
 // Route để hiển thị chi tiết đơn hàng

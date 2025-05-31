@@ -10,9 +10,17 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+
+    
     ->withMiddleware(function (Middleware $middleware) {
         //
+        $middleware->alias([
+            //'auth' => \App\Http\Middleware\Authenticate::class,
+            // ... các middleware alias khác đã có sẵn
+            'admin' => \App\Http\Middleware\AdminMiddleware::class, // <-- Đặt dòng này Ở ĐÂY
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
+    

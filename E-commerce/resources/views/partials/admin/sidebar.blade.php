@@ -3,9 +3,13 @@
         <img alt="User avatar" class="rounded-full" height="50"
             src="https://storage.googleapis.com/a1aa/image/h68SfOi0HcbSpoV3jRIwqaVWa-pL3o6LmhtU7v5vBUQ.jpg"
             width="50" />
-        <span class="ml-2">
-            Name
-        </span>
+        <!-- <span class="ml-2"> -->
+            @auth
+                                            <span class="d-block fs-12px text-link text-decoration-none">
+                                                👋 Hello, {{ Auth::user()->username }}
+                                            </span> 
+            @endauth                            
+        <!-- </span> -->
     </div>
     <ul class="space-y-4">
         <li class="flex items-center cursor-pointer" onclick="toggleMenu('productMenu')">

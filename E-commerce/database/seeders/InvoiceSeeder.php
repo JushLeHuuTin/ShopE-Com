@@ -2,36 +2,53 @@
 
 namespace Database\Seeders;
 
-use App\Models\Discount;
-use App\Models\Invoice;
-use App\Models\Products;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class InvoiceSeeder extends Seeder
 {
-    const MAX_RECORDS = 100;
-
     public function run(): void
     {
-        $methods = ['Momo', 'COD', 'Credit Card', 'Bank Transfer', 'E-Wallet'];
-        $statu = ['pending', 'completed', 'cancelled'];
+        // Tạo một vài invoice mẫu
+        $invoices = [
+            [
+                'id_user' => 1,
+                'id_discount' => null,
+                'total_amount' => 500000,
+                'invoice_date' => Carbon::now(),
+                'status' => 'pending',
+                'cancellation_reason' => null,
+                'payment_method' => 'COD',
+            ],
+            [
+                'id_user' => 1,
+                'id_discount' => null,
+                'total_amount' => 750000,
+                'invoice_date' => Carbon::now()->subDays(1),
+                'status' => 'done',
+                'cancellation_reason' => null,
+                'payment_method' => 'Momo',
+            ],
+        ];
 
-        for ($i = 1; $i < self::MAX_RECORDS; $i++) {
+        foreach ($invoices as $invoice) {
+            $id_invoice = DB::table('invoices')->insertGetId($invoice);
 
-            DB::table('invoices')->insert([
-                'id_user' => $i,
-                'id_discount' => rand(10, 50),
-                'total_amount' => rand(100000, 999999), // Tạm thời
-                'invoice_date' => Carbon::now()->subDays(rand(0, 365)),
-                'status' => $statu[array_rand($statu)],
-                'date_cancel' => Carbon::create(2025, 6, 6)->format('Y-m-d'),
-                'cancellation_reason' => 'Giao nham hang',
-                'payment_method' => $methods[array_rand($methods)],
-                'created_at' => now(),
-                'updated_at' => now(),
+            // Mỗi invoice có 2 sản phẩm
+            DB::table('invoices_detail')->insert([
+                [
+                    'id_invoice' => $id_invoice,
+                    'id_variant' => 1, // bạn cần đảm bảo id_variant này tồn tại
+                    'quantity' => 2,
+                    'price' => 200000,
+                ],
+                [
+                    'id_invoice' => $id_invoice,
+                    'id_variant' => 2, // bạn cần đảm bảo id_variant này tồn tại
+                    'quantity' => 1,
+                    'price' => 100000,
+                ],
             ]);
         }
     }

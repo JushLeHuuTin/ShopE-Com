@@ -29,7 +29,7 @@ class Cart extends Model
         return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
 
-    public function product_variants()
+    public function variant()
     {
         return $this->belongsTo(Product_Variant::class, 'id_variant', 'id_variant');
 

@@ -622,7 +622,7 @@
                                             </path>
                                         </svg>
                                         <div class="cart-label">
-                                            0
+                                            {{ $cartQuantity ?? 0 }}
                                         </div>
                                     </a>
                                 </label>

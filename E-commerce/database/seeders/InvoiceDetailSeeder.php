@@ -1,34 +1,47 @@
 <?php
 
 namespace Database\Seeders;
-
-use App\Models\InvoiceDetail;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
+use App\Models\Invoice;
+use App\Models\InvoiceDetail;
 
 class InvoiceDetailSeeder extends Seeder
 {
-    const MAX_RECORDS = 100;
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        for ($i = 1; $i < self::MAX_RECORDS; $i++) {
-            DB::table('invoices_detail')->insert([
-                [
-                    'id_invoice' => $i,
-                    'id_variant' => $i,
-                    'quantity' => rand(1, 10),
-                    'price' => rand(10000, 99999),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ],
-            ]);
-        }
-    }
+        $invoice1 = Invoice::first(); // hoặc ->find(1)
+        $invoice2 = Invoice::skip(1)->first(); // hoặc ->find(2)
 
-    
+        if (!$invoice1 || !$invoice2) {
+            $this->command->warn('Invoices chưa có dữ liệu phù hợp. Chạy InvoiceSeeder trước.');
+            return;
+        }
+
+        InvoiceDetail::insert([
+            [
+                'id_invoice' => $invoice1->id_invoice,
+                'id_variant' => 1,
+                'price' => 250000,
+                'quantity' => 2
+            ],
+            [
+                'id_invoice' => $invoice1->id_invoice,
+                'id_variant' => 2,
+                'price' => 100000,
+                'quantity' => 1
+            ],
+            [
+                'id_invoice' => $invoice2->id_invoice,
+                'id_variant' => 1,
+                'price' => 250000,
+                'quantity' => 1
+            ],
+            [
+                'id_invoice' => $invoice2->id_invoice,
+                'id_variant' => 3,
+                'price' => 200000,
+                'quantity' => 2
+            ],
+        ]);
+    }
 }

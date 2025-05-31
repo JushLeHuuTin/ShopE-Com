@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Invoice extends Model
 {
-    protected $table = 'invoices';
-
     protected $primaryKey = 'id_invoice';
-
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $fillable = [
         'id_user',
@@ -18,16 +17,27 @@ class Invoice extends Model
         'total_amount',
         'invoice_date',
         'status',
-        'date_cancel',
         'cancellation_reason',
         'payment_method',
-        'created_at',
-        'updated_at'
     ];
 
-    public function invoiceDetails()
+    protected $casts = [
+        'invoice_date' => 'datetime',
+        'total_amount' => 'decimal:2',
+    ];
+
+    public function user(): BelongsTo
     {
-        return $this->hasMany(InvoicesDetail::class, 'id_invoice', 'id_invoice');
+        return $this->belongsTo(User::class, 'id_user');
     }
 
+    public function discount()
+    {
+        return $this->belongsTo(DiscountCode::class, 'id_discount');
+    }
+
+    public function details(): HasMany
+    {
+        return $this->hasMany(InvoiceDetail::class, 'id_invoice');
+    }
 }

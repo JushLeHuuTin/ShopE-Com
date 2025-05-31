@@ -21,4 +21,5 @@ class Invoice extends Model
         'cancellation_reason',
         'payment_method',
     ];
+    
 }

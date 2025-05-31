@@ -15,7 +15,7 @@ class CrudVoucherController extends BaseController
 {
     public function getList()
     {
-        $vouchers = Voucher::all();
+        $vouchers = Voucher::paginate(10);
         return view('admin.voucher', ['vouchers' => $vouchers]);
     }
     public function delete($id)

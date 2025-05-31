@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    <table class="w-full bg-white rounded shadow">
+    <table class="w-full mb-5 bg-white rounded shadow">
         <thead>
             <tr class="bg-green-500 text-white">
                 <th class="p-2">
@@ -88,4 +88,5 @@
             @endforelse
         </tbody>
     </table>
+    {{  $vouchers->links()}}
 @endsection

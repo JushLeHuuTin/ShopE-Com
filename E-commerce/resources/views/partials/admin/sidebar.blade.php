@@ -4,11 +4,11 @@
             src="https://storage.googleapis.com/a1aa/image/h68SfOi0HcbSpoV3jRIwqaVWa-pL3o6LmhtU7v5vBUQ.jpg"
             width="50" />
         <!-- <span class="ml-2"> -->
-            @auth
-                                            <span class="d-block fs-12px text-link text-decoration-none">
-                                                👋 Hello, {{ Auth::user()->username }}
-                                            </span> 
-            @endauth                            
+        @auth
+            <span class="d-block fs-12px text-link text-decoration-none">
+                👋 Hello, {{ Auth::user()->username }}
+            </span>
+        @endauth
         <!-- </span> -->
     </div>
     <ul class="space-y-4">
@@ -17,16 +17,20 @@
             <span>Quản lý Sản phẩm</span>
         </li>
         <ul id="productMenu" class="ml-6 mt-2 space-y-2 hidden">
-            <li><a href="{{ route('product.add') }}" class="text-sm text-gray-700 hover:text-green-600">➕ Thêm sản phẩm</a></li>
-            <li><a href="{{ route('product.list') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách sản phẩm</a></li>
+            <li><a href="{{ route('product.add') }}" class="text-sm text-gray-700 hover:text-green-600">➕ Thêm sản
+                    phẩm</a></li>
+            <li><a href="{{ route('product.list') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách
+                    sản phẩm</a></li>
         </ul>
         <li class="flex items-center cursor-pointer" onclick="toggleMenu('categoryMenu')">
             <i class="fas fa-list mr-2"></i>
             <span>Quản lý danh mục</span>
         </li>
         <ul id="categoryMenu" class="ml-6 mt-2 space-y-2 hidden">
-            <li><a href="{{ route('category.add') }}" class="text-sm text-gray-700 hover:text-green-600">➕ Thêm danh mục</a></li>
-            <li><a href="{{ route('category.list') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách danh mục</a></li>
+            <li><a href="{{ route('category.add') }}" class="text-sm text-gray-700 hover:text-green-600">➕ Thêm danh
+                    mục</a></li>
+            <li><a href="{{ route('category.list') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách
+                    danh mục</a></li>
         </ul>
 
         <li class="flex items-center cursor-pointer" onclick="toggleMenu('invoiceMenu')">
@@ -47,15 +51,16 @@
             <a href="{{ route('managerreview') }}"><i class="fas fa-star mr-2"></i><span>Quản lý Đánh giá</span></a>
         </li>
         <li class="flex items-center" onclick="toggleMenu('productUser')">
-      <i class="fas fa-user mr-2">
-      </i>
-      <span>
-       Quản lý Người dùng
-      </span>
-      <ul id="productUser" class="ml-6 mt-2 space-y-2 hidden">
-            <li><a href="{{ route('admin.users.index') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách người dùng</a></li>
-        </ul>
-     </li>
+            <i class="fas fa-user mr-2">
+            </i>
+            <span>
+                Quản lý Người dùng
+            </span>
+            <ul id="productUser" class="ml-6 mt-2 space-y-2 hidden">
+                <li><a href="{{ route('admin.users.index') }}" class="text-sm text-gray-700 hover:text-green-600">📋
+                        Danh sách người dùng</a></li>
+            </ul>
+        </li>
         <li class="flex items-center cursor-pointer" onclick="toggleMenu('statisticMenu')">
             <i class="fas fa-chart-bar mr-2">
             </i>
@@ -64,9 +69,12 @@
             </span>
         </li>
         <ul id="statisticMenu" class="ml-6 mt-2 space-y-2 hidden">
-            <li><a href="{{ route('statistic.statistic_money') }}" class="text-sm text-gray-700 hover:text-green-600">💰 Doanh thu</a></li>
-            <li><a href="{{ route('statistic.statistic_quantity') }}" class="text-sm text-gray-700 hover:text-green-600">🔢Số lượng sản phẩm</a></li>
-            <li><a href="{{ route('statistic.statistic_product') }}" class="text-sm text-gray-700 hover:text-green-600">✡️Sản phẩm có đánh giá tốt</a></li>
+            <li><a href="{{ route('statistic.statistic_money') }}" class="text-sm text-gray-700 hover:text-green-600">💰
+                    Doanh thu</a></li>
+            <li><a href="{{ route('statistic.statistic_quantity') }}"
+                    class="text-sm text-gray-700 hover:text-green-600">🔢Số lượng sản phẩm</a></li>
+            <li><a href="{{ route('statistic.statistic_product') }}"
+                    class="text-sm text-gray-700 hover:text-green-600">✡️Sản phẩm có đánh giá tốt</a></li>
         </ul>
 
         <li class="flex items-center cursor-pointer" onclick="toggleMenu('reportMenu')">
@@ -76,9 +84,11 @@
                 Báo cáo
             </span>
         </li>
-        <ul id="reportMenu" class="ml-6 mt-2 space-y-2 hidden" >
-            <li><a href="{{ route('report.report_product') }}" class="text-sm text-gray-700 hover:text-green-600">👔Sản phẩm tốt nhất</a></li>
-            <li><a href="{{ route('report.report_customer') }}" class="text-sm text-gray-700 hover:text-green-600">🏃Top khách hàng</a></li>
+        <ul id="reportMenu" class="ml-6 mt-2 space-y-2 hidden">
+            <li><a href="{{ route('report.report_product') }}" class="text-sm text-gray-700 hover:text-green-600">👔Sản
+                    phẩm tốt nhất</a></li>
+            <li><a href="{{ route('report.report_customer') }}"
+                    class="text-sm text-gray-700 hover:text-green-600">🏃Top khách hàng</a></li>
         </ul>
         <li class="flex items-center " onclick="{toggleMenu('promotion')}">
             <i class="fas fa-tags mr-2">
@@ -103,7 +113,8 @@
         <ul id="voucher" class="ml-6 mt-2 space-y-2 hidden">
             <li><a href="{{ route('voucher.add') }}" class="text-sm text-gray-700 hover:text-green-600">➕ Thêm mã giảm
                     giá</a></li>
-            <li><a href="{{ route('voucher.list') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách mã
+            <li><a href="{{ route('voucher.list') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách
+                    mã
                     giảm giá </a></li>
         </ul>
     </ul>

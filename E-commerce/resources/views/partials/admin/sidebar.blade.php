@@ -42,13 +42,16 @@
         <li class="flex items-center">
             <a href="{{ route('managerreview') }}"><i class="fas fa-star mr-2"></i><span>Quản lý Đánh giá</span></a>
         </li>
-        <li class="flex items-center">
-            <i class="fas fa-user mr-2">
-            </i>
-            <span>
-                Quản lý Người dùng
-            </span>
-        </li>
+        <li class="flex items-center" onclick="toggleMenu('productUser')">
+      <i class="fas fa-user mr-2">
+      </i>
+      <span>
+       Quản lý Người dùng
+      </span>
+      <ul id="productUser" class="ml-6 mt-2 space-y-2 hidden">
+            <li><a href="{{ route('admin.users.index') }}" class="text-sm text-gray-700 hover:text-green-600">📋 Danh sách người dùng</a></li>
+        </ul>
+     </li>
         <li class="flex items-center cursor-pointer" onclick="toggleMenu('statisticMenu')">
             <i class="fas fa-chart-bar mr-2">
             </i>

@@ -299,6 +299,7 @@ Route::middleware(['web'])->group(function () {
 
 Route::middleware(['web', 'auth'])->group(function () {
     // Route::get('/admin', [AdminController::class, 'index'])->name('admin.users.index');
+    Route::get('/admin/index', [AdminController::class, 'index'])->name('admin.users.index');
     Route::get('admin', [CrudUserController::class, 'admin'])->name('admin');
     Route::get('/transaction-history', [InvoiceController::class, 'index'])->name('transaction.history');
 });

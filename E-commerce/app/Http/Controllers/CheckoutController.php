@@ -12,66 +12,11 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Mail\OrderConfirmationMail;
 use Illuminate\Support\Facades\Mail;
+use App\Models\DiscountCode;
 
 
 class CheckoutController extends Controller
 {
-    // public function show(Request $request)
-    // {
-    //     $selectedCartIds = $request->input('selected', []); // là mảng id_cart
-
-    //     // Tạm thời chỉ dump ra để kiểm tra
-    //     dd($selectedCartIds);
-    // }
-
-    // public function show(Request $request)
-    // {
-    //     // Tạm thời hardcode userId (vì bạn chưa có login)
-    //     $userId = 1;
-
-    //     // Lấy danh sách ID cart được chọn
-    //     $selectedIds = $request->input('selected', []);
-
-    //     if (empty($selectedIds)) {
-    //         return redirect()->route('cart.index')->with('error', 'Bạn chưa chọn sản phẩm nào để thanh toán.');
-    //     }
-
-    //     // Lấy sản phẩm được chọn từ giỏ hàng
-    //     $cartItems = \App\Models\Cart::with('variant.product')
-    //         ->where('id_user', $userId)
-    //         ->whereIn('id_cart', $selectedIds)
-    //         ->get();
-
-    //     if ($cartItems->isEmpty()) {
-    //         return redirect()->route('cart.index')->with('error', 'Không tìm thấy sản phẩm hợp lệ.');
-    //     }
-
-    //     // Tính tạm tính
-    //     $subtotal = $cartItems->sum(function ($item) {
-    //         return $item->price * $item->quantity;
-    //     });
-
-
-    //     $discount = (int) session('discount_value', 0); // từ session nếu có
-    //     $shippingFee = 30000;
-    //     $total = max($subtotal - $discount + $shippingFee, 0);
-
-    //     // Lấy địa chỉ giao hàng của user
-    //    // $shippingAddress = \App\Models\ShippingAddress::where('id_user', $userId)->first();
-
-    //     // Lấy địa chỉ giao hàng mặc định của user
-    //     $shippingAddress = ShippingAddress::where('id_user', $userId)->first();
-
-    //     // Truyền dữ liệu ra view
-    //     return view('checkout', compact(
-    //         'cartItems',
-    //         'subtotal',
-    //         'discount',
-    //         'shippingFee',
-    //         'total',
-    //         'shippingAddress'
-    //     ));
-    // }
     public function show(Request $request)
     {
         // dd($request);
@@ -120,20 +65,30 @@ class CheckoutController extends Controller
     }
 
     //Xử lý mã giảm giá
-    public function applyDiscount(Request $request)
+     public function applyDiscount(Request $request)
     {
-        $code = $request->input('coupon_code');
-        // Kiểm tra code hợp lệ, ví dụ:
-        if ($code === 'GIAMGIA10') {
-            return response()->json([
-                'valid' => true,
-                'discountAmount' => 100000, // số tiền giảm
-            ]);
+        $request->validate([
+            'code' => 'required|string'
+        ]);
+
+        $code = strtoupper($request->code);
+        $discount = DiscountCode::where('code', $code)->first();
+
+        if (!$discount) {
+            return response()->json(['success' => false, 'message' => 'Mã không tồn tại.']);
+        }
+
+        if ($discount->expiration_date < now()) {
+            return response()->json(['success' => false, 'message' => 'Mã đã hết hạn.']);
+        }
+
+        if ($discount->max_uses <= 0) {
+            return response()->json(['success' => false, 'message' => 'Mã đã được dùng hết.']);
         }
 
         return response()->json([
-            'valid' => false,
-            'message' => 'Mã giảm giá không hợp lệ hoặc đã hết hạn.',
+            'success' => true,
+            'discount_value' => $discount->discount_value
         ]);
     }
 

@@ -5,7 +5,7 @@
     <h3 class="mb-4">Đơn mua</h3>
 
     @if(session('success'))
-      <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
     @forelse($invoices as $invoice)
@@ -48,6 +48,10 @@
                 </button>
                 @endif
             </div>
+            <a href="{{ route('invoice.print', $invoice->id_invoice) }}" class="btn btn-outline-dark btn-sm" target="_blank">
+                In hóa đơn
+            </a>
+
 
             <div>
                 <strong>Tổng: {{ number_format($invoice->total_amount, 0, ',', '.') }}₫</strong>
@@ -88,20 +92,20 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const cancelForm = document.getElementById('cancel-form');
+    document.addEventListener('DOMContentLoaded', function() {
+        const cancelForm = document.getElementById('cancel-form');
 
-    document.querySelectorAll('.btn-cancel-order').forEach(button => {
-        button.addEventListener('click', function () {
-            // Lấy URL hủy đơn từ attribute data-url
-            const url = this.getAttribute('data-url');
-            // Gán action form cancel
-            cancelForm.action = url;
-            // Reset textarea
-            cancelForm.querySelector('#cancellation_reason').value = '';
+        document.querySelectorAll('.btn-cancel-order').forEach(button => {
+            button.addEventListener('click', function() {
+                // Lấy URL hủy đơn từ attribute data-url
+                const url = this.getAttribute('data-url');
+                // Gán action form cancel
+                cancelForm.action = url;
+                // Reset textarea
+                cancelForm.querySelector('#cancellation_reason').value = '';
+            });
         });
     });
-});
 </script>
 
 @endsection

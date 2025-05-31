@@ -343,21 +343,21 @@ Route::post('/apply-discount', [CartController::class, 'applyDiscount'])->name('
 //Route::post('/checkout', [CartController::class, 'showCheckout'])->middleware('auth')->name('checkout.show');
 //Route::post('/checkout', [CartController::class, 'showCheckout'])->name('checkout.show');
 // Route::post('/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
-Route::match(['get', 'post'], '/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
+Route::match(['get', 'post'], '/checkout', [CheckoutController::class, 'show'])->middleware('auth')->name('checkout.show');
 
 Route::post('/checkout/clear-session', [CheckoutController::class, 'clearSession'])->name('checkout.clear_session');
 //Xử lý voucher
 Route::post('/checkout/apply-discount', [CheckoutController::class, 'applyDiscount'])->name('checkout.applyDiscount');
 // đặt hàng
 Route::post('/checkout/placeOrder', [CheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
+Route::post('/checkout/apply-discount', [CheckoutController::class, 'applyDiscount'])->name('checkout.applyDiscount');
 
-
-
-// Hủy đơn (PUT hoặc PATCH)
-Route::put('/invoices/{id}/cancel', [InvoiceController::class, 'cancel'])->name('invoice.cancel');
+//Hóa đơn
 Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->middleware('auth')->name('invoices.show');
+Route::put('/invoices/{id}/cancel', [InvoiceController::class, 'cancel'])->name('invoice.cancel');
+Route::get('/invoices/{id}/print', [InvoiceController::class, 'print'])->name('invoice.print');
 
-Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
 
 
 

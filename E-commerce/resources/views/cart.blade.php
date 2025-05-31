@@ -115,17 +115,14 @@
                     </form>
                     <!-- Tổng tiền cần thanh toán -->
                     <p><strong>Tổng:</strong> <span id="total-price" class="fw-bold"></span></p>
-                    <p>
+                    <!-- <p>
                         <strong>Sau giảm :</strong>
                         <span id="original-total" style="text-decoration: line-through; color: gray;"></span>
                         <span id="discounted-total" class="fw-bold text-danger"></span>
-                        <!-- <br>
-                        <strong>Giá sau giảm:</strong>
-                        <span id="discounted-total" class="fw-bold text-danger"></span> -->
-                    </p>
+                    </p> -->
 
                     <!-- Mã giảm giá -->
-                    <div class="mb-2">
+                    <!-- <div class="mb-2">
                         <form id="apply-discount-form" class="mb-2">
                             <div class="input-group">
                                 <input type="text" class="form-control" id="discount-code" placeholder="Mã giảm giá">
@@ -133,7 +130,7 @@
                             </div>
                             <div id="discount-message" class="mt-1 text-danger"></div>
                         </form>
-                    </div>
+                    </div> -->
 
                     
                     <form id="checkout-form" action="{{ route('checkout.show') }}" method="POST" style="display: none;">

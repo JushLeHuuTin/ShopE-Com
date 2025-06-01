@@ -10,7 +10,7 @@ use Carbon\Carbon;
 
 class InvoiceController extends Controller
 {
-     public function placeOrder(Request $request)
+    public function placeOrder(Request $request)
     {
         $cart = session('cart', []);
         if (empty($cart)) {
@@ -60,7 +60,7 @@ class InvoiceController extends Controller
     // Hiển thị danh sách hóa đơn của người dùng đang đăng nhập
     public function index()
     {
-        $userId = Auth::id(); //Auth::id(); // Lấy ID user hiện tại
+        $userId = Auth::id(); // Lấy ID user hiện tại
 
         if (!$userId) {
             return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để xem đơn hàng.');
@@ -79,30 +79,37 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::with(['details.variant.product', 'discount'])
             ->where('id_invoice', $id)
-            // ->where('id_user', Auth::id())
-            ->where('id_user', 1)
+            ->where('id_user', Auth::id())
+            // ->where('id_user', 1)
             ->firstOrFail();
 
         return view('invoice.show', compact('invoice'));
     }
 
     //Hủy đơn hàng
-    public function cancel($id)
+    public function cancel(Request $request, $id)
     {
         $invoice = Invoice::where('id_invoice', $id)
             ->where('id_user', Auth::id())
             ->firstOrFail();
 
-        // Chỉ cho hủy khi đang ở trạng thái pending
+        // Chỉ hủy khi đơn đang chờ xử lý
         if ($invoice->status !== 'pending') {
             return back()->with('error', 'Không thể hủy đơn này.');
         }
 
-        $invoice->status = 'cancelled';
-        $invoice->cancellation_reason = 'Hủy bởi khách hàng';
+        $invoice->status = 'cancelled'; // cập nhật trạng thái đã hủy
+        $invoice->cancellation_reason = $request->input('cancellation_reason', 'Hủy bởi khách hàng');
         $invoice->save();
 
         return redirect()->route('invoices.index')->with('success', 'Đơn hàng đã được hủy.');
+    }
 
+
+    //in hóa đơn
+    public function print($id)
+    {
+        $invoice = Invoice::with(['details.variant.product', 'user'])->findOrFail($id);
+        return view('invoice.print', compact('invoice'));
     }
 }

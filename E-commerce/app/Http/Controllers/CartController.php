@@ -15,7 +15,7 @@ class CartController extends Controller
 
     public function index()
     {
-        $userId = Auth::id() ?? 1;
+        $userId = Auth::id();
         // Kiểm tra xem người dùng đã đăng nhập chưa
         // if (!$userId) {
         //     return redirect()->route('login')->with('error', 'Vui lòng đăng nhập để xem giỏ hàng.');
@@ -130,7 +130,8 @@ class CartController extends Controller
                 'full_name' => $request->full_name,
                 'phone' => $request->phone,
                 'address' => $request->address,
-                'default_address' => 1
+                'default_address' => 1,
+                'updated_at'  => now(),
             ]
         );
 

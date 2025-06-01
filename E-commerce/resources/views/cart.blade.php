@@ -141,7 +141,7 @@
 
                     <br>
                     <form action="{{ route('invoices.index') }}" method="GET">
-                        <button type="submit" class="btn btn-success">Theo dõi đơn hàng</button>
+                        <button type="submit" class="btn btn-success mt-3">Theo dõi đơn hàng</button>
                     </form>
 
 

@@ -47,7 +47,7 @@ class CheckoutController extends Controller
         // ✅ Tổng thanh toán
         $total = max($subtotal - $discount + $shippingFee, 0);
 
-        return view('checkout', compact('shippingAddress', 'cartItems', 'total','selectedCartIds'));
+        return view('checkout', compact('shippingAddress', 'cartItems', 'total', 'selectedCartIds'));
     }
 
     public function selectAddress()
@@ -65,30 +65,73 @@ class CheckoutController extends Controller
     }
 
     //Xử lý mã giảm giá
-     public function applyDiscount(Request $request)
+    //  public function applyDiscount(Request $request)
+    // {
+    //     $request->validate([
+    //         'code' => 'required|string'
+    //     ]);
+
+    //     $code = strtoupper($request->code);
+    //     $discount = DiscountCode::where('code', $code)->first();
+
+    //     if (!$discount) {
+    //         return response()->json(['success' => false, 'message' => 'Mã không tồn tại.']);
+    //     }
+
+    //     if ($discount->expiration_date < now()) {
+    //         return response()->json(['success' => false, 'message' => 'Mã đã hết hạn.']);
+    //     }
+
+    //     if ($discount->max_uses <= 0) {
+    //         return response()->json(['success' => false, 'message' => 'Mã đã được dùng hết.']);
+    //     }
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'discount_value' => $discount->discount_value
+    //     ]);
+    // }
+
+    public function applyDiscount(Request $request)
     {
         $request->validate([
-            'code' => 'required|string'
+            'coupon_code' => 'required|string',
         ]);
 
-        $code = strtoupper($request->code);
-        $discount = DiscountCode::where('code', $code)->first();
+        $couponCode = trim($request->input('coupon_code'));
+
+        // Find discount code (case insensitive)
+        $discount = DiscountCode::whereRaw('LOWER(code) = ?', [strtolower($couponCode)])->first();
 
         if (!$discount) {
-            return response()->json(['success' => false, 'message' => 'Mã không tồn tại.']);
+            return response()->json([
+                'valid' => false,
+                'message' => 'Mã giảm giá không tồn tại.'
+            ]);
         }
 
-        if ($discount->expiration_date < now()) {
-            return response()->json(['success' => false, 'message' => 'Mã đã hết hạn.']);
+        $now = Carbon::now();
+
+        if ($discount->expiration_date < $now) {
+            return response()->json([
+                'valid' => false,
+                'message' => 'Mã giảm giá đã hết hạn.'
+            ]);
         }
 
-        if ($discount->max_uses <= 0) {
-            return response()->json(['success' => false, 'message' => 'Mã đã được dùng hết.']);
+        $usageCount = Invoice::where('id_discount', $discount->id_discount)->count();
+
+        if ($usageCount >= $discount->max_uses) {
+            return response()->json([
+                'valid' => false,
+                'message' => 'Mã giảm giá đã đạt giới hạn số lần sử dụng.'
+            ]);
         }
 
         return response()->json([
-            'success' => true,
-            'discount_value' => $discount->discount_value
+            'valid' => true,
+            'discountPercent' => floatval($discount->discount_value),
+            'message' => 'Mã giảm giá áp dụng thành công.'
         ]);
     }
 
@@ -98,7 +141,7 @@ class CheckoutController extends Controller
         $selected = $request->input('selected', '');
         $selectedArray = explode(',', $selected);
 
-        
+
 
         if (empty($selectedArray)) {
             return redirect()->back()->with('error', 'Không có sản phẩm nào được chọn.');
@@ -111,16 +154,16 @@ class CheckoutController extends Controller
             $coupon = session('coupon');
             $discountId = $coupon['id_discount'] ?? null;
             $cartItems = \App\Models\Cart::where('id_user', $userId)
-            ->whereIn('id_cart', $selectedArray)
-            ->with('variant')
-            ->get();
-            
+                ->whereIn('id_cart', $selectedArray)
+                ->with('variant')
+                ->get();
+
             if ($cartItems->isEmpty()) {
                 return redirect()->back()->with('error', 'Không tìm thấy sản phẩm hợp lệ trong giỏ.');
             }
-            
+
             $total = $request->tong_thanhtoan ?? 0;
-            
+
             // Tạo hóa đơn
             $invoiceId = DB::table('invoices')->insertGetId([
                 'id_user' => $userId,
@@ -130,7 +173,7 @@ class CheckoutController extends Controller
                 'status' => 'pending',
                 'payment_method' => $request->payment_method ?? 'COD',
             ]);
-            
+
             foreach ($cartItems as $item) {
                 DB::table('invoices_detail')->insert([
                     'id_invoice' => $invoiceId,
@@ -139,17 +182,17 @@ class CheckoutController extends Controller
                     'price' => $item->variant->price,
                 ]);
             }
-            
+
             // Xóa cart trong DB
             Cart::where('id_user', $userId)->whereIn('id_cart', $selectedArray)->delete();
-            
+
             // dd($invoiceId);
             DB::commit();
-            
+
             // Gửi email xác nhận
             $user = Auth::user();
 
-            
+
             if ($user && $user->email) {
                 try {
                     Mail::to($user->email)->send(new OrderConfirmationMail([
@@ -157,13 +200,12 @@ class CheckoutController extends Controller
                     ], $cartItems));
                 } catch (\Exception $e) {
                     dd($e->getMessage());
-                }                
+                }
             }
-            
+
             // Xóa session
             session()->forget(['cart', 'coupon']);
             return redirect()->route('invoices.index')->with('success', 'Đặt hàng thành công!');
-
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('error', 'Đặt hàng thất bại: ' . $e->getMessage());

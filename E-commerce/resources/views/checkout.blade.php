@@ -26,7 +26,6 @@
 
         <!-- Danh sách sản phẩm -->
         <div class="p-3 bg-white border rounded mb-4">
-            {{-- {{ dd($selectedCartIds) }} --}}
             <h5 class="mb-3">Sản phẩm trong giỏ</h5>
             <input type="text" hidden name="selected" value="{{ implode(',', $selectedCartIds) }}">
 
@@ -156,7 +155,6 @@
         document.getElementById('tong_thanhtoan').value = total;
     }
 
-
     document.getElementById('apply-discount-btn').addEventListener('click', function() {
         const couponCode = document.getElementById('discount-code').value.trim();
         const discountMessage = document.getElementById('discount-message');
@@ -169,7 +167,7 @@
             return;
         }
 
-        fetch('{{ route("checkout.applyDiscount ") }}', {
+        fetch('{{ route("checkout.applyDiscount") }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
